@@ -6,7 +6,7 @@ namespace Faridibin\Paystack\Contracts\Services;
 
 use Faridibin\Paystack\DTOs\Response;
 
-interface IdentityVerificationInterface
+interface VerificationInterface
 {
     /**
      * Resolve an account number
@@ -15,7 +15,7 @@ interface IdentityVerificationInterface
      * @param string $bankCode
      * @return Response
      */
-    public function resolveAccountNumber(string $accountNumber, string $bankCode): Response;
+    public function resolveAccount(string $accountNumber, string $bankCode): Response;
 
     /**
      * Validate an account
@@ -32,12 +32,4 @@ interface IdentityVerificationInterface
      * @return Response
      */
     public function resolveCardBin(string $bin): Response;
-
-    /**
-     * Validate a customer's bank account
-     *
-     * @param array $data
-     * @return Response
-     */
-    public function validateCustomerBankAccount(array $data): Response;
 }
