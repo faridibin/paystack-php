@@ -2,8 +2,9 @@
 
 namespace Faridibin\Paystack\Services\Payments;
 
+use Faridibin\Paystack\Client;
 use Faridibin\Paystack\Contracts\ClientInterface;
-use Faridibin\Paystack\Contracts\Services\RefundsInterface;
+use Faridibin\Paystack\Contracts\Services\Payments\RefundsInterface;
 use Faridibin\Paystack\DTOs\Response;
 use Faridibin\Paystack\Enums\Currency;
 
@@ -15,9 +16,10 @@ class Refunds implements RefundsInterface
      * @param \Faridibin\Paystack\Contracts\ClientInterface $client
      */
     public function __construct(
-        private ClientInterface $client
+        ?string $secretKey = null,
+        private ?ClientInterface $client = null
     ) {
-        //
+        $this->client = $client ?? new Client($secretKey);
     }
 
     /**

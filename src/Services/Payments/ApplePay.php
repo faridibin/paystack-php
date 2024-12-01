@@ -2,8 +2,9 @@
 
 namespace Faridibin\Paystack\Services\Payments;
 
+use Faridibin\Paystack\Client;
 use Faridibin\Paystack\Contracts\ClientInterface;
-use Faridibin\Paystack\Contracts\Services\ApplePayInterface;
+use Faridibin\Paystack\Contracts\Services\Payments\ApplePayInterface;
 use Faridibin\Paystack\DTOs\Response;
 
 class ApplePay implements ApplePayInterface
@@ -14,9 +15,10 @@ class ApplePay implements ApplePayInterface
      * @param \Faridibin\Paystack\Contracts\ClientInterface $client
      */
     public function __construct(
-        private ClientInterface $client
+        ?string $secretKey = null,
+        private ?ClientInterface $client = null
     ) {
-        //
+        $this->client = $client ?? new Client($secretKey);
     }
 
     /**

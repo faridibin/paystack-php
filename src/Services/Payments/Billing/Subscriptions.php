@@ -2,8 +2,9 @@
 
 namespace Faridibin\Paystack\Services\Payments\Billing;
 
+use Faridibin\Paystack\Client;
 use Faridibin\Paystack\Contracts\ClientInterface;
-use Faridibin\Paystack\Contracts\Services\Billing\SubscriptionsInterface;
+use Faridibin\Paystack\Contracts\Services\Payments\Billing\SubscriptionsInterface;
 
 class Subscriptions implements SubscriptionsInterface
 {
@@ -13,8 +14,9 @@ class Subscriptions implements SubscriptionsInterface
      * @param \Faridibin\Paystack\Contracts\ClientInterface $client
      */
     public function __construct(
-        private ClientInterface $client
+        ?string $secretKey = null,
+        private ?ClientInterface $client = null
     ) {
-        //
+        $this->client = $client ?? new Client($secretKey);
     }
 }

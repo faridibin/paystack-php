@@ -2,8 +2,9 @@
 
 namespace Faridibin\Paystack\Services\Payments\Transactions;
 
+use Faridibin\Paystack\Client;
 use Faridibin\Paystack\Contracts\ClientInterface;
-use Faridibin\Paystack\Contracts\Services\Transactions\SplitsInterface;
+use Faridibin\Paystack\Contracts\Services\Payments\Transactions\SplitsInterface;
 use Faridibin\Paystack\DTOs\Response;
 use Faridibin\Paystack\Enums\Bearer;
 use Faridibin\Paystack\Enums\Currency;
@@ -17,9 +18,10 @@ class Splits implements SplitsInterface
      * @param \Faridibin\Paystack\Contracts\ClientInterface $client
      */
     public function __construct(
-        private ClientInterface $client
+        ?string $secretKey = null,
+        private ?ClientInterface $client = null
     ) {
-        //
+        $this->client = $client ?? new Client($secretKey);
     }
 
     /**

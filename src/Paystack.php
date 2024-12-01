@@ -10,13 +10,6 @@ use Faridibin\Paystack\Exceptions\PaystackException;
 class Paystack implements Contracts\PaystackInterface
 {
     /**
-     * The HTTP client instance.
-     *
-     * @var Contracts\ClientInterface
-     */
-    private Contracts\ClientInterface $client;
-
-    /**
      * The services container.
      *
      * @var array
@@ -36,7 +29,7 @@ class Paystack implements Contracts\PaystackInterface
      * @param string $secretKey
      * @param Contracts\ClientInterface|null $client
      */
-    public function __construct(string $secretKey, ?Contracts\ClientInterface $client = null)
+    public function __construct(string $secretKey, private ?Contracts\ClientInterface $client = null)
     {
         $this->client = $client ?? new Client($secretKey);
     }
@@ -71,7 +64,9 @@ class Paystack implements Contracts\PaystackInterface
     private function resolveService(string $class, string $interface, array $arguments)
     {
         if (!isset($this->services[$class])) {
-            $this->services[$class] = new $class($this->client, ...$arguments);
+            $this->services[$class] = new $class(
+                client: $this->client
+            );
         }
 
         return $this->services[$class];
