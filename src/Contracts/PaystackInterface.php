@@ -13,23 +13,23 @@ use Faridibin\Paystack\Contracts\Services\{
 
 interface PaystackInterface
 {
-    /**
-     * Get the payment service
-     */
-    public function payments(): PaymentsInterface;
+    // /**
+    //  * Get the payment service
+    //  */
+    // public function payments(): PaymentsInterface;
 
-    /**
-     * Get the terminal service
-     */
-    public function terminal(): TerminalInterface;
+    // /**
+    //  * Get the terminal service
+    //  */
+    // public function terminal(): TerminalInterface;
 
-    /**
-     * Get the transfers service
-     */
-    public function transfers(): TransfersInterface;
+    // /**
+    //  * Get the transfers service
+    //  */
+    // public function transfers(): TransfersInterface;
 
-    /**
-     * Get the identity verification service
-     */
-    public function identity(): IdentityVerificationInterface;
+    // /**
+    //  * Get the identity verification service
+    //  */
+    // public function identity(): IdentityVerificationInterface;
 }

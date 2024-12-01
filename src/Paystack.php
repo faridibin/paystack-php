@@ -11,12 +11,14 @@ use Faridibin\Paystack\Contracts\{
     Services\TerminalInterface,
     Services\TransfersInterface,
     Services\IdentityVerificationInterface,
+    Services\MiscellaneousInterface,
 };
 use Faridibin\Paystack\Services\{
     Payments,
     Terminal,
     Transfers,
-    IdentityVerification
+    IdentityVerification,
+    Miscellaneous
 };
 
 class Paystack implements PaystackInterface
@@ -47,34 +49,10 @@ class Paystack implements PaystackInterface
     }
 
     /**
-     * Get the payment service
+     * Get the miscellaneous service
      */
-    public function payments(): PaymentsInterface
+    public function misc(): MiscellaneousInterface
     {
-        return $this->services[Payments::class] ??= new Payments($this->client);
-    }
-
-    /**
-     * Get the terminal service
-     */
-    public function terminal(): TerminalInterface
-    {
-        return $this->services[Terminal::class] ??= new Terminal($this->client);
-    }
-
-    /**
-     * Get the transfers service
-     */
-    public function transfers(): TransfersInterface
-    {
-        return $this->services[Transfers::class] ??= new Transfers($this->client);
-    }
-
-    /**
-     * Get the identity verification service
-     */
-    public function identity(): IdentityVerificationInterface
-    {
-        return $this->services[IdentityVerification::class] ??= new IdentityVerification($this->client);
+        return $this->services[Miscellaneous::class] ??= new Miscellaneous($this->client);
     }
 }
