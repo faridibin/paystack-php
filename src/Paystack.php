@@ -7,13 +7,15 @@ namespace Faridibin\Paystack;
 use Faridibin\Paystack\Contracts\{
     PaystackInterface,
     ClientInterface,
+    Services\RefundsInterface,
     Services\VerificationInterface,
     Services\MiscellaneousInterface,
 };
 use Faridibin\Paystack\Exceptions\PaystackException;
 use Faridibin\Paystack\Services\{
     Verification,
-    Miscellaneous
+    Miscellaneous,
+    Refunds
 };
 
 class Paystack implements PaystackInterface
@@ -38,6 +40,7 @@ class Paystack implements PaystackInterface
      * @var array<string, array>
      */
     private array $serviceMap = [
+        'refunds' => [Refunds::class, RefundsInterface::class],
         'verification' => [Verification::class, VerificationInterface::class],
         'misc' => [Miscellaneous::class, MiscellaneousInterface::class],
     ];
@@ -66,7 +69,7 @@ class Paystack implements PaystackInterface
         if (isset($this->serviceMap[$name])) {
             [$serviceClass, $interfaceClass] = $this->serviceMap[$name];
 
-            return $this->resolveService($serviceClass, $interfaceClass);
+            return $this->resolveService($serviceClass, $interfaceClass, $arguments);
         }
 
         throw new PaystackException("Service [$name] not found.");
@@ -77,12 +80,13 @@ class Paystack implements PaystackInterface
      *
      * @param string $class
      * @param string $interface
+     * @param array $arguments
      * @return mixed
      */
-    private function resolveService(string $class, string $interface)
+    private function resolveService(string $class, string $interface, array $arguments)
     {
         if (!isset($this->services[$class])) {
-            $this->services[$class] = new $class($this->client);
+            $this->services[$class] = new $class($this->client, ...$arguments);
         }
 
         return $this->services[$class];

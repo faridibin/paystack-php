@@ -29,7 +29,7 @@ class Miscellaneous implements MiscellaneousInterface
      */
     public function listCountries(): Response
     {
-        $response = $this->client->send('GET', "/country");
+        $response = $this->client->send('GET', '/country');
 
         return new Response($response, CountriesDTO::class, true);
     }
