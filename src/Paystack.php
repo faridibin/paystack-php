@@ -6,7 +6,6 @@ namespace Faridibin\Paystack;
 
 use Faridibin\Paystack\Contracts;
 use Faridibin\Paystack\Exceptions\PaystackException;
-use Faridibin\Paystack\Services;
 
 class Paystack implements Contracts\PaystackInterface
 {
@@ -29,15 +28,7 @@ class Paystack implements Contracts\PaystackInterface
      *
      * @var array<string, array>
      */
-    private array $serviceMap = [
-        'applepay' => [Services\ApplePay::class, Contracts\Services\ApplePayInterface::class],
-        'transactions' => [Services\Transactions\Transactions::class, Contracts\Services\Transactions\TransactionsInterface::class],
-        'splits' => [Services\Transactions\Splits::class, Contracts\Services\Transactions\SplitsInterface::class],
-        'customers' => [Services\Customers::class, Contracts\Services\CustomersInterface::class],
-        'refunds' => [Services\Refunds::class, Contracts\Services\RefundsInterface::class],
-        'verification' => [Services\Verification::class, Contracts\Services\VerificationInterface::class],
-        'misc' => [Services\Miscellaneous::class, Contracts\Services\MiscellaneousInterface::class],
-    ];
+    private array $serviceMap = [];
 
     /**
      * Paystack constructor.

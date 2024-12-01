@@ -28,7 +28,7 @@ class Refunds implements RefundsInterface
      * @param array $optional
      * @return \Faridibin\Paystack\DTOs\Response
      */
-    public function createRefund(string $identifier, array $optional): Response
+    public function createRefund(string $identifier, array $optional = []): Response
     {
         $response = $this->client->send('POST', '/refund', [
             'json' => [
