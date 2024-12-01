@@ -2,15 +2,17 @@
 
 namespace Faridibin\Paystack\Enums;
 
-enum Channels: string
+enum Status: string
 {
-    case BANK = 'bank';
-    case CARD = 'card';
-    case USSD = 'ussd';
-    case QR = 'qr';
-    case MOBILE_MONEY = 'mobile_money';
-    case BANK_TRANSFER = 'bank_transfer';
-    case EFT = 'eft';
+    case SUCCESSFUL = 'successful';
+    case FAILED = 'failed';
+    case PENDING = 'pending';
+    case ABANDONED = 'abandoned';
+    case TIMEOUT = 'timeout';
+    case CANCELLED = 'cancelled';
+    case REVERSED = 'reversed';
+    case REFUNDED = 'refunded';
+    case UNKNOWN = 'unknown';
 
     /**
      * Get the list of the enum.
@@ -39,24 +41,24 @@ enum Channels: string
     }
 
     /**
-     * Get the channels.
+     * Get the status.
      *
-     * @param string|array|Channels|null $channels
+     * @param string|array|Status|null $status
      * @return array|null
      */
-    public static function getChannels(string|array|Channels|null $channels = null): ?array
+    public static function getStatus(string|array|Status|null $status = null): ?array
     {
-        if (is_null($channels)) {
+        if (is_null($status)) {
             return null;
         }
 
-        if (is_array($channels)) {
+        if (is_array($status)) {
             return array_map(
-                fn($channel) => $channel instanceof Channels ? $channel->value : $channel,
-                $channels
+                fn($stat) => $stat instanceof Status ? $stat->value : $stat,
+                $status
             );
         }
 
-        return [$channels instanceof Channels ? $channels->value : $channels];
+        return [$status instanceof Status ? $status->value : $status];
     }
 }

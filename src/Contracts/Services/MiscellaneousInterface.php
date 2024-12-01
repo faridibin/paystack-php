@@ -12,7 +12,7 @@ interface MiscellaneousInterface
      * List Countries
      * Gets a list of countries that Paystack currently supports
      *
-     * @return Response
+     * @return \Faridibin\Paystack\DTOs\Response
      */
     public function listCountries(): Response;
 
@@ -21,7 +21,7 @@ interface MiscellaneousInterface
      * Get a list of states for a country for address verification
      *
      * @param string $country
-     * @return Response
+     * @return \Faridibin\Paystack\DTOs\Response
      */
     public function listStates(string $country): Response;
 
@@ -33,7 +33,7 @@ interface MiscellaneousInterface
      * @param bool $use_cursor
      * @param int $perPage
      * @param array $options
-     * @return Response
+     * @return \Faridibin\Paystack\DTOs\Response
      */
     public function listBanks(string $country, bool $use_cursor = false, int $perPage = 50, array $options = []): Response;
 }

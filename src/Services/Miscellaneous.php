@@ -11,7 +11,7 @@ use Faridibin\Paystack\DTOs\Response;
 class Miscellaneous implements MiscellaneousInterface
 {
     /**
-     * The Transfers service constructor.
+     * The Miscellaneous service constructor.
      *
      * @param \Faridibin\Paystack\Contracts\ClientInterface $client
      */
@@ -25,7 +25,7 @@ class Miscellaneous implements MiscellaneousInterface
      * List Countries
      * Gets a list of countries that Paystack currently supports
      *
-     * @return Response
+     * @return \Faridibin\Paystack\DTOs\Response
      */
     public function listCountries(): Response
     {
@@ -39,7 +39,7 @@ class Miscellaneous implements MiscellaneousInterface
      * Get a list of states for a country for address verification
      *
      * @param string $country
-     * @return Response
+     * @return \Faridibin\Paystack\DTOs\Response
      */
     public function listStates(string $country): Response
     {
@@ -57,19 +57,19 @@ class Miscellaneous implements MiscellaneousInterface
      * Get a list of all supported banks and their properties
      *
      * @param string $country
-     * @param bool $use_cursor
+     * @param bool $useCursor
      * @param int $perPage
-     * @param array $options
-     * @return Response
+     * @param array $optional
+     * @return \Faridibin\Paystack\DTOs\Response
      */
-    public function listBanks(string $country, bool $useCursor = false, int $perPage = 50, array $options = []): Response
+    public function listBanks(string $country, bool $useCursor = false, int $perPage = 50, array $optional = []): Response
     {
         $response = $this->client->send("GET", '/bank', [
             'query' => [
                 'country' => $country,
                 'use_cursor' => $useCursor,
                 'perPage' => $perPage,
-                ...$options
+                ...$optional
             ]
         ]);
 

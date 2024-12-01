@@ -7,4 +7,5 @@ coverage/
 .idea/
 .vscode/
 *.cache
+.env
 index.php

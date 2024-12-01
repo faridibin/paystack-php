@@ -3,7 +3,7 @@
 namespace Faridibin\Paystack\Services;
 
 use Faridibin\Paystack\Contracts\ClientInterface;
-use Faridibin\Paystack\Contracts\Services\TransfersInterface;
+use Faridibin\Paystack\Contracts\Services\Transfers\TransfersInterface;
 
 class Transfers implements TransfersInterface
 {

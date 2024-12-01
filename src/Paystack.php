@@ -4,28 +4,18 @@ declare(strict_types=1);
 
 namespace Faridibin\Paystack;
 
-use Faridibin\Paystack\Contracts\{
-    PaystackInterface,
-    ClientInterface,
-    Services\RefundsInterface,
-    Services\VerificationInterface,
-    Services\MiscellaneousInterface,
-};
+use Faridibin\Paystack\Contracts;
 use Faridibin\Paystack\Exceptions\PaystackException;
-use Faridibin\Paystack\Services\{
-    Verification,
-    Miscellaneous,
-    Refunds
-};
+use Faridibin\Paystack\Services;
 
-class Paystack implements PaystackInterface
+class Paystack implements Contracts\PaystackInterface
 {
     /**
      * The HTTP client instance.
      *
-     * @var ClientInterface
+     * @var Contracts\ClientInterface
      */
-    private ClientInterface $client;
+    private Contracts\ClientInterface $client;
 
     /**
      * The services container.
@@ -40,18 +30,22 @@ class Paystack implements PaystackInterface
      * @var array<string, array>
      */
     private array $serviceMap = [
-        'refunds' => [Refunds::class, RefundsInterface::class],
-        'verification' => [Verification::class, VerificationInterface::class],
-        'misc' => [Miscellaneous::class, MiscellaneousInterface::class],
+        'applepay' => [Services\ApplePay::class, Contracts\Services\ApplePayInterface::class],
+        'transactions' => [Services\Transactions\Transactions::class, Contracts\Services\Transactions\TransactionsInterface::class],
+        'splits' => [Services\Transactions\Splits::class, Contracts\Services\Transactions\SplitsInterface::class],
+        'customers' => [Services\Customers::class, Contracts\Services\CustomersInterface::class],
+        'refunds' => [Services\Refunds::class, Contracts\Services\RefundsInterface::class],
+        'verification' => [Services\Verification::class, Contracts\Services\VerificationInterface::class],
+        'misc' => [Services\Miscellaneous::class, Contracts\Services\MiscellaneousInterface::class],
     ];
 
     /**
      * Paystack constructor.
      *
      * @param string $secretKey
-     * @param ClientInterface|null $client
+     * @param Contracts\ClientInterface|null $client
      */
-    public function __construct(string $secretKey, ?ClientInterface $client = null)
+    public function __construct(string $secretKey, ?Contracts\ClientInterface $client = null)
     {
         $this->client = $client ?? new Client($secretKey);
     }

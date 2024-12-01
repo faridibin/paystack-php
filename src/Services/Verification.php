@@ -21,10 +21,11 @@ class Verification implements VerificationInterface
 
     /**
      * Resolve an account number
+     * Confirm an account belongs to the right customer
      *
      * @param string $accountNumber
      * @param string $bankCode
-     * @return Response
+     * @return \Faridibin\Paystack\DTOs\Response
      */
     public function resolveAccount(string $accountNumber, string $bankCode): Response
     {
@@ -44,9 +45,10 @@ class Verification implements VerificationInterface
 
     /**
      * Validate an account
+     * Confirm the authenticity of a customer's account number before sending money
      *
      * @param array $account
-     * @return Response
+     * @return \Faridibin\Paystack\DTOs\Response
      */
     public function resolveCardBin(string $bin): Response
     {
@@ -61,9 +63,10 @@ class Verification implements VerificationInterface
 
     /**
      * Resolve a card bin
+     * Get more information about a customer's card
      *
      * @param string $bin
-     * @return Response
+     * @return \Faridibin\Paystack\DTOs\Response
      */
     public function validateAccount(array $data): Response
     {
