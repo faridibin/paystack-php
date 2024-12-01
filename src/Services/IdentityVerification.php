@@ -3,8 +3,9 @@
 namespace Faridibin\Paystack\Services;
 
 use Faridibin\Paystack\Contracts\ClientInterface;
+use Faridibin\Paystack\Contracts\Services\IdentityVerificationInterface;
 
-class IdentityVerification
+class IdentityVerification implements IdentityVerificationInterface
 {
     /**
      * The IdentityVerification service constructor.

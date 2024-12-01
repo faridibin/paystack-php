@@ -3,8 +3,9 @@
 namespace Faridibin\Paystack\Services;
 
 use Faridibin\Paystack\Contracts\ClientInterface;
+use Faridibin\Paystack\Contracts\Services\TransfersInterface;
 
-class Transfers
+class Transfers implements TransfersInterface
 {
     /**
      * The Transfers service constructor.

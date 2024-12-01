@@ -3,8 +3,9 @@
 namespace Faridibin\Paystack\Services;
 
 use Faridibin\Paystack\Contracts\ClientInterface;
+use Faridibin\Paystack\Contracts\Services\TerminalInterface;
 
-class Terminal
+class Terminal implements TerminalInterface
 {
     /**
      * The Terminal service constructor.
