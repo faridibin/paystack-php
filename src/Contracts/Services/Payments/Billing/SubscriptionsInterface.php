@@ -39,12 +39,31 @@ interface SubscriptionsInterface
     public function fetchSubscription(string $identifier): Response;
 
     /**
-     * Enable Subscription
-     * Enable a subscription on your integration
-     * 
-     * @param string $code The subscription code you want to enable
+     * Toggle Subscription
+     * Toggle a subscription's state on your integration
+     *
+     * @param string $code The subscription code
      * @param string $token The token sent to the customer's email
+     * @param bool $active Whether to enable or disable the subscription
      * @return Response
      */
-    public function enableSubscription(string $code, string $token): Response;
+    public function toggleSubscription(string $code, string $token, bool $active = true): Response;
+
+    /**
+     * Generate Updated Subscription Link
+     * Generate a link for updating the card on a subscription
+     *
+     * @param string $code The subscription code
+     * @return Response
+     */
+    public function generateUpdateSubscriptionLink(string $code): Response;
+
+    /**
+     * Send Updated Subscription Link
+     * Send a link for updating the card on a subscription
+     *
+     * @param string $code The subscription code
+     * @return Response
+     */
+    public function sendUpdateSubscriptionLink(string $code): Response;
 }
