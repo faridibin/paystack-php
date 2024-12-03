@@ -53,4 +53,14 @@ interface PaymentPagesInterface
      * @return \Faridibin\Paystack\DTOs\Response
      */
     public function checkSlugAvailability(string $slug): Response;
+
+    /**
+     * Add Products
+     * Add products to a payment page
+     *
+     * @param string|int $id
+     * @param array<int, int> $products
+     * @return \Faridibin\Paystack\DTOs\Response
+     */
+    public function addProduct(string|int $id, array $products): Response;
 }
