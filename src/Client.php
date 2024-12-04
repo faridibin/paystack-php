@@ -53,11 +53,9 @@ class Client implements ClientInterface
     /**
      * Send a request to the Paystack API
      *
-     * @return array
-     * @throws ClientException|ServerException|GuzzleException
-     * @throws PaystackException|AuthenticationException|RateLimitException|ApiException
+     * @return mixed
      */
-    public function send(string $method, string $endpoint, array $options = []): array
+    public function send(string $method, string $endpoint, array $options = []): mixed
     {
         try {
             $response = $this->client->request($method, $endpoint, $options);
@@ -67,21 +65,20 @@ class Client implements ClientInterface
             $response = $e->getResponse();
             $body = json_decode($response->getBody()->getContents(), true);
 
-            match ($response->getStatusCode()) {
-                401 => throw new AuthenticationException(),
-                429 => throw new RateLimitException(errorsBag: $body),
-                default => throw new ApiException(
+            return match ($response->getStatusCode()) {
+                401 => new AuthenticationException(),
+                429 => new RateLimitException(errorsBag: $body),
+                default => new ApiException(
                     $body['message'] ?? $e->getMessage(),
                     $response->getStatusCode(),
                     $body
                 )
             };
         } catch (ServerException $e) {
+            dump($e->getMessage(), $e->getCode(), $e);
             throw new PaystackException('Paystack is currently unavailable', 500);
         } catch (GuzzleException $e) {
             throw new PaystackException($e->getMessage(), $e->getCode());
         }
-
-        return [];
     }
 }

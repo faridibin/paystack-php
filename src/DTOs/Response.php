@@ -4,13 +4,15 @@ declare(strict_types=1);
 
 namespace Faridibin\Paystack\DTOs;
 
+use Exception;
+
 class Response
 {
     public bool $status;
     public string $message;
     public mixed $data;
 
-    public function __construct(array $response, string $dtoClass = null, bool $isCollection = false)
+    public function __construct(array|Exception $response, string $dtoClass = null, bool $isCollection = false)
     {
         dd($response, $dtoClass, $isCollection);
         // $this->status = $response['status'] ?? false;

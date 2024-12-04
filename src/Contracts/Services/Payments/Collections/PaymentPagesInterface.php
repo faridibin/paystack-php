@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Faridibin\Paystack\Contracts\Services;
+namespace Faridibin\Paystack\Contracts\Services\Payments\Collections;
 
 use Faridibin\Paystack\DTOs\Response;
 
@@ -59,7 +59,7 @@ interface PaymentPagesInterface
      * Add products to a payment page
      *
      * @param string|int $id
-     * @param array<int, int> $products
+     * @param array<int, int|string> $products
      * @return \Faridibin\Paystack\DTOs\Response
      */
     public function addProduct(string|int $id, array $products): Response;
