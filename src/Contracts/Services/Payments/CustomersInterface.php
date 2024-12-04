@@ -35,7 +35,7 @@ interface CustomersInterface extends PaymentsInterface
      * @param array $data
      * @return \Faridibin\Paystack\DTOs\Response
      */
-    public function updateCustomer(string $code, array $data = []): Response;
+    public function updateCustomer(string $code, array $data): Response;
 
     /**
      * List Customer.

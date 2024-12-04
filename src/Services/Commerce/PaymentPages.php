@@ -29,7 +29,7 @@ class PaymentPages implements PaymentPagesInterface
      * @param array $optional
      * @return \Faridibin\Paystack\DTOs\Response
      */
-    public function createPaymentPage(string $name, array $optional): Response
+    public function createPaymentPage(string $name, array $optional = []): Response
     {
         $response = $this->client->send('POST', '/page', [
             'json' => [

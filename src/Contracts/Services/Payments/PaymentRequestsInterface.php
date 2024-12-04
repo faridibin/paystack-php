@@ -19,7 +19,7 @@ interface PaymentRequestsInterface extends PaymentsInterface
      * @param array $optional
      * @return Response
      */
-    public function createPaymentRequest(string $customer, int $amount, array $optional): Response;
+    public function createPaymentRequest(string $customer, int $amount, array $optional = []): Response;
 
     /**
      * List Payment Requests
@@ -65,4 +65,34 @@ interface PaymentRequestsInterface extends PaymentsInterface
      * @return Response
      */
     public function paymentRequestTotal(): Response;
+
+    /**
+     * Finalize Payment
+     * Finalize a draft payment request
+     *
+     * @param string $code Payment Request code
+     * @param bool $notify
+     * @return Response
+     */
+    public function finalizePayment(string $code, bool $notify = true): Response;
+
+    /**
+     * Update Payment Request
+     * Update a payment request details on your integration
+     *
+     * @param string $identifier The payment request ID or code you want to update
+     * @param array $data
+     * @return Response
+     */
+    public function updatePaymentRequest(string $identifier, array $data): Response;
+
+    /**
+     * Archive Payment Request
+     * Used to archive a payment request. A payment request will no longer be fetched on list or returned on verify
+     *
+     * @param string $code Payment Request code
+     * @param array $data
+     * @return Response
+     */
+    public function archivePaymentRequest(string $code): Response;
 }

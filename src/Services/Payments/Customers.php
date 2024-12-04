@@ -60,7 +60,7 @@ class Customers implements CustomersInterface
      * @param array $data
      * @return \Faridibin\Paystack\DTOs\Response
      */
-    public function updateCustomer(string $code, array $data = []): Response
+    public function updateCustomer(string $code, array $data): Response
     {
         $response = $this->client->send('PUT', "/customer/{$code}", [
             'json' => $data

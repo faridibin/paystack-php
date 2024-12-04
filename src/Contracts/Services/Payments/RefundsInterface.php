@@ -17,7 +17,7 @@ interface RefundsInterface extends PaymentsInterface
      * @param array $optional
      * @return \Faridibin\Paystack\DTOs\Response
      */
-    public function createRefund(string $identifier, array $optional): Response;
+    public function createRefund(string $identifier, array $optional = []): Response;
 
     /**
      * List refunds.

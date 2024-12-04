@@ -53,12 +53,10 @@ interface SplitsInterface extends PaymentsInterface
      * Update a transaction split details on your integration
      *
      * @param string $id
-     * @param string $name
-     * @param bool $active
-     * @param array $optional
+     * @param array $data
      * @return \Faridibin\Paystack\DTOs\Response
      */
-    public function updateSplit(string $id, string $name, bool $active, array $optional = []): Response;
+    public function updateSplit(string $id, array $data): Response;
 
     /**
      * Add Subaccount Split.
