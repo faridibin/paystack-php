@@ -4,12 +4,13 @@ declare(strict_types=1);
 
 namespace Faridibin\Paystack\Contracts\Services\Payments\Transactions;
 
+use Faridibin\Paystack\Contracts\Services\Payments\PaymentsInterface;
 use Faridibin\Paystack\DTOs\Response;
 use Faridibin\Paystack\Enums\Bearer;
 use Faridibin\Paystack\Enums\Currency;
 use Faridibin\Paystack\Enums\SplitType;
 
-interface SplitsInterface
+interface SplitsInterface extends PaymentsInterface
 {
     /**
      * Create Split.

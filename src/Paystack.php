@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Faridibin\Paystack;
 
 use Faridibin\Paystack\Contracts;
+use Faridibin\Paystack\Contracts\Services\ServiceInterface;
 use Faridibin\Paystack\Exceptions\PaystackException;
 
 class Paystack implements Contracts\PaystackInterface
@@ -39,10 +40,10 @@ class Paystack implements Contracts\PaystackInterface
      *
      * @param string $name
      * @param array $arguments
-     * @return mixed
+     * @return ServiceInterface
      * @throws \RuntimeException
      */
-    public function __call(string $name, array $arguments)
+    public function __call(string $name, array $arguments): ServiceInterface
     {
         if (isset($this->serviceMap[$name])) {
             [$serviceClass, $interfaceClass] = $this->serviceMap[$name];
@@ -59,9 +60,9 @@ class Paystack implements Contracts\PaystackInterface
      * @param string $class
      * @param string $interface
      * @param array $arguments
-     * @return mixed
+     * @return ServiceInterface
      */
-    private function resolveService(string $class, string $interface, array $arguments)
+    private function resolveService(string $class, string $interface, array $arguments): ServiceInterface
     {
         if (!isset($this->services[$class])) {
             $this->services[$class] = new $class(

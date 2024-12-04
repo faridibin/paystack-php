@@ -6,7 +6,7 @@ namespace Faridibin\Paystack\Contracts\Services;
 
 use Faridibin\Paystack\DTOs\Response;
 
-interface VerificationInterface
+interface VerificationInterface extends ServiceInterface
 {
     /**
      * Resolve an account number

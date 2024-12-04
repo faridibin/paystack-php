@@ -4,15 +4,19 @@ namespace Faridibin\Paystack\Enums;
 
 enum Status: string
 {
-    case SUCCESSFUL = 'successful';
+    case SUCCESS = 'success';
     case COMPLETE = 'complete';
     case FAILED = 'failed';
     case PENDING = 'pending';
+    case ONGOING = 'ongoing';
+    case PROCESSING = 'processing';
+    case QUEUED = 'queued';
     case ABANDONED = 'abandoned';
     case TIMEOUT = 'timeout';
     case CANCELLED = 'cancelled';
     case REVERSED = 'reversed';
     case REFUNDED = 'refunded';
+
     case UNKNOWN = 'unknown';
 
     /**

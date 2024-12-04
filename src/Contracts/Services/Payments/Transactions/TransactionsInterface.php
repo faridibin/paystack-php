@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace Faridibin\Paystack\Contracts\Services\Payments\Transactions;
 
+use Faridibin\Paystack\Contracts\Services\Payments\PaymentsInterface;
 use Faridibin\Paystack\DTOs\Response;
 use Faridibin\Paystack\Enums\Currency;
 
-interface TransactionsInterface
+interface TransactionsInterface extends PaymentsInterface
 {
     /**
      * Initialize Transaction.

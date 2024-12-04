@@ -6,7 +6,7 @@ namespace Faridibin\Paystack\Contracts\Services\Payments;
 
 use Faridibin\Paystack\DTOs\Response;
 
-interface SubaccountsInterface
+interface SubaccountsInterface extends PaymentsInterface
 {
     /**
      * Create a subaccount.

@@ -6,7 +6,7 @@ namespace Faridibin\Paystack\Contracts\Services;
 
 use Faridibin\Paystack\DTOs\Response;
 
-interface MiscellaneousInterface
+interface MiscellaneousInterface extends ServiceInterface
 {
     /**
      * List Countries

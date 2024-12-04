@@ -7,7 +7,7 @@ namespace Faridibin\Paystack\Contracts\Services\Payments;
 use Faridibin\Paystack\DTOs\Response;
 use Faridibin\Paystack\Enums\Currency;
 
-interface RefundsInterface
+interface RefundsInterface extends PaymentsInterface
 {
     /**
      * Create a refund.
