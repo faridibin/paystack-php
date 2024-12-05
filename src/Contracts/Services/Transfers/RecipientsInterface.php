@@ -6,7 +6,7 @@ namespace Faridibin\Paystack\Contracts\Services\Transfers;
 
 use Faridibin\Paystack\DTOs\Response;
 
-interface RecipientsInterface extends TransfersInterface
+interface RecipientsInterface extends TransferInterface
 {
     /**
      * Create Recipient

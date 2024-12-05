@@ -122,7 +122,7 @@ class Transfers implements TransfersInterface
      */
     public function fetchTransfer(string $identifier): Response
     {
-        $response = $this->client->send('GET', "/transfer/$identifier");
+        $response = $this->client->send('GET', "/transfer/{$identifier}");
 
         return new Response($response);
     }
@@ -136,7 +136,7 @@ class Transfers implements TransfersInterface
      */
     public function verifyTransfer(string $reference): Response
     {
-        $response = $this->client->send('GET', "/transfer/verify/$reference");
+        $response = $this->client->send('GET', "/transfer/verify/{$reference}");
 
         return new Response($response);
     }
