@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Faridibin\Paystack\Contracts\Services\Transfers;
 
-interface TransferInterface extends TransfersInterface
+use Faridibin\Paystack\Contracts\Services\ServiceInterface;
+
+interface TransferInterface extends ServiceInterface
 {
     // 
 }

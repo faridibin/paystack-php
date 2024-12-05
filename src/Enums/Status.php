@@ -16,6 +16,7 @@ enum Status: string
     case CANCELLED = 'cancelled';
     case REVERSED = 'reversed';
     case REFUNDED = 'refunded';
+    case OTP = 'otp';
 
     case UNKNOWN = 'unknown';
 
