@@ -1,14 +1,27 @@
 <?php
 
-declare(strict_types=1);
-
-namespace Faridibin\Paystack\Contracts\Services\Payments;
+namespace Faridibin\Paystack\Services\Payments;
 
 use DateTime;
+use Faridibin\Paystack\Client;
+use Faridibin\Paystack\Contracts\ClientInterface;
+use Faridibin\Paystack\Contracts\Services\Payments\ChargeInterface;
 use Faridibin\Paystack\DTOs\Response;
 
-interface ChargeInterface extends PaymentsInterface
+class Charge implements ChargeInterface
 {
+    /**
+     * The Charge service constructor.
+     *
+     * @param \Faridibin\Paystack\Contracts\ClientInterface $client
+     */
+    public function __construct(
+        ?string $secretKey = null,
+        private ?ClientInterface $client = null
+    ) {
+        $this->client = $client ?? new Client($secretKey);
+    }
+
     /**
      * Create a charge.
      * Initiate a payment by integrating the payment channel of your choice.
@@ -16,7 +29,10 @@ interface ChargeInterface extends PaymentsInterface
      * @param array $data
      * @return \Faridibin\Paystack\DTOs\Response
      */
-    public function createCharge(string $email, int $amount, array $optional = []): Response;
+    public function createCharge(string $email, int $amount, array $optional = []): Response
+    {
+        // 
+    }
 
     /**
      * Submit PIN.
@@ -26,7 +42,10 @@ interface ChargeInterface extends PaymentsInterface
      * @param string $reference
      * @return \Faridibin\Paystack\DTOs\Response
      */
-    public function submitPin(string $pin, string $reference): Response;
+    public function submitPin(string $pin, string $reference): Response
+    {
+        // 
+    }
 
     /**
      * Submit OTP.
@@ -36,7 +55,10 @@ interface ChargeInterface extends PaymentsInterface
      * @param string $reference
      * @return \Faridibin\Paystack\DTOs\Response
      */
-    public function submitOtp(string $otp, string $reference): Response;
+    public function submitOtp(string $otp, string $reference): Response
+    {
+        // 
+    }
 
     /**
      * Submit Phone.
@@ -46,7 +68,10 @@ interface ChargeInterface extends PaymentsInterface
      * @param string $reference
      * @return \Faridibin\Paystack\DTOs\Response
      */
-    public function submitPhone(string $phone, string $reference): Response;
+    public function submitPhone(string $phone, string $reference): Response
+    {
+        // 
+    }
 
     /**
      * Submit Birthday.
@@ -56,7 +81,10 @@ interface ChargeInterface extends PaymentsInterface
      * @param string $reference
      * @return \Faridibin\Paystack\DTOs\Response
      */
-    public function submitBirthday(DateTime|string $birthday, string $reference): Response;
+    public function submitBirthday(DateTime|string $birthday, string $reference): Response
+    {
+        $birthday = $birthday instanceof DateTime ? $birthday->format('Y-m-d') : $birthday;
+    }
 
     /**
      * Submit Address.
@@ -69,7 +97,10 @@ interface ChargeInterface extends PaymentsInterface
      * @param string $reference
      * @return \Faridibin\Paystack\DTOs\Response
      */
-    public function submitAddress(string $address, string $city, string $state, string $zipcode, string $reference): Response;
+    public function submitAddress(string $address, string $city, string $state, string $zipcode, string $reference): Response
+    {
+        // 
+    }
 
     /**
      * Check Pending Charge.
@@ -78,5 +109,8 @@ interface ChargeInterface extends PaymentsInterface
      * @param string $reference
      * @return \Faridibin\Paystack\DTOs\Response
      */
-    public function checkPendingCharge(string $reference): Response;
+    public function checkPendingCharge(string $reference): Response
+    {
+        // 
+    }
 }
