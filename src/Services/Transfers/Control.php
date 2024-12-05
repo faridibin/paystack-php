@@ -11,7 +11,7 @@ use Faridibin\Paystack\Enums\Reason;
 class Control implements ControlInterface
 {
     /**
-     * The Recipients service constructor.
+     * The Transfers Control service constructor.
      *
      * @param \Faridibin\Paystack\Contracts\ClientInterface $client
      */

@@ -11,7 +11,7 @@ use Faridibin\Paystack\Enums\RecipientType;
 class Recipients implements RecipientsInterface
 {
     /**
-     * The Recipients service constructor.
+     * The Transfer Recipients service constructor.
      *
      * @param \Faridibin\Paystack\Contracts\ClientInterface $client
      */

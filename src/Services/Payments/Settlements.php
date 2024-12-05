@@ -10,7 +10,7 @@ use Faridibin\Paystack\DTOs\Response;
 class Settlements implements SettlementsInterface
 {
     /**
-     * The Terminal service constructor.
+     * The Settlements service constructor.
      *
      * @param \Faridibin\Paystack\Contracts\ClientInterface $client
      */

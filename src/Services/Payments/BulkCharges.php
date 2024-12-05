@@ -11,7 +11,7 @@ use Faridibin\Paystack\Enums\Status;
 class BulkCharges implements BulkChargesInterface
 {
     /**
-     * The Terminal service constructor.
+     * The Bulk Charges service constructor.
      *
      * @param \Faridibin\Paystack\Contracts\ClientInterface $client
      */

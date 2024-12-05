@@ -5,8 +5,9 @@ namespace Faridibin\Paystack\Services;
 use Faridibin\Paystack\Client;
 use Faridibin\Paystack\Contracts\ClientInterface;
 use Faridibin\Paystack\Contracts\Services\MiscellaneousInterface;
-use Faridibin\Paystack\DTOs\Miscellaneous\CountriesDTO;
-use Faridibin\Paystack\DTOs\Miscellaneous\StatesDTO;
+use Faridibin\Paystack\DTOs\Generic\BankDTO;
+use Faridibin\Paystack\DTOs\Generic\CountryDTO;
+use Faridibin\Paystack\DTOs\Generic\StateDTO;
 use Faridibin\Paystack\DTOs\Response;
 
 class Miscellaneous implements MiscellaneousInterface
@@ -33,7 +34,7 @@ class Miscellaneous implements MiscellaneousInterface
     {
         $response = $this->client->send('GET', '/country');
 
-        return new Response($response, CountriesDTO::class, true);
+        return new Response($response, CountryDTO::class, true);
     }
 
     /**
@@ -51,7 +52,7 @@ class Miscellaneous implements MiscellaneousInterface
             ]
         ]);
 
-        return new Response($response, StatesDTO::class, true);
+        return new Response($response, StateDTO::class, true);
     }
 
     /**
@@ -75,6 +76,6 @@ class Miscellaneous implements MiscellaneousInterface
             ]
         ]);
 
-        return new Response($response, StatesDTO::class, true);
+        return new Response($response, BankDTO::class, true);
     }
 }

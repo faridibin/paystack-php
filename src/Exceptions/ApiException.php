@@ -11,10 +11,10 @@ class ApiException extends PaystackException
      *
      * @param string $message
      * @param int $code
-     * @param array $errorsBag
+     * @param array|null $errorsBag
      */
-    public function __construct(string $message, int $code = 400, array $errorsBag = [])
+    public function __construct(string $message, int $code = 400, array|null $errorsBag = [])
     {
-        parent::__construct($message, $code, $errorsBag);
+        parent::__construct($message, $code, $errorsBag ?? []);
     }
 }
