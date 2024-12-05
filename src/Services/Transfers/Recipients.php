@@ -6,6 +6,7 @@ use Faridibin\Paystack\Client;
 use Faridibin\Paystack\Contracts\ClientInterface;
 use Faridibin\Paystack\Contracts\Services\Transfers\RecipientsInterface;
 use Faridibin\Paystack\DTOs\Response;
+use Faridibin\Paystack\Enums\RecipientType;
 
 class Recipients implements RecipientsInterface
 {
@@ -25,16 +26,26 @@ class Recipients implements RecipientsInterface
      * Create Recipient
      * Creates a new recipient. A duplicate account number will lead to the retrieval of the existing record.
      *
-     * @param string $type
+     * @param RecipientType|string $type
      * @param string $name
      * @param string $accountNumber
      * @param string $bankCode
      * @param array $optional
      * @return \Faridibin\Paystack\DTOs\Response
      */
-    public function createRecipient(string $type, string $name, string $accountNumber, string $bankCode, array $optional = []): Response
+    public function createRecipient(RecipientType|string $type, string $name, string $accountNumber, string $bankCode, array $optional = []): Response
     {
-        //
+        $response = $this->client->send('POST', '/transferrecipient', [
+            'json' => [
+                'type' => $type,
+                'name' => $name,
+                'account_number' => $accountNumber,
+                'bank_code' => $bankCode,
+                ...$optional
+            ]
+        ]);
+
+        return new Response($response, null, true);
     }
 
     /**
@@ -46,7 +57,13 @@ class Recipients implements RecipientsInterface
      */
     public function createBulkRecipients(array $recipients): Response
     {
-        //
+        $response = $this->client->send('POST', '/transferrecipient/bulk', [
+            'json' => [
+                'batch' => $recipients
+            ]
+        ]);
+
+        return new Response($response, null, true);
     }
 
     /**
@@ -60,7 +77,15 @@ class Recipients implements RecipientsInterface
      */
     public function listRecipients(int $perPage = 50, int $page = 1, array $optional = []): Response
     {
-        //
+        $response = $this->client->send('GET', '/transferrecipient', [
+            'query' => [
+                'perPage' => $perPage,
+                'page' => $page,
+                ...$optional
+            ]
+        ]);
+
+        return new Response($response);
     }
 
     /**
@@ -72,7 +97,9 @@ class Recipients implements RecipientsInterface
      */
     public function fetchRecipient(string $identifier): Response
     {
-        //
+        $response = $this->client->send('GET', "/transferrecipient/{$identifier}");
+
+        return new Response($response);
     }
 
     /**
@@ -85,7 +112,11 @@ class Recipients implements RecipientsInterface
      */
     public function updateRecipient(string $identifier, array $data): Response
     {
-        //
+        $response = $this->client->send('PUT', "/transferrecipient/{$identifier}", [
+            'json' => $data
+        ]);
+
+        return new Response($response, null, true);
     }
 
     /**
@@ -97,6 +128,8 @@ class Recipients implements RecipientsInterface
      */
     public function deleteRecipient(string $identifier): Response
     {
-        //
+        $response = $this->client->send('DELETE', "/transferrecipient/{$identifier}");
+
+        return new Response($response, null, true);
     }
 }

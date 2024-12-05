@@ -45,7 +45,7 @@ class Miscellaneous implements MiscellaneousInterface
      */
     public function listStates(string $country): Response
     {
-        $response = $this->client->send("GET", '/address_verification/states', [
+        $response = $this->client->send('GET', '/address_verification/states', [
             'query' => [
                 'country' => $country
             ]
@@ -66,7 +66,7 @@ class Miscellaneous implements MiscellaneousInterface
      */
     public function listBanks(string $country, bool $useCursor = false, int $perPage = 50, array $optional = []): Response
     {
-        $response = $this->client->send("GET", '/bank', [
+        $response = $this->client->send('GET', '/bank', [
             'query' => [
                 'country' => $country,
                 'use_cursor' => $useCursor,

@@ -57,8 +57,6 @@ class Refunds implements RefundsInterface
      */
     public function listRefunds(string $transactionId, Currency|string $currency, array $optional = []): Response
     {
-        $currency instanceof Currency ? $currency->value : $currency;
-
         $response = $this->client->send('GET', '/refund', [
             'query' => [
                 'transaction' => $transactionId,

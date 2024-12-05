@@ -35,8 +35,6 @@ class Products implements ProductsInterface
      */
     public function createProduct(string $name, string $description, int $price, Currency|string $currency, array $optional = []): Response
     {
-        $currency instanceof Currency ? $currency->value : $currency;
-
         $response = $this->client->send('POST', '/product', [
             'json' => [
                 'name' => $name,

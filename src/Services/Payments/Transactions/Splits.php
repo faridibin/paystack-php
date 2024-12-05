@@ -38,10 +38,6 @@ class Splits implements SplitsInterface
      */
     public function createSplit(string $name, SplitType|string $type, Currency|string $currency, array $subaccounts, Bearer|string $bearer, string $bearerSubaccount): Response
     {
-        $type instanceof SplitType ? $type->value : $type;
-        $currency instanceof Currency ? $currency->value : $currency;
-        $bearer instanceof Bearer ? $bearer->value : $bearer;
-
         $response = $this->client->send('POST', '/split', [
             'json' => [
                 'name' => $name,

@@ -33,8 +33,6 @@ class Plans implements PlansInterface
      */
     public function createPlan(string $name, int $amount, PlanInterval|string $interval, array $optional = []): Response
     {
-        $interval instanceof PlanInterval ? $interval->value : $interval;
-
         $response = $this->client->send('POST', '/plan', [
             'json' => [
                 'name' => $name,

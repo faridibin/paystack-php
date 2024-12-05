@@ -122,8 +122,6 @@ class Customers implements CustomersInterface
      */
     public function setCustomerRiskStatus(string $identifier, RiskAction|string $riskAction = 'default'): Response
     {
-        $riskAction instanceof RiskAction ? $riskAction->value : $riskAction;
-
         $response = $this->client->send('POST', '/customer/set_risk_action', [
             'json' => [
                 'customer' => $identifier,

@@ -189,8 +189,6 @@ class Transactions implements TransactionsInterface
      */
     public function partialDebit(string $authorizationCode, int $amount,  Currency|string $currency, string $email, array $optional = []): Response
     {
-        $currency instanceof Currency ? $currency->value : $currency;
-
         $response = $this->client->send('POST', '/transaction/charge_authorization', [
             'json' => [
                 'currency' => $currency,
