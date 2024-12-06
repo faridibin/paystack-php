@@ -8,4 +8,5 @@ enum Provider: string
     case AIRTEL_TIGO = 'atl';
     case VODAFONE = 'vod';
     case MPESA = 'mpesa';
+    case OZOW = 'ozow';
 }

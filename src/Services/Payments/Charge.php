@@ -31,7 +31,15 @@ class Charge implements ChargeInterface
      */
     public function createCharge(string $email, int $amount, array $optional = []): Response
     {
-        // 
+        $response = $this->client->send('POST', '/charge', [
+            'json' => [
+                'email' => $email,
+                'amount' => $amount,
+                ...$optional
+            ]
+        ]);
+
+        return new Response($response);
     }
 
     /**
@@ -44,7 +52,14 @@ class Charge implements ChargeInterface
      */
     public function submitPin(string $pin, string $reference): Response
     {
-        // 
+        $response = $this->client->send('POST', '/charge/submit_pin', [
+            'json' => [
+                'pin' => $pin,
+                'reference' => $reference
+            ]
+        ]);
+
+        return new Response($response);
     }
 
     /**
@@ -57,7 +72,14 @@ class Charge implements ChargeInterface
      */
     public function submitOtp(string $otp, string $reference): Response
     {
-        // 
+        $response = $this->client->send('POST', '/charge/submit_otp', [
+            'json' => [
+                'otp' => $otp,
+                'reference' => $reference
+            ]
+        ]);
+
+        return new Response($response);
     }
 
     /**
@@ -70,7 +92,14 @@ class Charge implements ChargeInterface
      */
     public function submitPhone(string $phone, string $reference): Response
     {
-        // 
+        $response = $this->client->send('POST', '/charge/submit_phone', [
+            'json' => [
+                'phone' => $phone,
+                'reference' => $reference
+            ]
+        ]);
+
+        return new Response($response);
     }
 
     /**
@@ -84,6 +113,15 @@ class Charge implements ChargeInterface
     public function submitBirthday(DateTime|string $birthday, string $reference): Response
     {
         $birthday = $birthday instanceof DateTime ? $birthday->format('Y-m-d') : $birthday;
+
+        $response = $this->client->send('POST', '/charge/submit_birthday', [
+            'json' => [
+                'birthday' => $birthday,
+                'reference' => $reference
+            ]
+        ]);
+
+        return new Response($response);
     }
 
     /**
@@ -99,18 +137,32 @@ class Charge implements ChargeInterface
      */
     public function submitAddress(string $address, string $city, string $state, string $zipcode, string $reference): Response
     {
-        // 
+        $response = $this->client->send('POST', '/charge/submit_address', [
+            'json' => [
+                'address' => $address,
+                'city' => $city,
+                'state' => $state,
+                'zip_code' => $zipcode,
+                'reference' => $reference
+            ]
+        ]);
+
+        return new Response($response);
     }
 
     /**
      * Check Pending Charge.
-     * Check the status of a pending charge
+     * When you get pending as a charge status or if there was an exception when calling any of the /charge endpoints, 
+     * wait 10 seconds or more, then make a check to see if its status has changed. 
+     * Don't call too early as you may get a lot more pending than you should.
      *
      * @param string $reference
      * @return \Faridibin\Paystack\DTOs\Response
      */
     public function checkPendingCharge(string $reference): Response
     {
-        // 
+        $response = $this->client->send('GET', "/charge/{$reference}");
+
+        return new Response($response);
     }
 }
