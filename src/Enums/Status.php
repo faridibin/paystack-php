@@ -19,7 +19,9 @@ enum Status: string
     case REVERSED = 'reversed';
     case REFUNDED = 'refunded';
     case OTP = 'otp';
-
+    case AWAITING_MERCHANT_FEEDBACK = 'awaiting-merchant-feedback';
+    case AWAITING_BANK_FEEDBACK = 'awaiting-bank-feedback';
+    case RESOLVED = 'resolved';
     case UNKNOWN = 'unknown';
 
     /**
