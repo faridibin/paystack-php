@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Faridibin\Paystack\Contracts\Services\Payments\Transactions;
 
 use Faridibin\Paystack\Contracts\Services\Payments\PaymentsInterface;
-use Faridibin\Paystack\DTOs\Response;
+use Faridibin\Paystack\DataTransferObjects\Response;
 use Faridibin\Paystack\Enums\Currency;
 
 interface TransactionsInterface extends PaymentsInterface
@@ -17,7 +17,7 @@ interface TransactionsInterface extends PaymentsInterface
      * @param int $amount
      * @param string $email
      * @param array $optional
-     * @return \Faridibin\Paystack\DTOs\Response
+     * @return \Faridibin\Paystack\DataTransferObjects\Response
      */
     public function initializeTransaction(int $amount, string $email, array $optional = []): Response;
 
@@ -26,7 +26,7 @@ interface TransactionsInterface extends PaymentsInterface
      * Confirm the status of a transaction
      *
      * @param string $reference
-     * @return \Faridibin\Paystack\DTOs\Response
+     * @return \Faridibin\Paystack\DataTransferObjects\Response
      */
     public function verifyTransaction(string $reference): Response;
 
@@ -37,7 +37,7 @@ interface TransactionsInterface extends PaymentsInterface
      * @param int $perPage
      * @param int $page
      * @param array $optional
-     * @return \Faridibin\Paystack\DTOs\Response
+     * @return \Faridibin\Paystack\DataTransferObjects\Response
      */
     public function listTransactions(int $perPage = 50, int $page = 1, array $optional = []): Response;
 
@@ -46,7 +46,7 @@ interface TransactionsInterface extends PaymentsInterface
      * Get details of a transaction carried out on your integration.
      *
      * @param string $id
-     * @return \Faridibin\Paystack\DTOs\Response
+     * @return \Faridibin\Paystack\DataTransferObjects\Response
      */
     public function fetchTransaction(string $id): Response;
 
@@ -58,7 +58,7 @@ interface TransactionsInterface extends PaymentsInterface
      * @param int $amount
      * @param string $email
      * @param array $optional
-     * @return \Faridibin\Paystack\DTOs\Response
+     * @return \Faridibin\Paystack\DataTransferObjects\Response
      */
     public function chargeAuthorization(string $authorizationCode, int $amount, string $email,  array $optional = []): Response;
 
@@ -67,7 +67,7 @@ interface TransactionsInterface extends PaymentsInterface
      * Get a detailed timeline of a transaction carried out on your integration.
      *
      * @param string $id
-     * @return \Faridibin\Paystack\DTOs\Response
+     * @return \Faridibin\Paystack\DataTransferObjects\Response
      */
     public function viewTransactionTimeline(string $id): Response;
 
@@ -78,7 +78,7 @@ interface TransactionsInterface extends PaymentsInterface
      * @param int $perPage
      * @param int $page
      * @param array $optional
-     * @return \Faridibin\Paystack\DTOs\Response
+     * @return \Faridibin\Paystack\DataTransferObjects\Response
      */
     public function transactionTotals(int $perPage = 50, int $page = 1, array $optional = []): Response;
 
@@ -89,7 +89,7 @@ interface TransactionsInterface extends PaymentsInterface
      * @param int $perPage
      * @param int $page
      * @param array $optional
-     * @return \Faridibin\Paystack\DTOs\Response
+     * @return \Faridibin\Paystack\DataTransferObjects\Response
      */
     public function exportTransaction(int $perPage = 50, int $page = 1, array $optional = []): Response;
 
@@ -102,7 +102,7 @@ interface TransactionsInterface extends PaymentsInterface
      * @param Currency|string $currency
      * @param string $email
      * @param array $optional
-     * @return \Faridibin\Paystack\DTOs\Response
+     * @return \Faridibin\Paystack\DataTransferObjects\Response
      */
     public function partialDebit(string $authorizationCode, int $amount,  Currency|string $currency, string $email, array $optional = []): Response;
 }

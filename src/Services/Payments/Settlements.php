@@ -5,7 +5,7 @@ namespace Faridibin\Paystack\Services\Payments;
 use Faridibin\Paystack\Client;
 use Faridibin\Paystack\Contracts\ClientInterface;
 use Faridibin\Paystack\Contracts\Services\Payments\SettlementsInterface;
-use Faridibin\Paystack\DTOs\Response;
+use Faridibin\Paystack\DataTransferObjects\Response;
 
 class Settlements implements SettlementsInterface
 {
@@ -28,7 +28,7 @@ class Settlements implements SettlementsInterface
      * @param int $perPage
      * @param int $page
      * @param array $optional
-     * @return \Faridibin\Paystack\DTOs\Response
+     * @return \Faridibin\Paystack\DataTransferObjects\Response
      */
     public function listSettlements(int $perPage = 50, int $page = 1, array $optional = []): Response
     {
@@ -55,7 +55,7 @@ class Settlements implements SettlementsInterface
      * @param int $perPage
      * @param int $page
      * @param array $optional
-     * @return \Faridibin\Paystack\DTOs\Response
+     * @return \Faridibin\Paystack\DataTransferObjects\Response
      */
     public function listSettlementTransactions(string $identifier, int $perPage = 50, int $page = 1, array $optional = []): Response
     {

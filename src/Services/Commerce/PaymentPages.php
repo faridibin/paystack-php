@@ -5,7 +5,7 @@ namespace Faridibin\Paystack\Services\Commerce;
 use Faridibin\Paystack\Client;
 use Faridibin\Paystack\Contracts\ClientInterface;
 use Faridibin\Paystack\Contracts\Services\Commerce\PaymentPagesInterface;
-use Faridibin\Paystack\DTOs\Response;
+use Faridibin\Paystack\DataTransferObjects\Response;
 
 class PaymentPages implements PaymentPagesInterface
 {
@@ -27,7 +27,7 @@ class PaymentPages implements PaymentPagesInterface
      *
      * @param string $name
      * @param array $optional
-     * @return \Faridibin\Paystack\DTOs\Response
+     * @return \Faridibin\Paystack\DataTransferObjects\Response
      */
     public function createPaymentPage(string $name, array $optional = []): Response
     {
@@ -49,7 +49,7 @@ class PaymentPages implements PaymentPagesInterface
      * List Payment Pages.
      * List payment pages available on your integration.
      *
-     * @return \Faridibin\Paystack\DTOs\Response
+     * @return \Faridibin\Paystack\DataTransferObjects\Response
      */
     public function listPaymentPages(int $perPage = 50, int $page = 1, array $optional = []): Response
     {
@@ -73,7 +73,7 @@ class PaymentPages implements PaymentPagesInterface
      * Get details of a payment page on your integration
      *
      * @param string $identifier
-     * @return \Faridibin\Paystack\DTOs\Response
+     * @return \Faridibin\Paystack\DataTransferObjects\Response
      */
     public function fetchPaymentPage(string $identifier): Response
     {
@@ -92,7 +92,7 @@ class PaymentPages implements PaymentPagesInterface
      *
      * @param string $identifier
      * @param array $data
-     * @return \Faridibin\Paystack\DTOs\Response
+     * @return \Faridibin\Paystack\DataTransferObjects\Response
      */
     public function updatePaymentPage(string $identifier, array $data): Response
     {
@@ -112,7 +112,7 @@ class PaymentPages implements PaymentPagesInterface
      * Check if a slug is available for use on your integration
      *
      * @param string $slug
-     * @return \Faridibin\Paystack\DTOs\Response
+     * @return \Faridibin\Paystack\DataTransferObjects\Response
      */
     public function checkSlugAvailability(string $slug): Response
     {
@@ -131,7 +131,7 @@ class PaymentPages implements PaymentPagesInterface
      *
      * @param string|int $id
      * @param array<int, int> $products
-     * @return \Faridibin\Paystack\DTOs\Response
+     * @return \Faridibin\Paystack\DataTransferObjects\Response
      */
     public function addProduct(string|int $id, array $products): Response
     {

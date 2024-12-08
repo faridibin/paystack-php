@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Faridibin\Paystack\Contracts\Services\Payments;
 
-use Faridibin\Paystack\DTOs\Response;
+use Faridibin\Paystack\DataTransferObjects\Response;
 
 interface SettlementsInterface extends PaymentsInterface
 {
@@ -15,7 +15,7 @@ interface SettlementsInterface extends PaymentsInterface
      * @param int $perPage
      * @param int $page
      * @param array $optional
-     * @return \Faridibin\Paystack\DTOs\Response
+     * @return \Faridibin\Paystack\DataTransferObjects\Response
      */
     public function listSettlements(int $perPage = 50, int $page = 1, array $optional = []): Response;
 
@@ -27,7 +27,7 @@ interface SettlementsInterface extends PaymentsInterface
      * @param int $perPage
      * @param int $page
      * @param array $optional
-     * @return \Faridibin\Paystack\DTOs\Response
+     * @return \Faridibin\Paystack\DataTransferObjects\Response
      */
     public function listSettlementTransactions(string $identifier, int $perPage = 50, int $page = 1, array $optional = []): Response;
 }

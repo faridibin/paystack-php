@@ -5,7 +5,7 @@ namespace Faridibin\Paystack\Services\Recurring;
 use Faridibin\Paystack\Client;
 use Faridibin\Paystack\Contracts\ClientInterface;
 use Faridibin\Paystack\Contracts\Services\Recurring\SubscriptionsInterface;
-use Faridibin\Paystack\DTOs\Response;
+use Faridibin\Paystack\DataTransferObjects\Response;
 
 class Subscriptions implements SubscriptionsInterface
 {

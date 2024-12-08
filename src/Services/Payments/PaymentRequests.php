@@ -5,7 +5,7 @@ namespace Faridibin\Paystack\Services\Payments;
 use Faridibin\Paystack\Client;
 use Faridibin\Paystack\Contracts\ClientInterface;
 use Faridibin\Paystack\Contracts\Services\Payments\PaymentRequestsInterface;
-use Faridibin\Paystack\DTOs\Response;
+use Faridibin\Paystack\DataTransferObjects\Response;
 use Faridibin\Paystack\Enums\Currency;
 use Faridibin\Paystack\Enums\Status;
 

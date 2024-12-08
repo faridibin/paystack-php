@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Faridibin\Paystack\Contracts\Services\Payments\Transactions;
 
 use Faridibin\Paystack\Contracts\Services\Payments\PaymentsInterface;
-use Faridibin\Paystack\DTOs\Response;
+use Faridibin\Paystack\DataTransferObjects\Response;
 use Faridibin\Paystack\Enums\Bearer;
 use Faridibin\Paystack\Enums\Currency;
 use Faridibin\Paystack\Enums\SplitType;
@@ -22,7 +22,7 @@ interface SplitsInterface extends PaymentsInterface
      * @param array $subaccounts
      * @param \Faridibin\Paystack\Enums\Bearer|string $bearer
      * @param string $bearerSubaccount
-     * @return \Faridibin\Paystack\DTOs\Response
+     * @return \Faridibin\Paystack\DataTransferObjects\Response
      */
     public function createSplit(string $name, SplitType|string $type, Currency|string $currency, array $subaccounts, Bearer|string $bearer, string $bearerSubaccount): Response;
 
@@ -35,7 +35,7 @@ interface SplitsInterface extends PaymentsInterface
      * @param int $perPage
      * @param int $page
      * @param array $optional
-     * @return \Faridibin\Paystack\DTOs\Response
+     * @return \Faridibin\Paystack\DataTransferObjects\Response
      */
     public function listSplit(string $name, bool $active, int $perPage = 50, int $page = 1, array $optional = []): Response;
 
@@ -44,7 +44,7 @@ interface SplitsInterface extends PaymentsInterface
      * Get details of a split on your integration
      *
      * @param string $id
-     * @return \Faridibin\Paystack\DTOs\Response
+     * @return \Faridibin\Paystack\DataTransferObjects\Response
      */
     public function fetchSplit(string $id): Response;
 
@@ -54,7 +54,7 @@ interface SplitsInterface extends PaymentsInterface
      *
      * @param string $id
      * @param array $data
-     * @return \Faridibin\Paystack\DTOs\Response
+     * @return \Faridibin\Paystack\DataTransferObjects\Response
      */
     public function updateSplit(string $id, array $data): Response;
 
@@ -65,7 +65,7 @@ interface SplitsInterface extends PaymentsInterface
      * @param string $id
      * @param string $subaccount
      * @param int $share
-     * @return \Faridibin\Paystack\DTOs\Response
+     * @return \Faridibin\Paystack\DataTransferObjects\Response
      */
     public function addSubaccountSplit(string $id, string $subaccount, int $share): Response;
 
@@ -75,7 +75,7 @@ interface SplitsInterface extends PaymentsInterface
      *
      * @param string $id
      * @param string $subaccount
-     * @return \Faridibin\Paystack\DTOs\Response
+     * @return \Faridibin\Paystack\DataTransferObjects\Response
      */
     public function removeSubaccountSplit(string $id, string $subaccount): Response;
 }

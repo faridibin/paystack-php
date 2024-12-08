@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Faridibin\Paystack\Contracts\Services\Payments;
 
-use Faridibin\Paystack\DTOs\Response;
+use Faridibin\Paystack\DataTransferObjects\Response;
 use Faridibin\Paystack\Enums\Currency;
 use Faridibin\Paystack\Enums\Status;
 

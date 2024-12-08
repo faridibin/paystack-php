@@ -6,7 +6,7 @@ use DateTime;
 use Faridibin\Paystack\Client;
 use Faridibin\Paystack\Contracts\ClientInterface;
 use Faridibin\Paystack\Contracts\Services\Payments\ChargeInterface;
-use Faridibin\Paystack\DTOs\Response;
+use Faridibin\Paystack\DataTransferObjects\Response;
 
 class Charge implements ChargeInterface
 {
@@ -27,7 +27,7 @@ class Charge implements ChargeInterface
      * Initiate a payment by integrating the payment channel of your choice.
      *
      * @param array $data
-     * @return \Faridibin\Paystack\DTOs\Response
+     * @return \Faridibin\Paystack\DataTransferObjects\Response
      */
     public function createCharge(string $email, int $amount, array $optional = []): Response
     {
@@ -48,7 +48,7 @@ class Charge implements ChargeInterface
      *
      * @param string $pin
      * @param string $reference
-     * @return \Faridibin\Paystack\DTOs\Response
+     * @return \Faridibin\Paystack\DataTransferObjects\Response
      */
     public function submitPin(string $pin, string $reference): Response
     {
@@ -68,7 +68,7 @@ class Charge implements ChargeInterface
      *
      * @param string $otp
      * @param string $reference
-     * @return \Faridibin\Paystack\DTOs\Response
+     * @return \Faridibin\Paystack\DataTransferObjects\Response
      */
     public function submitOtp(string $otp, string $reference): Response
     {
@@ -88,7 +88,7 @@ class Charge implements ChargeInterface
      *
      * @param string $phone
      * @param string $reference
-     * @return \Faridibin\Paystack\DTOs\Response
+     * @return \Faridibin\Paystack\DataTransferObjects\Response
      */
     public function submitPhone(string $phone, string $reference): Response
     {
@@ -108,7 +108,7 @@ class Charge implements ChargeInterface
      *
      * @param DateTime|string $birthday
      * @param string $reference
-     * @return \Faridibin\Paystack\DTOs\Response
+     * @return \Faridibin\Paystack\DataTransferObjects\Response
      */
     public function submitBirthday(DateTime|string $birthday, string $reference): Response
     {
@@ -133,7 +133,7 @@ class Charge implements ChargeInterface
      * @param string $state
      * @param string $zipcode
      * @param string $reference
-     * @return \Faridibin\Paystack\DTOs\Response
+     * @return \Faridibin\Paystack\DataTransferObjects\Response
      */
     public function submitAddress(string $address, string $city, string $state, string $zipcode, string $reference): Response
     {
@@ -157,7 +157,7 @@ class Charge implements ChargeInterface
      * Don't call too early as you may get a lot more pending than you should.
      *
      * @param string $reference
-     * @return \Faridibin\Paystack\DTOs\Response
+     * @return \Faridibin\Paystack\DataTransferObjects\Response
      */
     public function checkPendingCharge(string $reference): Response
     {

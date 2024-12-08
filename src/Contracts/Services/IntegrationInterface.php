@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Faridibin\Paystack\Contracts\Services;
 
-use Faridibin\Paystack\DTOs\Response;
+use Faridibin\Paystack\DataTransferObjects\Response;
 
 interface IntegrationInterface extends ServiceInterface
 {

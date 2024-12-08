@@ -5,7 +5,7 @@ namespace Faridibin\Paystack\Services;
 use Faridibin\Paystack\Client;
 use Faridibin\Paystack\Contracts\ClientInterface;
 use Faridibin\Paystack\Contracts\Services\IntegrationInterface;
-use Faridibin\Paystack\DTOs\Response;
+use Faridibin\Paystack\DataTransferObjects\Response;
 
 class Integration implements IntegrationInterface
 {

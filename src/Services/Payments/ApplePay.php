@@ -5,7 +5,7 @@ namespace Faridibin\Paystack\Services\Payments;
 use Faridibin\Paystack\Client;
 use Faridibin\Paystack\Contracts\ClientInterface;
 use Faridibin\Paystack\Contracts\Services\Payments\ApplePayInterface;
-use Faridibin\Paystack\DTOs\Response;
+use Faridibin\Paystack\DataTransferObjects\Response;
 
 class ApplePay implements ApplePayInterface
 {
@@ -26,7 +26,7 @@ class ApplePay implements ApplePayInterface
      * Register a top-level domain or subdomain for your Apple Pay integration.
      *
      * @param string $domain
-     * @return \Faridibin\Paystack\DTOs\Response
+     * @return \Faridibin\Paystack\DataTransferObjects\Response
      */
     public function registerDomain(string $domain): Response
     {
@@ -43,7 +43,7 @@ class ApplePay implements ApplePayInterface
      * List Domains
      * List all the domains you have registered for your Apple Pay integration.
      *
-     * @return \Faridibin\Paystack\DTOs\Response
+     * @return \Faridibin\Paystack\DataTransferObjects\Response
      */
     public function listDomains(bool $useCursor = false, string $next = '', string $previous = ''): Response
     {
@@ -63,7 +63,7 @@ class ApplePay implements ApplePayInterface
      * Unregister a top-level domain or subdomain previously used for your Apple Pay integration.
      *
      * @param string $domain
-     * @return \Faridibin\Paystack\DTOs\Response
+     * @return \Faridibin\Paystack\DataTransferObjects\Response
      */
     public function unregisterDomain(string $domain): Response
     {

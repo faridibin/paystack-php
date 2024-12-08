@@ -5,7 +5,7 @@ namespace Faridibin\Paystack\Services\Payments;
 use Faridibin\Paystack\Client;
 use Faridibin\Paystack\Contracts\ClientInterface;
 use Faridibin\Paystack\Contracts\Services\Payments\CustomersInterface;
-use Faridibin\Paystack\DTOs\Response;
+use Faridibin\Paystack\DataTransferObjects\Response;
 use Faridibin\Paystack\Enums\RiskAction;
 
 class Customers implements CustomersInterface
@@ -27,7 +27,7 @@ class Customers implements CustomersInterface
      * Create a customer on your integration
      *
      * @param array $data
-     * @return \Faridibin\Paystack\DTOs\Response
+     * @return \Faridibin\Paystack\DataTransferObjects\Response
      */
     public function createCustomer(array $data = []): Response
     {
@@ -43,7 +43,7 @@ class Customers implements CustomersInterface
      * Get details of a customer on your integration.
      *
      * @param string $identifier An email or customer code for the customer you want to fetch
-     * @return \Faridibin\Paystack\DTOs\Response
+     * @return \Faridibin\Paystack\DataTransferObjects\Response
      */
     public function fetchCustomer(string $identifier): Response
     {
@@ -58,7 +58,7 @@ class Customers implements CustomersInterface
      *
      * @param string $code Customer's code
      * @param array $data
-     * @return \Faridibin\Paystack\DTOs\Response
+     * @return \Faridibin\Paystack\DataTransferObjects\Response
      */
     public function updateCustomer(string $code, array $data): Response
     {
@@ -81,7 +81,7 @@ class Customers implements CustomersInterface
      * @param int $page
      * @param array $optional
      *
-     * @return \Faridibin\Paystack\DTOs\Response
+     * @return \Faridibin\Paystack\DataTransferObjects\Response
      */
     public function listCustomers(int $perPage = 50, int $page = 1, array $optional = []): Response
     {
@@ -102,7 +102,7 @@ class Customers implements CustomersInterface
      *
      * @param string $identifier Email, or customer code of customer to be identified
      * @param array $data
-     * @return \Faridibin\Paystack\DTOs\Response
+     * @return \Faridibin\Paystack\DataTransferObjects\Response
      */
     public function validateCustomer(string $identifier, array $data): Response
     {
@@ -118,7 +118,7 @@ class Customers implements CustomersInterface
      * Deactivate a customer on your integration
      *
      * @param string $identifier Customer's code, or email address
-     * @return \Faridibin\Paystack\DTOs\Response
+     * @return \Faridibin\Paystack\DataTransferObjects\Response
      */
     public function setCustomerRiskStatus(string $identifier, RiskAction|string $riskAction = 'default'): Response
     {
@@ -137,7 +137,7 @@ class Customers implements CustomersInterface
      * Deactivate an authorization when the card needs to be forgotten
      *
      * @param string $authorizationCode
-     * @return \Faridibin\Paystack\DTOs\Response
+     * @return \Faridibin\Paystack\DataTransferObjects\Response
      */
     public function deactivateAuthorization(string $authorizationCode): Response
     {

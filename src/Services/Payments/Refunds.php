@@ -5,7 +5,7 @@ namespace Faridibin\Paystack\Services\Payments;
 use Faridibin\Paystack\Client;
 use Faridibin\Paystack\Contracts\ClientInterface;
 use Faridibin\Paystack\Contracts\Services\Payments\RefundsInterface;
-use Faridibin\Paystack\DTOs\Response;
+use Faridibin\Paystack\DataTransferObjects\Response;
 use Faridibin\Paystack\Enums\Currency;
 
 class Refunds implements RefundsInterface
@@ -28,7 +28,7 @@ class Refunds implements RefundsInterface
      *
      * @param string $identifier
      * @param array $optional
-     * @return \Faridibin\Paystack\DTOs\Response
+     * @return \Faridibin\Paystack\DataTransferObjects\Response
      */
     public function createRefund(string $identifier, array $optional = []): Response
     {
@@ -53,7 +53,7 @@ class Refunds implements RefundsInterface
      * @param string $transactionId
      * @param Currency|string $currency
      * @param array $optional
-     * @return \Faridibin\Paystack\DTOs\Response
+     * @return \Faridibin\Paystack\DataTransferObjects\Response
      */
     public function listRefunds(string $transactionId, Currency|string $currency, array $optional = []): Response
     {
@@ -77,7 +77,7 @@ class Refunds implements RefundsInterface
      * Get details of a refund on your integration
      *
      * @param string $id
-     * @return \Faridibin\Paystack\DTOs\Response
+     * @return \Faridibin\Paystack\DataTransferObjects\Response
      */
     public function fetchRefund(string $id): Response
     {

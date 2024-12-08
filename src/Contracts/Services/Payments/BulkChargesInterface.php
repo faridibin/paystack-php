@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Faridibin\Paystack\Contracts\Services\Payments;
 
-use Faridibin\Paystack\DTOs\Response;
+use Faridibin\Paystack\DataTransferObjects\Response;
 use Faridibin\Paystack\Enums\Status;
 
 interface BulkChargesInterface extends PaymentsInterface
@@ -13,7 +13,7 @@ interface BulkChargesInterface extends PaymentsInterface
      * Initiate a bulk charge.
      *
      * @param array $data
-     * @return \Faridibin\Paystack\DTOs\Response
+     * @return \Faridibin\Paystack\DataTransferObjects\Response
      */
     public function initiateBulkCharge(array $data = []): Response;
 

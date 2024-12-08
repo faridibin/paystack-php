@@ -5,7 +5,7 @@ namespace Faridibin\Paystack\Services\Transfers;
 use Faridibin\Paystack\Client;
 use Faridibin\Paystack\Contracts\ClientInterface;
 use Faridibin\Paystack\Contracts\Services\Transfers\TransfersInterface;
-use Faridibin\Paystack\DTOs\Response;
+use Faridibin\Paystack\DataTransferObjects\Response;
 use Faridibin\Paystack\Enums\Currency;
 use Faridibin\Paystack\Enums\TransferSource;
 
@@ -31,7 +31,7 @@ class Transfers implements TransfersInterface
      * @param int $amount
      * @param string $recipient
      * @param array $optional
-     * @return \Faridibin\Paystack\DTOs\Response
+     * @return \Faridibin\Paystack\DataTransferObjects\Response
      */
     public function initiateTransfer(int $amount, string $recipient, array $optional = []): Response
     {
@@ -53,7 +53,7 @@ class Transfers implements TransfersInterface
      *
      * @param string $transferCode
      * @param string $otp
-     * @return \Faridibin\Paystack\DTOs\Response
+     * @return \Faridibin\Paystack\DataTransferObjects\Response
      */
     public function finalizeTransfer(string $transferCode, string $otp): Response
     {
@@ -74,7 +74,7 @@ class Transfers implements TransfersInterface
      *
      * @param Currency|string $currency
      * @param array $transfers
-     * @return \Faridibin\Paystack\DTOs\Response
+     * @return \Faridibin\Paystack\DataTransferObjects\Response
      */
     public function initiateBulkTransfer(Currency|string $currency, array $transfers): Response
     {
@@ -97,7 +97,7 @@ class Transfers implements TransfersInterface
      * @param int $perPage
      * @param int $page
      * @param array $optional
-     * @return \Faridibin\Paystack\DTOs\Response
+     * @return \Faridibin\Paystack\DataTransferObjects\Response
      */
     public function listTransfers(string $recipient, int $perPage = 50, int $page = 1, array $optional = []): Response
     {
@@ -118,7 +118,7 @@ class Transfers implements TransfersInterface
      * Get details of a transfer on your integration.
      *
      * @param string $identifier
-     * @return \Faridibin\Paystack\DTOs\Response
+     * @return \Faridibin\Paystack\DataTransferObjects\Response
      */
     public function fetchTransfer(string $identifier): Response
     {
@@ -132,7 +132,7 @@ class Transfers implements TransfersInterface
      * Verify the status of a transfer on your integration.
      *
      * @param string $reference
-     * @return \Faridibin\Paystack\DTOs\Response
+     * @return \Faridibin\Paystack\DataTransferObjects\Response
      */
     public function verifyTransfer(string $reference): Response
     {

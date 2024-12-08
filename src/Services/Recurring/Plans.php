@@ -5,7 +5,7 @@ namespace Faridibin\Paystack\Services\Recurring;
 use Faridibin\Paystack\Client;
 use Faridibin\Paystack\Contracts\ClientInterface;
 use Faridibin\Paystack\Contracts\Services\Recurring\PlansInterface;
-use Faridibin\Paystack\DTOs\Response;
+use Faridibin\Paystack\DataTransferObjects\Response;
 use Faridibin\Paystack\Enums\PlanInterval;
 
 class Plans implements PlansInterface
@@ -29,7 +29,7 @@ class Plans implements PlansInterface
      * @param int $amount
      * @param PlanInterval|string $interval
      * @param array $optional
-     * @return \Faridibin\Paystack\DTOs\Response
+     * @return \Faridibin\Paystack\DataTransferObjects\Response
      */
     public function createPlan(string $name, int $amount, PlanInterval|string $interval, array $optional = []): Response
     {
@@ -56,7 +56,7 @@ class Plans implements PlansInterface
      * @param int $perPage
      * @param int $page
      * @param array $optional
-     * @return \Faridibin\Paystack\DTOs\Response
+     * @return \Faridibin\Paystack\DataTransferObjects\Response
      */
     public function listPlans(int $perPage = 50, int $page = 1, array $optional = []): Response
     {
@@ -80,7 +80,7 @@ class Plans implements PlansInterface
      * Get details of a plan on your integration
      *
      * @param string $identifier The plan ID or code you want to fetch
-     * @return \Faridibin\Paystack\DTOs\Response
+     * @return \Faridibin\Paystack\DataTransferObjects\Response
      */
     public function fetchPlan(string $identifier): Response
     {
@@ -99,7 +99,7 @@ class Plans implements PlansInterface
      *
      * @param string $identifier The plan ID or code you want to update
      * @param array $data
-     * @return \Faridibin\Paystack\DTOs\Response
+     * @return \Faridibin\Paystack\DataTransferObjects\Response
      */
     public function updatePlan(string $identifier, array $data): Response
     {

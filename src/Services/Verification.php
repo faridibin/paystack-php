@@ -5,7 +5,7 @@ namespace Faridibin\Paystack\Services;
 use Faridibin\Paystack\Client;
 use Faridibin\Paystack\Contracts\ClientInterface;
 use Faridibin\Paystack\Contracts\Services\VerificationInterface;
-use Faridibin\Paystack\DTOs\Response;
+use Faridibin\Paystack\DataTransferObjects\Response;
 
 class Verification implements VerificationInterface
 {
@@ -27,7 +27,7 @@ class Verification implements VerificationInterface
      *
      * @param string $accountNumber
      * @param string $bankCode
-     * @return \Faridibin\Paystack\DTOs\Response
+     * @return \Faridibin\Paystack\DataTransferObjects\Response
      */
     public function resolveAccount(string $accountNumber, string $bankCode): Response
     {
@@ -50,7 +50,7 @@ class Verification implements VerificationInterface
      * Confirm the authenticity of a customer's account number before sending money
      *
      * @param array $account
-     * @return \Faridibin\Paystack\DTOs\Response
+     * @return \Faridibin\Paystack\DataTransferObjects\Response
      */
     public function resolveCardBin(string $bin): Response
     {
@@ -68,7 +68,7 @@ class Verification implements VerificationInterface
      * Get more information about a customer's card
      *
      * @param string $bin
-     * @return \Faridibin\Paystack\DTOs\Response
+     * @return \Faridibin\Paystack\DataTransferObjects\Response
      */
     public function validateAccount(array $data): Response
     {

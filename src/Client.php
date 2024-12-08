@@ -74,11 +74,11 @@ class Client implements ClientInterface
                     $body
                 )
             };
-        } catch (ServerException $e) {
-            dump($e->getMessage(), $e->getCode(), $e);
-            throw new PaystackException('Paystack is currently unavailable', 500);
-        } catch (GuzzleException $e) {
-            throw new PaystackException($e->getMessage(), $e->getCode());
+        } catch (ServerException | GuzzleException $e) {
+            return match (true) {
+                $e instanceof ServerException => new PaystackException('Paystack is currently unavailable', 500),
+                default => new PaystackException($e->getMessage(), $e->getCode())
+            };
         }
     }
 }

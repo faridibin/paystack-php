@@ -5,10 +5,10 @@ namespace Faridibin\Paystack\Services;
 use Faridibin\Paystack\Client;
 use Faridibin\Paystack\Contracts\ClientInterface;
 use Faridibin\Paystack\Contracts\Services\MiscellaneousInterface;
-use Faridibin\Paystack\DTOs\Generic\BankDTO;
-use Faridibin\Paystack\DTOs\Generic\CountryDTO;
-use Faridibin\Paystack\DTOs\Generic\StateDTO;
-use Faridibin\Paystack\DTOs\Response;
+use Faridibin\Paystack\DataTransferObjects\Generic\BankDTO;
+use Faridibin\Paystack\DataTransferObjects\Generic\CountryDTO;
+use Faridibin\Paystack\DataTransferObjects\Generic\StateDTO;
+use Faridibin\Paystack\DataTransferObjects\Response;
 
 class Miscellaneous implements MiscellaneousInterface
 {
@@ -28,7 +28,7 @@ class Miscellaneous implements MiscellaneousInterface
      * List Countries
      * Gets a list of countries that Paystack currently supports
      *
-     * @return \Faridibin\Paystack\DTOs\Response
+     * @return \Faridibin\Paystack\DataTransferObjects\Response
      */
     public function listCountries(): Response
     {
@@ -42,7 +42,7 @@ class Miscellaneous implements MiscellaneousInterface
      * Get a list of states for a country for address verification
      *
      * @param string $country
-     * @return \Faridibin\Paystack\DTOs\Response
+     * @return \Faridibin\Paystack\DataTransferObjects\Response
      */
     public function listStates(string $country): Response
     {
@@ -63,7 +63,7 @@ class Miscellaneous implements MiscellaneousInterface
      * @param bool $useCursor
      * @param int $perPage
      * @param array $optional
-     * @return \Faridibin\Paystack\DTOs\Response
+     * @return \Faridibin\Paystack\DataTransferObjects\Response
      */
     public function listBanks(string $country, bool $useCursor = false, int $perPage = 50, array $optional = []): Response
     {

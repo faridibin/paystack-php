@@ -5,7 +5,7 @@ namespace Faridibin\Paystack\Services\Transfers;
 use Faridibin\Paystack\Client;
 use Faridibin\Paystack\Contracts\ClientInterface;
 use Faridibin\Paystack\Contracts\Services\Transfers\RecipientsInterface;
-use Faridibin\Paystack\DTOs\Response;
+use Faridibin\Paystack\DataTransferObjects\Response;
 use Faridibin\Paystack\Enums\RecipientType;
 
 class Recipients implements RecipientsInterface
@@ -31,7 +31,7 @@ class Recipients implements RecipientsInterface
      * @param string $accountNumber
      * @param string $bankCode
      * @param array $optional
-     * @return \Faridibin\Paystack\DTOs\Response
+     * @return \Faridibin\Paystack\DataTransferObjects\Response
      */
     public function createRecipient(RecipientType|string $type, string $name, string $accountNumber, string $bankCode, array $optional = []): Response
     {
@@ -53,7 +53,7 @@ class Recipients implements RecipientsInterface
      * Create multiple transfer recipients in batches. A duplicate account number will lead to the retrieval of the existing record.
      *
      * @param array $recipients
-     * @return \Faridibin\Paystack\DTOs\Response
+     * @return \Faridibin\Paystack\DataTransferObjects\Response
      */
     public function createBulkRecipients(array $recipients): Response
     {
@@ -73,7 +73,7 @@ class Recipients implements RecipientsInterface
      * @param int $perPage
      * @param int $page
      * @param array $optional
-     * @return \Faridibin\Paystack\DTOs\Response
+     * @return \Faridibin\Paystack\DataTransferObjects\Response
      */
     public function listRecipients(int $perPage = 50, int $page = 1, array $optional = []): Response
     {
@@ -93,7 +93,7 @@ class Recipients implements RecipientsInterface
      * Fetch the details of a transfer recipient
      *
      * @param string $identifier An ID or code for the recipient whose details you want to receive.
-     * @return \Faridibin\Paystack\DTOs\Response
+     * @return \Faridibin\Paystack\DataTransferObjects\Response
      */
     public function fetchRecipient(string $identifier): Response
     {
@@ -108,7 +108,7 @@ class Recipients implements RecipientsInterface
      *
      * @param string $identifier Transfer Recipient's ID or code
      * @param array $data
-     * @return \Faridibin\Paystack\DTOs\Response
+     * @return \Faridibin\Paystack\DataTransferObjects\Response
      */
     public function updateRecipient(string $identifier, array $data): Response
     {
@@ -124,7 +124,7 @@ class Recipients implements RecipientsInterface
      * Delete a transfer recipient (sets the transfer recipient to inactive)
      *
      * @param string $identifier An ID or code for the recipient who you want to delete.
-     * @return \Faridibin\Paystack\DTOs\Response
+     * @return \Faridibin\Paystack\DataTransferObjects\Response
      */
     public function deleteRecipient(string $identifier): Response
     {

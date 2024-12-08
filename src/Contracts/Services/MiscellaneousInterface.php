@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Faridibin\Paystack\Contracts\Services;
 
-use Faridibin\Paystack\DTOs\Response;
+use Faridibin\Paystack\DataTransferObjects\Response;
 
 interface MiscellaneousInterface extends ServiceInterface
 {
@@ -12,7 +12,7 @@ interface MiscellaneousInterface extends ServiceInterface
      * List Countries
      * Gets a list of countries that Paystack currently supports
      *
-     * @return \Faridibin\Paystack\DTOs\Response
+     * @return \Faridibin\Paystack\DataTransferObjects\Response
      */
     public function listCountries(): Response;
 
@@ -21,7 +21,7 @@ interface MiscellaneousInterface extends ServiceInterface
      * Get a list of states for a country for address verification
      *
      * @param string $country
-     * @return \Faridibin\Paystack\DTOs\Response
+     * @return \Faridibin\Paystack\DataTransferObjects\Response
      */
     public function listStates(string $country): Response;
 
@@ -33,7 +33,7 @@ interface MiscellaneousInterface extends ServiceInterface
      * @param bool $use_cursor
      * @param int $perPage
      * @param array $options
-     * @return \Faridibin\Paystack\DTOs\Response
+     * @return \Faridibin\Paystack\DataTransferObjects\Response
      */
     public function listBanks(string $country, bool $use_cursor = false, int $perPage = 50, array $options = []): Response;
 }

@@ -5,7 +5,7 @@ namespace Faridibin\Paystack\Services\Commerce;
 use Faridibin\Paystack\Client;
 use Faridibin\Paystack\Contracts\ClientInterface;
 use Faridibin\Paystack\Contracts\Services\Commerce\ProductsInterface;
-use Faridibin\Paystack\DTOs\Response;
+use Faridibin\Paystack\DataTransferObjects\Response;
 use Faridibin\Paystack\Enums\Currency;
 
 class Products implements ProductsInterface
@@ -31,7 +31,7 @@ class Products implements ProductsInterface
      * @param int $price
      * @param Currency|string $currency
      * @param array $optional
-     * @return \Faridibin\Paystack\DTOs\Response
+     * @return \Faridibin\Paystack\DataTransferObjects\Response
      */
     public function createProduct(string $name, string $description, int $price, Currency|string $currency, array $optional = []): Response
     {
@@ -53,7 +53,7 @@ class Products implements ProductsInterface
      * Get details of a product on your integration
      *
      * @param string $id
-     * @return \Faridibin\Paystack\DTOs\Response
+     * @return \Faridibin\Paystack\DataTransferObjects\Response
      */
     public function fetchProduct(string $id): Response
     {
@@ -68,7 +68,7 @@ class Products implements ProductsInterface
      *
      * @param string $id
      * @param array $data
-     * @return \Faridibin\Paystack\DTOs\Response
+     * @return \Faridibin\Paystack\DataTransferObjects\Response
      */
     public function updateProduct(string $id, array $data): Response
     {
@@ -87,7 +87,7 @@ class Products implements ProductsInterface
      * List Products.
      * List products available on your integration.
      *
-     * @return \Faridibin\Paystack\DTOs\Response
+     * @return \Faridibin\Paystack\DataTransferObjects\Response
      */
     public function listProducts(int $perPage = 50, int $page = 1, array $optional = []): Response
     {
