@@ -4,11 +4,10 @@ declare(strict_types=1);
 
 namespace Faridibin\Paystack;
 
-use Faridibin\Paystack\Contracts;
-use Faridibin\Paystack\Contracts\Services\ServiceInterface;
+use Faridibin\Paystack\Contracts\{HealthInterface, PaystackInterface, Services\ServiceInterface};
 use Faridibin\Paystack\Exceptions\PaystackException;
 
-class Paystack implements Contracts\PaystackInterface
+class Paystack implements PaystackInterface
 {
     /**
      * The services container.
@@ -33,6 +32,8 @@ class Paystack implements Contracts\PaystackInterface
     public function __construct(string $secretKey, private ?Contracts\ClientInterface $client = null)
     {
         $this->client = $client ?? new Client($secretKey);
+
+        $this->registerService('health', Health::class, HealthInterface::class);
     }
 
     /**
@@ -55,6 +56,36 @@ class Paystack implements Contracts\PaystackInterface
     }
 
     /**
+     * Register a new service.
+     *
+     * @param string $name
+     * @param string $serviceClass
+     * @param string $interfaceClass
+     * @return self
+     */
+    public function registerService(string $name, string $serviceClass, string $interfaceClass): self
+    {
+        $this->serviceMap[$name] = [$serviceClass, $interfaceClass];
+
+        return $this;
+    }
+
+    /**
+     * Register multiple services.
+     *
+     * @param array<string, array> $services
+     * @return self
+     */
+    public function registerServices(array $services): self
+    {
+        foreach ($services as $name => [$serviceClass, $interfaceClass]) {
+            $this->registerService($name, $serviceClass, $interfaceClass);
+        }
+
+        return $this;
+    }
+
+    /**
      * Resolve a service instance.
      *
      * @param string $class
@@ -71,20 +102,5 @@ class Paystack implements Contracts\PaystackInterface
         }
 
         return $this->services[$class];
-    }
-
-    /**
-     * Register a new service.
-     *
-     * @param string $name
-     * @param string $serviceClass
-     * @param string $interfaceClass
-     * @return self
-     */
-    public function registerService(string $name, string $serviceClass, string $interfaceClass): self
-    {
-        $this->serviceMap[$name] = [$serviceClass, $interfaceClass];
-
-        return $this;
     }
 }
