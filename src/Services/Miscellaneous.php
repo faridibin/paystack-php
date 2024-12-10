@@ -10,7 +10,7 @@ use Faridibin\Paystack\DataTransferObjects\Generic\CountryDTO;
 use Faridibin\Paystack\DataTransferObjects\Generic\StateDTO;
 use Faridibin\Paystack\DataTransferObjects\Response;
 
-class Miscellaneous implements MiscellaneousInterface
+final class Miscellaneous implements MiscellaneousInterface
 {
     /**
      * The Miscellaneous service constructor.

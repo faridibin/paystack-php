@@ -67,7 +67,7 @@ class Response implements DataTransferObject
 
     /**
      * Get the status code property of the response
-     * 
+     *
      * @return int
      */
     public function getStatusCode(): int
@@ -122,10 +122,11 @@ class Response implements DataTransferObject
      */
     private function handleException(Exception $exception): void
     {
+        // TODO: Handle exception
         $this->status = false;
 
-        dd($exception);
-        // 
+        dd($exception, 'Exception');
+        //
         // if ($response instanceof Exception || (!isset($response['status']) && !$response['status'])) {
         //     // TODO: Handle exception
         //     dd($response);
@@ -143,7 +144,7 @@ class Response implements DataTransferObject
 
 
         // if ($isCollection) {
-        //     // 
+        //     //
         //     dd($dtoClass, $response);
         // }
 

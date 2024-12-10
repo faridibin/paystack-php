@@ -9,7 +9,7 @@ use Faridibin\Paystack\Exceptions\{AuthenticationException, ApiException, Paysta
 use GuzzleHttp\Client as GuzzleHttpClient;
 use GuzzleHttp\Exception\{ClientException, ServerException, GuzzleException};
 
-class Client implements ClientInterface
+final class Client implements ClientInterface
 {
     /**
      * The Guzzle HTTP client
