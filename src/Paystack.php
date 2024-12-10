@@ -7,7 +7,7 @@ namespace Faridibin\Paystack;
 use Faridibin\Paystack\Contracts\{HealthInterface, PaystackInterface, Services\ServiceInterface};
 use Faridibin\Paystack\Exceptions\PaystackException;
 
-class Paystack implements PaystackInterface
+final class Paystack implements PaystackInterface
 {
     /**
      * The services container.

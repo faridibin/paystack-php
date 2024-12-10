@@ -12,7 +12,7 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Exception\ServerException;
 
-class Health implements HealthInterface
+final class Health implements HealthInterface
 {
     /**
      * The Response from the Paystack Status API.
@@ -141,7 +141,7 @@ class Health implements HealthInterface
     /**
      * Check if the Paystack service is a status.
      *
-     * @param Health|string $status
+     * @param HealthEnum|string $status
      * @return bool
      */
     public function is(HealthEnum|string $status): bool
