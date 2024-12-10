@@ -1,6 +1,6 @@
 {
 	"name": "faridibin/paystack-php",
-	"version": "0.1.1",
+	"version": "v0.1.1",
 	"description": "A modern, type-safe PHP SDK for Paystack payment processing",
 	"type": "library",
 	"license": "MIT",
