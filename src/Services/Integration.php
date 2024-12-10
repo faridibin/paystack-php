@@ -31,7 +31,7 @@ class Integration implements IntegrationInterface
     {
         $response = $this->client->send('GET', '/integration/payment_session_timeout');
 
-        return new Response($response, null, true);
+        return new Response($response);
     }
 
     /**
@@ -49,6 +49,6 @@ class Integration implements IntegrationInterface
             ]
         ]);
 
-        return new Response($response, null, true);
+        return new Response($response);
     }
 }
