@@ -2,49 +2,68 @@
 
 declare(strict_types=1);
 
-namespace Faridibin\Paystack\DataTransferObjects;
+namespace Faridibin\Paystack\DataTransferObjects\Health;
 
+use DateTime;
+use DateTimeZone;
 use Faridibin\Paystack\Contracts\DataTransferObjects\DataTransferObject;
 
 class HealthSummaryDTO implements DataTransferObject
 {
     /**
+     * The name property of the health summary
+     * @var string
+     */
+    public readonly string $name;
+
+    /**
+     * The updated_at property of the health summary
+     * @var DateTime
+     */
+    public readonly DateTime $updated_at;
+
+    /**
+     * The description property of the health summary
+     * @var string|null
+     */
+    public readonly ?string $description;
+
+    /**
+     * The status property of the health summary
+     * @var bool
+     */
+    public readonly bool $status;
+
+    /**
+     * The indicator property of the health summary
+     * @var string
+     */
+    public readonly string $indicator;
+
+    /**
      * The Health DTO constructor.
      *
-     * @param string $id
-     * @param string $name
-     * @param string $status
-     * @param string $updated_at
-     * @param string|null $description
-     * @param string|null $group_id
-     * @param bool $group
+     * @param array $page
+     * @param array $status
      */
     public function __construct(
-        // public readonly string $id,
-        // public readonly string $name,
-        // public readonly string $status,
-        // public readonly string $updated_at,
-        // public readonly ?string $description = null,
-        // public readonly ?string $group_id = null,
-        // public readonly bool $group = false,
-
-        ...$args
+        array $page,
+        array $status,
     ) {
-        //
-
-        dd($args);
+        $this->name = $page['name'] ?? 'Paystack';
+        $this->updated_at = new DateTime($page['updated_at'] ?? 'now', new DateTimeZone($page['time_zone'] ?? 'Africa/Lagos'));
+        $this->status = $status['description'] === 'All Systems Operational';
+        $this->indicator = $status['indicator'];
     }
 
     public function toArray(): array
     {
         return [
-            'id' => $this->id,
             'name' => $this->name,
             'status' => $this->status,
             'updated_at' => $this->updated_at,
             'description' => $this->description,
-            'group_id' => $this->group_id,
-            'group' => $this->group,
+            'indicator' => $this->indicator,
         ];
     }
 }

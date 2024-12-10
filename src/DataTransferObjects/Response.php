@@ -122,6 +122,7 @@ class Response implements DataTransferObject
      */
     private function handleException(Exception $exception): void
     {
+        // TODO: Handle exception
         $this->status = false;
 
         dd($exception, 'Exception');

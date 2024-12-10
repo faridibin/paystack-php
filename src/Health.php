@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Faridibin\Paystack;
 
 use Faridibin\Paystack\Contracts\HealthInterface;
-use Faridibin\Paystack\DataTransferObjects\{HealthStatusDTO, HealthSummaryDTO, Response};
+use Faridibin\Paystack\DataTransferObjects\{Health\HealthStatusDTO, Health\HealthSummaryDTO, Response};
 use Faridibin\Paystack\Enums\Health as HealthEnum;
 use Faridibin\Paystack\Exceptions\PaystackException;
 use GuzzleHttp\Client;
@@ -58,7 +58,6 @@ class Health implements HealthInterface
     {
         return array_reduce($this->response['components'], function ($mapped, $service) {
             $mapped[$service['name']] = [
-                'name' => $service['name'],
                 'operational' => $service['status'] === 'operational',
                 'status' => $service['status'],
                 'description' => $service['description'],
@@ -167,12 +166,17 @@ class Health implements HealthInterface
 
             $this->response = json_decode($response->getBody()->getContents(), true);
         } catch (ServerException | GuzzleException $e) {
-            // return match (true) {
-            //     $e instanceof ServerException => new PaystackException('Paystack is currently unavailable', 500),
-            //     default => new PaystackException($e->getMessage(), $e->getCode())
-            // };
+            $response = match (true) {
+                $e instanceof ServerException => new PaystackException('Paystack is currently unavailable', 500),
+                default => new PaystackException($e->getMessage(), $e->getCode())
+            };
 
-            dd($e);
+            $this->response = [
+                'status' => [
+                    'indicator' => 'Server/Client Error',
+                    'description' => $response->getMessage(),
+                ]
+            ];
         }
     }
 }

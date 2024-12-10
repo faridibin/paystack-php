@@ -2,52 +2,48 @@
 
 declare(strict_types=1);
 
-namespace Faridibin\Paystack\DataTransferObjects;
+namespace Faridibin\Paystack\DataTransferObjects\Health;
 
+use DateTime;
 use Faridibin\Paystack\Contracts\DataTransferObjects\DataTransferObject;
 
 class HealthStatusDTO implements DataTransferObject
 {
     /**
+     * The updated_at property of the health status
+     * @var DateTime
+     */
+    public readonly DateTime $updated_at;
+
+    /**
      * The Health DTO constructor.
      *
-     * @param string $id
-     * @param string $name
+     * @param bool $operational
      * @param string $status
-     * @param string $updated_at
+     * @param DateTime|string $updated_at
      * @param string|null $description
-     * @param string|null $group_id
-     * @param bool $group
      */
     public function __construct(
-        public readonly string $id,
-        public readonly string $name,
+        public readonly bool $operational,
         public readonly string $status,
-        public readonly string $updated_at,
+        DateTime|string $updated_at,
         public readonly ?string $description = null,
-        public readonly ?string $group_id = null,
-        public readonly bool $group = false,
     ) {
-        //
-        // "name" => "API"
-        //     "operational" => true
-        //     "status" => "operational"
-        //     "description" => "Public facing API service"
-        //     "updated_at" => "2024-09-07T05:23:46.454+01:00"
-
-        dd($args, 'HealthStatusDTO');
+        $this->updated_at = (is_string($updated_at)) ? new DateTime($updated_at) : $updated_at;
     }
 
+    /**
+     * Convert the health status to an array
+     *
+     * @return array
+     */
     public function toArray(): array
     {
         return [
-            'id' => $this->id,
-            'name' => $this->name,
+            'operational' => $this->operational,
             'status' => $this->status,
             'updated_at' => $this->updated_at,
             'description' => $this->description,
-            'group_id' => $this->group_id,
-            'group' => $this->group,
         ];
     }
 }
