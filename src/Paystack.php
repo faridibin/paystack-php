@@ -29,11 +29,13 @@ final class Paystack implements PaystackInterface
      * @param string $secretKey
      * @param Contracts\ClientInterface|null $client
      */
-    public function __construct(string $secretKey, private ?Contracts\ClientInterface $client = null)
+    public function __construct(?string $secretKey = null, private ?Contracts\ClientInterface $client = null)
     {
-        $this->client = $client ?? new Client($secretKey);
+        if (is_null($secretKey)) {
+            throw new PaystackException('Secret key is required.');
+        }
 
-        $this->registerService('health', Health::class, HealthInterface::class);
+        $this->client = $client ?? new Client($secretKey);
     }
 
     /**
