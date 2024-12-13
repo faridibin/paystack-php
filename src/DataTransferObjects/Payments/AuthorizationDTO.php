@@ -43,6 +43,14 @@ class AuthorizationDTO implements DataTransferObject
             $this->channel = Channels::from($channel);
         }
 
+        // "bin" => "408408"
+        // "exp_month" => "12"
+        // "exp_year" => "2030"
+        // "country_code" => "GH"
+        // "reusable" => 1
+        // "signature" => "SIG_KihGZUCCIUNnuFzneEOs"
+        // "account_name" => null
+
         dd($args);
     }
 
