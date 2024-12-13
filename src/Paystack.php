@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Faridibin\Paystack;
 
-use Faridibin\Paystack\Contracts\{HealthInterface, PaystackInterface, Services\ServiceInterface};
+use Faridibin\Paystack\Contracts\{PaystackInterface, Services\ServiceInterface};
 use Faridibin\Paystack\Exceptions\PaystackException;
 
 final class Paystack implements PaystackInterface
