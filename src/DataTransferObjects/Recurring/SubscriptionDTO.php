@@ -17,21 +17,21 @@ class SubscriptionDTO implements DataTransferObject
      *
      * @var CustomerDTO|string $customer
      */
-    public readonly CustomerDTO|string $customer;
+    public readonly CustomerDTO|string|int|null $customer;
 
     /**
      * The authorization of the subscription
      *
      * @var AuthorizationDTO|string|null $authorization
      */
-    public readonly AuthorizationDTO|string|null $authorization;
+    public readonly AuthorizationDTO|string|int|null $authorization;
 
     /**
      * The plan of the subscription
      *
      * @var PlanDTO|string $plan
      */
-    public readonly PlanDTO|string $plan;
+    public readonly PlanDTO|string|int|null $plan;
 
     /**
      * The status of the subscription
@@ -154,15 +154,17 @@ class SubscriptionDTO implements DataTransferObject
             $this->status = Status::from($status);
         }
 
-        // TODO: Set Customer and Authorization
-        // $this->customer = new CustomerDTO(...$customer);
-        // $this->authorization = new AuthorizationDTO(...$authorization);
+        if ($plan) {
+            $this->plan = is_array($plan) ? new PlanDTO(...$plan) : $plan;
+        }
 
-        dd(
-            $plan,
-            $customer,
-            $authorization
-        );
+        if ($customer) {
+            $this->customer = is_array($customer) ? new CustomerDTO(...$customer) : $customer;
+        }
+
+        if ($authorization) {
+            $this->authorization = is_array($authorization) ? new AuthorizationDTO(...$authorization) : $authorization;
+        }
     }
 
     /**
