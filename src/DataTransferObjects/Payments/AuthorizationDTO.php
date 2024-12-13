@@ -29,18 +29,21 @@ class AuthorizationDTO implements DataTransferObject
      * @param Channels|string $channel
      */
     public function __construct(
-        public readonly ?string $authorization_code,
-        public readonly string $card_type,
-        public readonly string $brand,
-        public readonly ?string $bank,
-        public readonly ?string $description,
-        public readonly ?string $last4,
-        public readonly ?string $country_name,
-        Channels|string $channel,
+        public readonly ?string $card_type = null,
+        public readonly ?string $brand = null,
+        public readonly ?string $authorization_code = null,
+        public readonly ?string $bank = null,
+        public readonly ?string $description = null,
+        public readonly ?string $last4 = null,
+        public readonly ?string $country_name = null,
+        Channels|string $channel = null,
+        ...$args
     ) {
         if (!($channel instanceof Channels)) {
             $this->channel = Channels::from($channel);
         }
+
+        dd($args);
     }
 
     /**
@@ -58,7 +61,7 @@ class AuthorizationDTO implements DataTransferObject
             'description' => $this->description,
             'last4' => $this->last4,
             'country' => $this->country_name,
-            'channel' => $this->channel,
+            'channel' => $this->channel?->value,
         ];
     }
 }

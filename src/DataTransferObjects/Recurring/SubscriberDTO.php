@@ -42,7 +42,7 @@ class SubscriberDTO implements DataTransferObject
         public readonly ?string $customer_email,
         public readonly ?int $customer_total_amount_paid,
         Currency|string|null $currency,
-        Status|string|null $subscription_status
+        Status|string|null $subscription_status,
     ) {
         if (!($currency instanceof Currency)) {
             $this->currency = Currency::from($currency);
@@ -66,8 +66,8 @@ class SubscriberDTO implements DataTransferObject
             'customer_last_name' => $this->customer_last_name,
             'customer_email' => $this->customer_email,
             'customer_total_amount_paid' => $this->customer_total_amount_paid,
-            'currency' => $this->currency->value,
-            'status' => $this->status->value
+            'currency' => $this->currency?->value,
+            'status' => $this->status?->value
         ];
     }
 }

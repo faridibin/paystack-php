@@ -87,8 +87,10 @@ class SubscriptionDTO implements DataTransferObject
      * @param int|null $quantity
      * @param int|null $amount
      * @param int|null $invoice_limit
+     * @param int|null $payments_count
      * @param int|null $successful_payments
      * @param int|null $id
+     * @param string|null $most_recent_invoice
      * @param string|null $easy_cron_id
      * @param string|null $cron_expression
      * @param DateTime|string|null $createdAt
@@ -111,8 +113,10 @@ class SubscriptionDTO implements DataTransferObject
         public readonly ?int $quantity,
         public readonly ?int $amount,
         public readonly ?int $invoice_limit = null,
+        public readonly ?int $payments_count = null,
         public readonly ?int $successful_payments = null,
         public readonly ?int $id = null,
+        public readonly ?string $most_recent_invoice = null,
         public readonly ?string $easy_cron_id = null,
         public readonly ?string $cron_expression = null,
         DateTime|string|null $createdAt = null,
@@ -123,8 +127,7 @@ class SubscriptionDTO implements DataTransferObject
         Status|string $status = Status::ACTIVE,
         mixed $plan = null,
         mixed $customer = null,
-        mixed $authorization = null,
-
+        mixed $authorization = null
     ) {
         if ($createdAt) {
             $this->createdAt = !($createdAt instanceof DateTime) ? new DateTime($createdAt) : $createdAt;
@@ -183,14 +186,22 @@ class SubscriptionDTO implements DataTransferObject
             'split_code' => $this->split_code,
             'quantity' => $this->quantity,
             'amount' => $this->amount,
+            'invoice_limit' => $this->invoice_limit,
+            'payments_count' => $this->payments_count,
             'successful_payments' => $this->successful_payments,
+            'id' => $this->id,
+            'most_recent_invoice' => $this->most_recent_invoice,
+            'easy_cron_id' => $this->easy_cron_id,
+            'cron_expression' => $this->cron_expression,
             'createdAt' => $this->createdAt?->format('Y-m-d H:i:s'),
+            'updatedAt' => $this->updatedAt?->format('Y-m-d H:i:s'),
             'next_payment_date' => $this->next_payment_date?->format('Y-m-d H:i:s'),
             'start' => $this->start?->format('Y-m-d H:i:s'),
             'cancelledAt' => $this->cancelledAt?->format('Y-m-d H:i:s'),
             'status' => $this->status->value,
-            'customer' => $this->customer,
-            'authorization' => $this->authorization,
+            'plan' => $this->plan instanceof DataTransferObject ? $this->plan->toArray() : $this->plan,
+            'customer' => $this->customer instanceof DataTransferObject ? $this->customer->toArray() : $this->customer,
+            'authorization' => $this->authorization instanceof DataTransferObject ? $this->authorization->toArray() : $this->authorization,
         ];
     }
 }

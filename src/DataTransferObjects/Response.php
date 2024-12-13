@@ -49,6 +49,8 @@ class Response implements DataTransferObject
         ?string $dtoClass = null,
         protected bool $isCollection = false
     ) {
+        // TODO: Implement Meta DTO
+
         match (true) {
             $response instanceof Exception => $this->handleException($response),
             default => $this->handleResponse($response, $dtoClass),
@@ -184,6 +186,11 @@ class Response implements DataTransferObject
             } else {
                 $this->data = $response['data'];
             }
+        }
+
+        //
+        if (isset($response['meta'])) {
+            # code...
         }
     }
 }
