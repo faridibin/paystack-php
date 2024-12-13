@@ -11,7 +11,7 @@ use Faridibin\Paystack\Enums\Status;
 class SubscriberDTO implements DataTransferObject
 {
     /**
-     * The customer of the subscription
+     * The currency of the subscription
      *
      * @var Currency $currency
      */
@@ -25,7 +25,7 @@ class SubscriberDTO implements DataTransferObject
     public readonly Status $status;
 
     /**
-     * The Subscription DTO constructor.
+     * The subscriber DTO constructor.
      *
      * @param string $customer_code
      * @param string $customer_first_name
@@ -44,8 +44,6 @@ class SubscriberDTO implements DataTransferObject
         Currency|string|null $currency,
         Status|string|null $subscription_status
     ) {
-
-
         if (!($currency instanceof Currency)) {
             $this->currency = Currency::from($currency);
         }
@@ -56,7 +54,7 @@ class SubscriberDTO implements DataTransferObject
     }
 
     /**
-     * Convert the subscription to an array
+     * Convert the subscriber to an array
      *
      * @return array
      */
@@ -68,8 +66,8 @@ class SubscriberDTO implements DataTransferObject
             'customer_last_name' => $this->customer_last_name,
             'customer_email' => $this->customer_email,
             'customer_total_amount_paid' => $this->customer_total_amount_paid,
-            'currency' => $this->currency,
-            'status' => $this->status
+            'currency' => $this->currency->value,
+            'status' => $this->status->value
         ];
     }
 }

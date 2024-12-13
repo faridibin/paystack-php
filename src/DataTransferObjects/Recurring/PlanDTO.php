@@ -7,6 +7,8 @@ namespace Faridibin\Paystack\DataTransferObjects\Recurring;
 use DateTime;
 use Faridibin\Paystack\Contracts\DataTransferObjects\DataTransferObject;
 use Faridibin\Paystack\DataTransferObjects\Collection;
+use Faridibin\Paystack\Enums\Currency;
+use Faridibin\Paystack\Enums\Interval;
 
 class PlanDTO implements DataTransferObject
 {
@@ -32,6 +34,20 @@ class PlanDTO implements DataTransferObject
     public readonly Collection $subscribers;
 
     /**
+     * The currency of the plan
+     *
+     * @var Currency $currency
+     */
+    public readonly Currency $currency;
+
+    /**
+     * The interval of the plan
+     *
+     * @var Interval $interval
+     */
+    public readonly Interval $interval;
+
+    /**
      * The Plan creation date
      *
      * @var DateTime $createdAt
@@ -48,7 +64,37 @@ class PlanDTO implements DataTransferObject
     /**
      * The Plan DTO constructor.
      *
-     *
+     * @param int $id
+     * @param int $integration
+     * @param string $plan_code
+     * @param string $name
+     * @param string|null $description
+     * @param string|null $domain
+     * @param string|null $hosted_page_url
+     * @param string|null $hosted_page_summary
+     * @param int|null $amount
+     * @param int|null $invoice_limit
+     * @param bool $migrate
+     * @param bool $is_deleted
+     * @param bool $is_archived
+     * @param bool $send_invoices
+     * @param bool $send_sms
+     * @param bool $hosted_page
+     * @param Interval|string $interval
+     * @param Currency|string $currency
+     * @param DateTime|string|null $createdAt
+     * @param DateTime|string|null $updatedAt
+     * @param int|null $pages_count
+     * @param int|null $subscribers_count
+     * @param int|null $subscriptions_count
+     * @param int|null $active_subscriptions_count
+     * @param int|null $total_revenue
+     * @param int|null $total_subscriptions
+     * @param int|null $active_subscriptions
+     * @param int|null $total_subscriptions_revenue
+     * @param array $pages
+     * @param array $subscriptions
+     * @param array $subscribers
      */
     public function __construct(
         public readonly int $id,
@@ -59,26 +105,37 @@ class PlanDTO implements DataTransferObject
         public readonly ?string $domain,
         public readonly ?string $hosted_page_url,
         public readonly ?string $hosted_page_summary,
-
+        public readonly ?int $amount,
+        public readonly ?int $invoice_limit,
         public readonly bool $migrate,
         public readonly bool $is_deleted,
         public readonly bool $is_archived,
         public readonly bool $send_invoices,
         public readonly bool $send_sms,
         public readonly bool $hosted_page,
-        DateTime|string|null $createdAt,
-        DateTime|string|null $updatedAt,
+        Interval|string $interval,
+        Currency|string $currency,
+        DateTime|string|null $createdAt = null,
+        DateTime|string|null $updatedAt = null,
+        public readonly ?int $pages_count = null,
+        public readonly ?int $subscribers_count = null,
+        public readonly ?int $subscriptions_count = null,
+        public readonly ?int $active_subscriptions_count = null,
+        public readonly ?int $total_revenue = null,
+        public readonly ?int $total_subscriptions = null,
+        public readonly ?int $active_subscriptions = null,
+        public readonly ?int $total_subscriptions_revenue = null,
         array $pages = [],
         array $subscriptions = [],
         array $subscribers = [],
-        ...$args
     ) {
-        // "interval" => "monthly"
+        if (!($currency instanceof Currency)) {
+            $this->currency = Currency::from($currency);
+        }
 
-
-
-        // "currency" => "GHS"
-
+        if (!($interval instanceof Interval)) {
+            $this->interval = Interval::from($interval);
+        }
 
 
         if ($createdAt) {
@@ -89,27 +146,9 @@ class PlanDTO implements DataTransferObject
             $this->updatedAt = !($updatedAt instanceof DateTime) ? new DateTime($updatedAt) : $updatedAt;
         }
 
-
-
-        // "amount" => 20000
-        // "invoice_limit" => 10
-        // "pages_count" => 0
-        // "subscribers_count" => 1
-        // "subscriptions_count" => 3
-        // "active_subscriptions_count" => 1
-        // "total_revenue" => 0
-
-
-
-
-        // dd($args);
-
         $this->pages = new Collection($pages);
         $this->subscriptions = new Collection($subscriptions, SubscriptionDTO::class);
         $this->subscribers = new Collection($subscribers, SubscriberDTO::class);
-
-
-        dd($args, $this);
     }
 
     /**
@@ -120,7 +159,37 @@ class PlanDTO implements DataTransferObject
     public function toArray(): array
     {
         return [
-            //
+            'id' => $this->id,
+            'integration' => $this->integration,
+            'plan_code' => $this->plan_code,
+            'name' => $this->name,
+            'description' => $this->description,
+            'domain' => $this->domain,
+            'hosted_page_url' => $this->hosted_page_url,
+            'hosted_page_summary' => $this->hosted_page_summary,
+            'amount' => $this->amount,
+            'invoice_limit' => $this->invoice_limit,
+            'migrate' => $this->migrate,
+            'is_deleted' => $this->is_deleted,
+            'is_archived' => $this->is_archived,
+            'send_invoices' => $this->send_invoices,
+            'send_sms' => $this->send_sms,
+            'hosted_page' => $this->hosted_page,
+            'interval' => $this->interval->value,
+            'currency' => $this->currency->value,
+            'createdAt' => $this->createdAt?->format('Y-m-d H:i:s'),
+            'updatedAt' => $this->updatedAt?->format('Y-m-d H:i:s'),
+            'pages_count' => $this->pages_count,
+            'subscribers_count' => $this->subscribers_count,
+            'subscriptions_count' => $this->subscriptions_count,
+            'active_subscriptions_count' => $this->active_subscriptions_count,
+            'total_revenue' => $this->total_revenue,
+            'total_subscriptions' => $this->total_subscriptions,
+            'active_subscriptions' => $this->active_subscriptions,
+            'total_subscriptions_revenue' => $this->total_subscriptions_revenue,
+            'pages' => $this->pages->toArray(),
+            'subscriptions' => $this->subscriptions->toArray(),
+            'subscribers' => $this->subscribers->toArray(),
         ];
     }
 }

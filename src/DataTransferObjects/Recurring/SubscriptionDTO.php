@@ -15,16 +15,23 @@ class SubscriptionDTO implements DataTransferObject
     /**
      * The customer of the subscription
      *
-     * @var CustomerDTO $customer
+     * @var CustomerDTO|string $customer
      */
-    public readonly CustomerDTO $customer;
+    public readonly CustomerDTO|string $customer;
 
     /**
      * The authorization of the subscription
      *
-     * @var AuthorizationDTO $authorization
+     * @var AuthorizationDTO|string|null $authorization
      */
-    public readonly AuthorizationDTO $authorization;
+    public readonly AuthorizationDTO|string|null $authorization;
+
+    /**
+     * The plan of the subscription
+     *
+     * @var PlanDTO|string $plan
+     */
+    public readonly PlanDTO|string $plan;
 
     /**
      * The status of the subscription
@@ -39,6 +46,13 @@ class SubscriptionDTO implements DataTransferObject
      * @var DateTime $createdAt
      */
     public readonly ?DateTime $createdAt;
+
+    /**
+     * The Subscription updated date
+     *
+     * @var DateTime $updatedAt
+     */
+    public readonly ?DateTime $updatedAt;
 
     /**
      * The next payment date of the subscription
@@ -70,16 +84,22 @@ class SubscriptionDTO implements DataTransferObject
      * @param string|null $subscription_code
      * @param string|null $open_invoice
      * @param string|null $split_code
-     * @param int $quantity
-     * @param int $amount
-     * @param int $successful_payments
+     * @param int|null $quantity
+     * @param int|null $amount
+     * @param int|null $invoice_limit
+     * @param int|null $successful_payments
+     * @param int|null $id
+     * @param string|null $easy_cron_id
+     * @param string|null $cron_expression
      * @param DateTime|string|null $createdAt
+     * @param DateTime|string|null $updatedAt
      * @param DateTime|string|null $next_payment_date
-     * @param DateTime|string|null $start
+     * @param DateTime|string|int|null $start
      * @param DateTime|string|null $cancelledAt
      * @param Status|string $status
-     * @param array $customer
-     * @param array $authorization
+     * @param mixed $plan
+     * @param mixed $customer
+     * @param mixed $authorization
      */
     public function __construct(
         public readonly int $integration,
@@ -88,19 +108,30 @@ class SubscriptionDTO implements DataTransferObject
         public readonly ?string $subscription_code,
         public readonly ?string $open_invoice,
         public readonly ?string $split_code,
-        public readonly int $quantity,
-        public readonly int $amount,
-        public readonly int $successful_payments,
-        DateTime|string|null $createdAt,
-        DateTime|string|null $next_payment_date,
-        DateTime|string|null $start,
-        DateTime|string|null $cancelledAt,
-        Status|string $status,
-        array $customer = [],
-        array $authorization = [],
+        public readonly ?int $quantity,
+        public readonly ?int $amount,
+        public readonly ?int $invoice_limit = null,
+        public readonly ?int $successful_payments = null,
+        public readonly ?int $id = null,
+        public readonly ?string $easy_cron_id = null,
+        public readonly ?string $cron_expression = null,
+        DateTime|string|null $createdAt = null,
+        DateTime|string|null $updatedAt = null,
+        DateTime|string|null $next_payment_date = null,
+        DateTime|string|int|null $start = null,
+        DateTime|string|null $cancelledAt = null,
+        Status|string $status = Status::ACTIVE,
+        mixed $plan = null,
+        mixed $customer = null,
+        mixed $authorization = null,
+
     ) {
         if ($createdAt) {
             $this->createdAt = !($createdAt instanceof DateTime) ? new DateTime($createdAt) : $createdAt;
+        }
+
+        if ($updatedAt) {
+            $this->updatedAt = !($updatedAt instanceof DateTime) ? new DateTime($updatedAt) : $updatedAt;
         }
 
         if ($next_payment_date) {
@@ -108,6 +139,10 @@ class SubscriptionDTO implements DataTransferObject
         }
 
         if ($start) {
+            if (is_int($start)) {
+                $start = date('Y-m-d H:i:s', $start);
+            }
+
             $this->start = !($start instanceof DateTime) ? new DateTime($start) : $start;
         }
 
@@ -119,8 +154,15 @@ class SubscriptionDTO implements DataTransferObject
             $this->status = Status::from($status);
         }
 
-        $this->customer = new CustomerDTO(...$customer);
-        $this->authorization = new AuthorizationDTO(...$authorization);
+        // TODO: Set Customer and Authorization
+        // $this->customer = new CustomerDTO(...$customer);
+        // $this->authorization = new AuthorizationDTO(...$authorization);
+
+        dd(
+            $plan,
+            $customer,
+            $authorization
+        );
     }
 
     /**
@@ -140,11 +182,11 @@ class SubscriptionDTO implements DataTransferObject
             'quantity' => $this->quantity,
             'amount' => $this->amount,
             'successful_payments' => $this->successful_payments,
-            'createdAt' => $this->createdAt,
-            'next_payment_date' => $this->next_payment_date,
-            'start' => $this->start,
-            'cancelledAt' => $this->cancelledAt,
-            'status' => $this->status,
+            'createdAt' => $this->createdAt?->format('Y-m-d H:i:s'),
+            'next_payment_date' => $this->next_payment_date?->format('Y-m-d H:i:s'),
+            'start' => $this->start?->format('Y-m-d H:i:s'),
+            'cancelledAt' => $this->cancelledAt?->format('Y-m-d H:i:s'),
+            'status' => $this->status->value,
             'customer' => $this->customer,
             'authorization' => $this->authorization,
         ];
