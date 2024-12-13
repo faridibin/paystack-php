@@ -5,9 +5,9 @@ namespace Faridibin\Paystack\Services;
 use Faridibin\Paystack\Client;
 use Faridibin\Paystack\Contracts\ClientInterface;
 use Faridibin\Paystack\Contracts\Services\MiscellaneousInterface;
-use Faridibin\Paystack\DataTransferObjects\Generic\BankDTO;
-use Faridibin\Paystack\DataTransferObjects\Generic\CountryDTO;
-use Faridibin\Paystack\DataTransferObjects\Generic\StateDTO;
+use Faridibin\Paystack\DataTransferObjects\Miscellaneous\BankDTO;
+use Faridibin\Paystack\DataTransferObjects\Miscellaneous\CountryDTO;
+use Faridibin\Paystack\DataTransferObjects\Miscellaneous\StateDTO;
 use Faridibin\Paystack\DataTransferObjects\Response;
 
 final class Miscellaneous implements MiscellaneousInterface

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Faridibin\Paystack\DataTransferObjects\Generic;
+namespace Faridibin\Paystack\DataTransferObjects\Miscellaneous;
 
 use DateTime;
 use Faridibin\Paystack\Contracts\DataTransferObjects\DataTransferObject;

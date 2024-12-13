@@ -5,6 +5,7 @@ namespace Faridibin\Paystack\Services\Recurring;
 use Faridibin\Paystack\Client;
 use Faridibin\Paystack\Contracts\ClientInterface;
 use Faridibin\Paystack\Contracts\Services\Recurring\PlansInterface;
+use Faridibin\Paystack\DataTransferObjects\Recurring\PlanDTO;
 use Faridibin\Paystack\DataTransferObjects\Response;
 use Faridibin\Paystack\Enums\PlanInterval;
 
@@ -68,11 +69,7 @@ class Plans implements PlansInterface
             ]
         ]);
 
-        return new Response(
-            $response,
-            // CountriesDTO::class,
-            // true
-        );
+        return new Response($response, PlanDTO::class, true);
     }
 
     /**
@@ -86,11 +83,7 @@ class Plans implements PlansInterface
     {
         $response = $this->client->send('GET', "/plan/{$identifier}");
 
-        return new Response(
-            $response,
-            // CountriesDTO::class,
-            // true
-        );
+        return new Response($response, PlanDTO::class);
     }
 
     /**
