@@ -178,10 +178,12 @@ class Response implements DataTransferObject
         $this->status = $response['status'];
         $this->message = $response['message'];
 
-        if ($dtoClass && class_exists($dtoClass, true)) {
-            $this->data = ($this->isCollection) ? new Collection($response['data'], $dtoClass) : new $dtoClass(...$response['data']);
-        } else {
-            $this->data = $response['data'];
+        if (isset($response['data'])) {
+            if ($dtoClass && class_exists($dtoClass, true)) {
+                $this->data = ($this->isCollection) ? new Collection($response['data'], $dtoClass) : new $dtoClass(...$response['data']);
+            } else {
+                $this->data = $response['data'];
+            }
         }
     }
 }

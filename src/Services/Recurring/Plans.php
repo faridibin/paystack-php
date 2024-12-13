@@ -43,11 +43,7 @@ class Plans implements PlansInterface
             ]
         ]);
 
-        return new Response(
-            $response,
-            // CountriesDTO::class,
-            // true
-        );
+        return new Response($response, PlanDTO::class);
     }
 
     /**
@@ -100,10 +96,6 @@ class Plans implements PlansInterface
             'json' => $data
         ]);
 
-        return new Response(
-            $response,
-            // CountriesDTO::class,
-            // true
-        );
+        return new Response($response);
     }
 }
