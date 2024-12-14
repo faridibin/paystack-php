@@ -50,7 +50,7 @@ class CustomerDTO implements DataTransferObject
             }
         }
 
-        if (!($risk_action instanceof RiskAction)) {
+        if ($risk_action && !($risk_action instanceof RiskAction)) {
             $this->risk_action = RiskAction::from($risk_action);
         }
     }
