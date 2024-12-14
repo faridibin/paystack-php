@@ -97,16 +97,16 @@ class PlanDTO implements DataTransferObject
      * @param array $subscribers
      */
     public function __construct(
-        public readonly int $integration,
-        public readonly string $plan_code,
-        public readonly string $name,
-        public readonly ?string $description,
-        public readonly ?string $domain,
-        public readonly ?int $amount,
-        public readonly bool $send_invoices,
-        public readonly bool $send_sms,
-        Interval|string $interval,
-        Currency|string $currency,
+        public readonly ?int $integration = null,
+        public readonly ?string $plan_code = null,
+        public readonly ?string $name = null,
+        public readonly ?string $description = null,
+        public readonly ?string $domain = null,
+        public readonly ?int $amount = null,
+        public readonly ?bool $send_invoices = null,
+        public readonly ?bool $send_sms = null,
+        Interval|string|null $interval = null,
+        Currency|string|null $currency = null,
         DateTime|string|null $createdAt = null,
         DateTime|string|null $updatedAt = null,
         public readonly ?int $id = null,
@@ -129,14 +129,13 @@ class PlanDTO implements DataTransferObject
         array $subscriptions = [],
         array $subscribers = [],
     ) {
-        if (!($currency instanceof Currency)) {
+        if ($currency && !($currency instanceof Currency)) {
             $this->currency = Currency::from($currency);
         }
 
-        if (!($interval instanceof Interval)) {
+        if ($interval && !($interval instanceof Interval)) {
             $this->interval = Interval::from($interval);
         }
-
 
         if ($createdAt) {
             $this->createdAt = !($createdAt instanceof DateTime) ? new DateTime($createdAt) : $createdAt;

@@ -39,16 +39,21 @@ class CustomerDTO implements DataTransferObject
         public readonly ?string $phone = null,
         public readonly ?string $international_format_phone = null,
         public readonly ?string $customer_code = null,
-        ?string $metadata = null,
+        array|string|null $metadata = null,
         RiskAction|string|null $risk_action = null
     ) {
-        if (is_string($metadata)) {
-            $decoded = json_decode($metadata, true);
+        if ($metadata) {
+            if (is_string($metadata)) {
+                $decoded = json_decode($metadata, true);
 
-            if (json_last_error() === JSON_ERROR_NONE) {
-                $this->metadata = $decoded;
+                if (json_last_error() === JSON_ERROR_NONE) {
+                    $this->metadata = $decoded;
+                }
+            } else {
+                $this->metadata = $metadata;
             }
         }
+
 
         if ($risk_action && !($risk_action instanceof RiskAction)) {
             $this->risk_action = RiskAction::from($risk_action);

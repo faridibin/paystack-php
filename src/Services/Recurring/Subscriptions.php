@@ -80,11 +80,7 @@ class Subscriptions implements SubscriptionsInterface
     {
         $response = $this->client->send('GET', "/subscription/{$identifier}");
 
-        return new Response(
-            $response,
-            // CountriesDTO::class,
-            // true
-        );
+        return new Response($response, SubscriptionDTO::class);
     }
 
     /**
@@ -125,11 +121,7 @@ class Subscriptions implements SubscriptionsInterface
     {
         $response = $this->client->send('GET', "/subscription/{$code}/manage/link");
 
-        return new Response(
-            $response,
-            // CountriesDTO::class,
-            // true
-        );
+        return new Response($response);
     }
 
     /**

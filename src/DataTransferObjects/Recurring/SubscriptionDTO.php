@@ -6,8 +6,10 @@ namespace Faridibin\Paystack\DataTransferObjects\Recurring;
 
 use DateTime;
 use Faridibin\Paystack\Contracts\DataTransferObjects\DataTransferObject;
+use Faridibin\Paystack\DataTransferObjects\Collection;
 use Faridibin\Paystack\DataTransferObjects\Payments\AuthorizationDTO;
 use Faridibin\Paystack\DataTransferObjects\Payments\CustomerDTO;
+use Faridibin\Paystack\DataTransferObjects\Payments\InvoiceDTO;
 use Faridibin\Paystack\Enums\Status;
 
 class SubscriptionDTO implements DataTransferObject
@@ -17,21 +19,28 @@ class SubscriptionDTO implements DataTransferObject
      *
      * @var CustomerDTO|string $customer
      */
-    public readonly CustomerDTO|string|int|null $customer;
+    public readonly CustomerDTO|string|null $customer;
 
     /**
      * The authorization of the subscription
      *
      * @var AuthorizationDTO|string|null $authorization
      */
-    public readonly AuthorizationDTO|string|int|null $authorization;
+    public readonly AuthorizationDTO|string|null $authorization;
 
     /**
      * The plan of the subscription
      *
      * @var PlanDTO|string $plan
      */
-    public readonly PlanDTO|string|int|null $plan;
+    public readonly PlanDTO|string|null $plan;
+
+    /**
+     * The invoices of the subscription
+     *
+     * @var Collection $invoices
+     */
+    public readonly Collection $invoices;
 
     /**
      * The status of the subscription
@@ -102,16 +111,18 @@ class SubscriptionDTO implements DataTransferObject
      * @param mixed $plan
      * @param mixed $customer
      * @param mixed $authorization
+     * @param mixed $invoices
+     * @param mixed $invoices_history
      */
     public function __construct(
-        public readonly int $integration,
-        public readonly ?string $domain,
-        public readonly ?string $email_token,
-        public readonly ?string $subscription_code,
-        public readonly ?string $open_invoice,
-        public readonly ?string $split_code,
-        public readonly ?int $quantity,
-        public readonly ?int $amount,
+        public readonly ?int $integration = null,
+        public readonly ?string $domain = null,
+        public readonly ?string $email_token = null,
+        public readonly ?string $subscription_code = null,
+        public readonly ?string $open_invoice = null,
+        public readonly ?string $split_code = null,
+        public readonly ?int $quantity = null,
+        public readonly ?int $amount = null,
         public readonly ?int $invoice_limit = null,
         public readonly ?int $payments_count = null,
         public readonly ?int $successful_payments = null,
@@ -127,7 +138,9 @@ class SubscriptionDTO implements DataTransferObject
         Status|string $status = Status::ACTIVE,
         mixed $plan = null,
         mixed $customer = null,
-        mixed $authorization = null
+        mixed $authorization = null,
+        mixed $invoices = null,
+        mixed $invoices_history = null,
     ) {
         if ($createdAt) {
             $this->createdAt = !($createdAt instanceof DateTime) ? new DateTime($createdAt) : $createdAt;
@@ -153,7 +166,7 @@ class SubscriptionDTO implements DataTransferObject
             $this->cancelledAt = !($cancelledAt instanceof DateTime) ? new DateTime($cancelledAt) : $cancelledAt;
         }
 
-        if (!($status instanceof Status)) {
+        if ($status && !($status instanceof Status)) {
             $this->status = Status::from($status);
         }
 
@@ -167,6 +180,15 @@ class SubscriptionDTO implements DataTransferObject
 
         if ($authorization) {
             $this->authorization = is_array($authorization) ? new AuthorizationDTO(...$authorization) : $authorization;
+        }
+
+        if ($invoices) {
+            $this->invoices = is_array($invoices) ? new Collection($invoices, InvoiceDTO::class) : $invoices;
+        }
+
+        if ($invoices_history) {
+            // TODO: Implement invoices_history
+            // $this->invoices_history = is_array($invoices_history) ? new InvoiceHistoryDTO(...$invoices_history) : $invoices_history;
         }
     }
 
@@ -202,6 +224,8 @@ class SubscriptionDTO implements DataTransferObject
             'plan' => $this->plan instanceof DataTransferObject ? $this->plan->toArray() : $this->plan,
             'customer' => $this->customer instanceof DataTransferObject ? $this->customer->toArray() : $this->customer,
             'authorization' => $this->authorization instanceof DataTransferObject ? $this->authorization->toArray() : $this->authorization,
+            'invoices' => $this->invoices instanceof DataTransferObject ? $this->invoices->toArray() : $this->invoices,
+            // 'invoices_history' => $this->invoices_history instanceof DataTransferObject ? $this->invoices_history->toArray() : $this->invoices_history
         ];
     }
 }
