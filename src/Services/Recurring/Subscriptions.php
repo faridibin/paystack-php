@@ -40,11 +40,7 @@ class Subscriptions implements SubscriptionsInterface
             ]
         ]);
 
-        return new Response(
-            $response,
-            // CountriesDTO::class,
-            // true
-        );
+        return new Response($response, SubscriptionDTO::class);
     }
 
     /**
@@ -103,11 +99,7 @@ class Subscriptions implements SubscriptionsInterface
             ]
         ]);
 
-        return new Response(
-            $response,
-            // CountriesDTO::class,
-            // true
-        );
+        return new Response($response);
     }
 
     /**
@@ -135,10 +127,6 @@ class Subscriptions implements SubscriptionsInterface
     {
         $response = $this->client->send('POST', "/subscription/{$code}/manage/email");
 
-        return new Response(
-            $response,
-            // CountriesDTO::class,
-            // true
-        );
+        return new Response($response);
     }
 }

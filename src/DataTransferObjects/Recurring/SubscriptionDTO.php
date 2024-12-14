@@ -17,23 +17,23 @@ class SubscriptionDTO implements DataTransferObject
     /**
      * The customer of the subscription
      *
-     * @var CustomerDTO|string $customer
+     * @var CustomerDTO|string|int|null $customer
      */
-    public readonly CustomerDTO|string|null $customer;
+    public readonly CustomerDTO|string|int|null $customer;
 
     /**
      * The authorization of the subscription
      *
-     * @var AuthorizationDTO|string|null $authorization
+     * @var AuthorizationDTO|string|int|null $authorization
      */
-    public readonly AuthorizationDTO|string|null $authorization;
+    public readonly AuthorizationDTO|string|int|null $authorization;
 
     /**
      * The plan of the subscription
      *
-     * @var PlanDTO|string $plan
+     * @var PlanDTO|string|int|null $plan
      */
-    public readonly PlanDTO|string|null $plan;
+    public readonly PlanDTO|string|int|null $plan;
 
     /**
      * The invoices of the subscription
