@@ -188,6 +188,7 @@ class SubscriptionDTO implements DataTransferObject
 
         if ($invoices_history) {
             // TODO: Implement invoices_history
+            dump($invoices_history, 'here');
             // $this->invoices_history = is_array($invoices_history) ? new InvoiceHistoryDTO(...$invoices_history) : $invoices_history;
         }
     }
