@@ -135,7 +135,7 @@ class SubscriptionDTO implements DataTransferObject
         DateTime|string|null $next_payment_date = null,
         DateTime|string|int|null $start = null,
         DateTime|string|null $cancelledAt = null,
-        Status|string $status = Status::ACTIVE,
+        Status|string $status = Status::UNKNOWN,
         mixed $plan = null,
         mixed $customer = null,
         mixed $authorization = null,
