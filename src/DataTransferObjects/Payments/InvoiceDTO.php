@@ -180,6 +180,7 @@ class InvoiceDTO implements DataTransferObject
         mixed $log = null, // TODO: Implement Log DTO
         ...$args
     ) {
+
         //     "metadata" => array:2 [▶]
         //     "log" => array:9 [▶]
         //     "fees_split" => null
