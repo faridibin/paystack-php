@@ -58,6 +58,8 @@ class AuthorizationDTO implements DataTransferObject
         public readonly ?string $brand = null,
         public readonly ?string $authorization_code = null,
         public readonly ?string $bank = null,
+        public readonly ?string $receiver_bank_account_number = null,
+        public readonly ?string $receiver_bank = null,
         public readonly ?string $description = null,
         public readonly ?string $last4 = null,
         public readonly ?string $country_name = null,
@@ -88,13 +90,22 @@ class AuthorizationDTO implements DataTransferObject
     public function toArray(): array
     {
         return [
-            'authorization_code' => $this->authorization_code,
+            'account_name' => $this->account_name,
+            'signature' => $this->signature,
+            'bin' => $this->bin,
             'card_type' => $this->card_type,
             'brand' => $this->brand,
+            'authorization_code' => $this->authorization_code,
             'bank' => $this->bank,
+            'receiver_bank_account_number' => $this->receiver_bank_account_number,
+            'receiver_bank' => $this->receiver_bank,
             'description' => $this->description,
             'last4' => $this->last4,
-            'country' => $this->country_name,
+            'country_name' => $this->country_name,
+            'country_code' => $this->country_code,
+            'exp_year' => $this->exp_year,
+            'reusable' => $this->reusable,
+            'exp_month' => $this->exp_month?->value,
             'channel' => $this->channel?->value,
         ];
     }

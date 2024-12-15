@@ -29,6 +29,13 @@ class SubscriptionDTO implements DataTransferObject
     public readonly AuthorizationDTO|string|int|null $authorization;
 
     /**
+     * The most recent invoice of the subscription
+     *
+     * @var InvoiceDTO|string|int|null $most_recent_invoice
+     */
+    public readonly InvoiceDTO|string|int|null $most_recent_invoice;
+
+    /**
      * The plan of the subscription
      *
      * @var PlanDTO|string|int|null $plan
@@ -42,6 +49,12 @@ class SubscriptionDTO implements DataTransferObject
      */
     public readonly Collection $invoices;
 
+    /**
+     * The invoices history of the subscription
+     *
+     * @var Collection $invoices_history
+     */
+    public readonly Collection $invoices_history;
     /**
      * The status of the subscription
      *
@@ -127,7 +140,7 @@ class SubscriptionDTO implements DataTransferObject
         public readonly ?int $payments_count = null,
         public readonly ?int $successful_payments = null,
         public readonly ?int $id = null,
-        public readonly ?string $most_recent_invoice = null,
+
         public readonly ?string $easy_cron_id = null,
         public readonly ?string $cron_expression = null,
         DateTime|string|null $createdAt = null,
@@ -139,6 +152,7 @@ class SubscriptionDTO implements DataTransferObject
         mixed $plan = null,
         mixed $customer = null,
         mixed $authorization = null,
+        mixed $most_recent_invoice = null,
         mixed $invoices = null,
         mixed $invoices_history = null,
     ) {
@@ -182,6 +196,10 @@ class SubscriptionDTO implements DataTransferObject
             $this->authorization = is_array($authorization) ? new AuthorizationDTO(...$authorization) : $authorization;
         }
 
+        if ($most_recent_invoice) {
+            $this->most_recent_invoice = is_array($most_recent_invoice) ? new InvoiceDTO(...$most_recent_invoice) : $most_recent_invoice;
+        }
+
         if ($invoices) {
             $this->invoices = is_array($invoices) ? new Collection($invoices, InvoiceDTO::class) : $invoices;
         }
@@ -189,7 +207,7 @@ class SubscriptionDTO implements DataTransferObject
         if ($invoices_history) {
             // TODO: Implement invoices_history
             dump($invoices_history, 'here');
-            // $this->invoices_history = is_array($invoices_history) ? new InvoiceHistoryDTO(...$invoices_history) : $invoices_history;
+            // $this->invoices_history = is_array($invoices_history) ? new Collection($invoices_history, InvoiceDTO::class) : $invoices_history;
         }
     }
 
@@ -213,7 +231,6 @@ class SubscriptionDTO implements DataTransferObject
             'payments_count' => $this->payments_count,
             'successful_payments' => $this->successful_payments,
             'id' => $this->id,
-            'most_recent_invoice' => $this->most_recent_invoice,
             'easy_cron_id' => $this->easy_cron_id,
             'cron_expression' => $this->cron_expression,
             'createdAt' => $this->createdAt?->format('Y-m-d H:i:s'),
@@ -225,8 +242,9 @@ class SubscriptionDTO implements DataTransferObject
             'plan' => $this->plan instanceof DataTransferObject ? $this->plan->toArray() : $this->plan,
             'customer' => $this->customer instanceof DataTransferObject ? $this->customer->toArray() : $this->customer,
             'authorization' => $this->authorization instanceof DataTransferObject ? $this->authorization->toArray() : $this->authorization,
+            'most_recent_invoice' => $this->most_recent_invoice instanceof DataTransferObject ? $this->most_recent_invoice->toArray() : $this->most_recent_invoice,
             'invoices' => $this->invoices instanceof DataTransferObject ? $this->invoices->toArray() : $this->invoices,
-            // 'invoices_history' => $this->invoices_history instanceof DataTransferObject ? $this->invoices_history->toArray() : $this->invoices_history
+            'invoices_history' => $this->invoices_history instanceof DataTransferObject ? $this->invoices_history->toArray() : $this->invoices_history
         ];
     }
 }
