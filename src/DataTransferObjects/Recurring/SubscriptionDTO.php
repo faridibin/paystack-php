@@ -140,21 +140,20 @@ class SubscriptionDTO implements DataTransferObject
         public readonly ?int $payments_count = null,
         public readonly ?int $successful_payments = null,
         public readonly ?int $id = null,
-
         public readonly ?string $easy_cron_id = null,
         public readonly ?string $cron_expression = null,
+        Status|string $status = Status::UNKNOWN,
         DateTime|string|null $createdAt = null,
         DateTime|string|null $updatedAt = null,
         DateTime|string|null $next_payment_date = null,
         DateTime|string|int|null $start = null,
         DateTime|string|null $cancelledAt = null,
-        Status|string $status = Status::UNKNOWN,
         mixed $plan = null,
         mixed $customer = null,
         mixed $authorization = null,
         mixed $most_recent_invoice = null,
         mixed $invoices = null,
-        mixed $invoices_history = null,
+        mixed $invoices_history = null
     ) {
         if ($createdAt) {
             $this->createdAt = !($createdAt instanceof DateTime) ? new DateTime($createdAt) : $createdAt;
@@ -204,11 +203,11 @@ class SubscriptionDTO implements DataTransferObject
             $this->invoices = is_array($invoices) ? new Collection($invoices, InvoiceDTO::class) : $invoices;
         }
 
-        if ($invoices_history) {
-            // TODO: Implement invoices_history
-            dump($invoices_history, 'here');
-            // $this->invoices_history = is_array($invoices_history) ? new Collection($invoices_history, InvoiceDTO::class) : $invoices_history;
-        }
+        // if ($invoices_history) {
+        //     $this->invoices_history = is_array($invoices_history) ? new Collection($invoices_history, InvoiceDTO::class) : $invoices_history;
+        // }
+
+        // dd($args);
     }
 
     /**
