@@ -145,6 +145,7 @@ class InvoiceDTO implements DataTransferObject
         public readonly string|int|null $subscription = null,
         public readonly string|int|null $integration = null,
         public readonly string|int|null $transaction = null,
+        public readonly string|int|null $order_id = null,
         public readonly ?string $invoice_code = null,
         public readonly ?string $receipt_number = null,
         public readonly ?string $reference = null,
@@ -174,6 +175,7 @@ class InvoiceDTO implements DataTransferObject
         mixed $plan = null,
         mixed $customer = null,
         mixed $authorization = null,
+        mixed $subaccount = null, // TODO: Implement Subaccount DTO
         mixed $metadata = null, // TODO: Implement Meta DTO
         mixed $log = null, // TODO: Implement Log DTO
         ...$args
@@ -247,7 +249,12 @@ class InvoiceDTO implements DataTransferObject
             $this->authorization = is_array($authorization) ? new AuthorizationDTO(...$authorization) : $authorization;
         }
 
-        dump($args);
+        dump(
+            $args,
+            // $subaccount,
+            // $metadata,
+            // $log,
+        );
     }
 
     /**
