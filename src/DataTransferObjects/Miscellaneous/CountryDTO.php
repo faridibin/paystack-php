@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Faridibin\Paystack\DataTransferObjects\Generic;
+namespace Faridibin\Paystack\DataTransferObjects\Miscellaneous;
 
 use Faridibin\Paystack\Contracts\DataTransferObjects\DataTransferObject;
 use Faridibin\Paystack\DataTransferObjects\Relationship;
@@ -11,7 +11,7 @@ class CountryDTO implements DataTransferObject
 {
     /**
      * The Relationship DTO
-     * 
+     *
      * @var Relationship $relationship
      */
     public readonly Relationship $relationship;

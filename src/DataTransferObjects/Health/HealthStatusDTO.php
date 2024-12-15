@@ -42,7 +42,7 @@ class HealthStatusDTO implements DataTransferObject
         return [
             'operational' => $this->operational,
             'status' => $this->status,
-            'updated_at' => $this->updated_at,
+            'updated_at' => $this->updated_at->format('Y-m-d H:i:s'),
             'description' => $this->description,
         ];
     }

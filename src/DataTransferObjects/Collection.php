@@ -10,7 +10,7 @@ class Collection implements DataTransferObject
 {
     /**
      * The items property of the collection
-     * 
+     *
      * @var array $items
      */
     public readonly array $items;
@@ -29,7 +29,7 @@ class Collection implements DataTransferObject
 
     /**
      * Get the items property of the collection
-     * 
+     *
      * @return array
      */
     public function get(): array

@@ -5,6 +5,7 @@ namespace Faridibin\Paystack\Services;
 use Faridibin\Paystack\Client;
 use Faridibin\Paystack\Contracts\ClientInterface;
 use Faridibin\Paystack\Contracts\Services\IntegrationInterface;
+use Faridibin\Paystack\DataTransferObjects\Integration\TimeoutDTO;
 use Faridibin\Paystack\DataTransferObjects\Response;
 
 class Integration implements IntegrationInterface
@@ -31,7 +32,7 @@ class Integration implements IntegrationInterface
     {
         $response = $this->client->send('GET', '/integration/payment_session_timeout');
 
-        return new Response($response);
+        return new Response($response, TimeoutDTO::class);
     }
 
     /**
@@ -49,6 +50,6 @@ class Integration implements IntegrationInterface
             ]
         ]);
 
-        return new Response($response);
+        return new Response($response, TimeoutDTO::class);
     }
 }

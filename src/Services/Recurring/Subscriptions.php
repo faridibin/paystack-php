@@ -5,6 +5,7 @@ namespace Faridibin\Paystack\Services\Recurring;
 use Faridibin\Paystack\Client;
 use Faridibin\Paystack\Contracts\ClientInterface;
 use Faridibin\Paystack\Contracts\Services\Recurring\SubscriptionsInterface;
+use Faridibin\Paystack\DataTransferObjects\Recurring\SubscriptionDTO;
 use Faridibin\Paystack\DataTransferObjects\Response;
 
 class Subscriptions implements SubscriptionsInterface
@@ -39,17 +40,13 @@ class Subscriptions implements SubscriptionsInterface
             ]
         ]);
 
-        return new Response(
-            $response,
-            // CountriesDTO::class,
-            // true
-        );
+        return new Response($response, SubscriptionDTO::class);
     }
 
     /**
      * List subscriptions.
      * List subscriptions available on your integration
-     * 
+     *
      * @param int $perPage
      * @param int $page
      * @param array $optional
@@ -65,17 +62,13 @@ class Subscriptions implements SubscriptionsInterface
             ]
         ]);
 
-        return new Response(
-            $response,
-            // CountriesDTO::class,
-            // true
-        );
+        return new Response($response, SubscriptionDTO::class, true);
     }
 
     /**
      * Fetch Subscription
      * Get details of a subscription on your integration
-     * 
+     *
      * @param string $identifier The subscription ID or code you want to fetch
      * @return Response
      */
@@ -83,11 +76,7 @@ class Subscriptions implements SubscriptionsInterface
     {
         $response = $this->client->send('GET', "/subscription/{$identifier}");
 
-        return new Response(
-            $response,
-            // CountriesDTO::class,
-            // true
-        );
+        return new Response($response, SubscriptionDTO::class);
     }
 
     /**
@@ -110,11 +99,7 @@ class Subscriptions implements SubscriptionsInterface
             ]
         ]);
 
-        return new Response(
-            $response,
-            // CountriesDTO::class,
-            // true
-        );
+        return new Response($response);
     }
 
     /**
@@ -128,11 +113,7 @@ class Subscriptions implements SubscriptionsInterface
     {
         $response = $this->client->send('GET', "/subscription/{$code}/manage/link");
 
-        return new Response(
-            $response,
-            // CountriesDTO::class,
-            // true
-        );
+        return new Response($response);
     }
 
     /**
@@ -146,10 +127,6 @@ class Subscriptions implements SubscriptionsInterface
     {
         $response = $this->client->send('POST', "/subscription/{$code}/manage/email");
 
-        return new Response(
-            $response,
-            // CountriesDTO::class,
-            // true
-        );
+        return new Response($response);
     }
 }

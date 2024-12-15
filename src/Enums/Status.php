@@ -22,6 +22,7 @@ enum Status: string
     case AWAITING_MERCHANT_FEEDBACK = 'awaiting-merchant-feedback';
     case AWAITING_BANK_FEEDBACK = 'awaiting-bank-feedback';
     case RESOLVED = 'resolved';
+    case NON_RENEWING = 'non-renewing';
     case UNKNOWN = 'unknown';
 
     /**
