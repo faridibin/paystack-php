@@ -40,7 +40,8 @@ class CustomerDTO implements DataTransferObject
         public readonly ?string $international_format_phone = null,
         public readonly ?string $customer_code = null,
         array|string|null $metadata = null,
-        RiskAction|string|null $risk_action = null
+        RiskAction|string|null $risk_action = null,
+        ...$args
     ) {
         if ($metadata) {
             if (is_string($metadata)) {
@@ -58,6 +59,8 @@ class CustomerDTO implements DataTransferObject
         if ($risk_action && !($risk_action instanceof RiskAction)) {
             $this->risk_action = RiskAction::from($risk_action);
         }
+
+        dump($args);
     }
 
     /**

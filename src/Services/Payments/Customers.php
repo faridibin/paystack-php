@@ -5,6 +5,7 @@ namespace Faridibin\Paystack\Services\Payments;
 use Faridibin\Paystack\Client;
 use Faridibin\Paystack\Contracts\ClientInterface;
 use Faridibin\Paystack\Contracts\Services\Payments\CustomersInterface;
+use Faridibin\Paystack\DataTransferObjects\Payments\CustomerDTO;
 use Faridibin\Paystack\DataTransferObjects\Response;
 use Faridibin\Paystack\Enums\RiskAction;
 
@@ -35,7 +36,7 @@ class Customers implements CustomersInterface
             'json' => $data
         ]);
 
-        return new Response($response);
+        return new Response($response, CustomerDTO::class);
     }
 
     /**
@@ -49,7 +50,7 @@ class Customers implements CustomersInterface
     {
         $response = $this->client->send('GET', "/customer/{$identifier}");
 
-        return new Response($response);
+        return new Response($response, CustomerDTO::class);
     }
 
     /**
@@ -93,7 +94,7 @@ class Customers implements CustomersInterface
             ]
         ]);
 
-        return new Response($response);
+        return new Response($response, CustomerDTO::class, true);
     }
 
     /**
