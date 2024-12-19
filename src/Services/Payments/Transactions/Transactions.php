@@ -5,6 +5,7 @@ namespace Faridibin\Paystack\Services\Payments\Transactions;
 use Faridibin\Paystack\Client;
 use Faridibin\Paystack\Contracts\ClientInterface;
 use Faridibin\Paystack\Contracts\Services\Payments\Transactions\TransactionsInterface;
+use Faridibin\Paystack\DataTransferObjects\Payments\Transactions\TransactionDTO;
 use Faridibin\Paystack\DataTransferObjects\Response;
 use Faridibin\Paystack\Enums\Currency;
 
@@ -55,7 +56,7 @@ class Transactions implements TransactionsInterface
     {
         $response = $this->client->send('GET', "/transaction/verify/{$reference}");
 
-        return new Response($response);
+        return new Response($response, TransactionDTO::class);
     }
 
     /**
@@ -77,7 +78,7 @@ class Transactions implements TransactionsInterface
             ]
         ]);
 
-        return new Response($response);
+        return new Response($response, TransactionDTO::class, true);
     }
 
     /**
@@ -91,7 +92,7 @@ class Transactions implements TransactionsInterface
     {
         $response = $this->client->send('GET', "/transaction/{$id}");
 
-        return new Response($response);
+        return new Response($response, TransactionDTO::class);
     }
 
     /**
