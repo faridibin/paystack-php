@@ -118,13 +118,8 @@ class CustomerDTO implements DataTransferObject
             $this->risk_action = RiskAction::from($risk_action);
         }
 
-        if ($subscriptions) {
-            $this->subscriptions = is_array($subscriptions) ? new Collection($subscriptions, SubscriptionDTO::class) : $subscriptions;
-        }
-
-        if ($authorizations) {
-            $this->authorizations = is_array($authorizations) ? new Collection($authorizations, AuthorizationDTO::class) : $authorizations;
-        }
+        $this->subscriptions = new Collection($subscriptions, SubscriptionDTO::class);
+        $this->authorizations = new Collection($authorizations, AuthorizationDTO::class);
     }
 
     /**
