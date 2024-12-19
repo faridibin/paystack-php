@@ -4,11 +4,26 @@ declare(strict_types=1);
 
 namespace Faridibin\Paystack\DataTransferObjects\Payments;
 
+use DateTime;
 use Faridibin\Paystack\Contracts\DataTransferObjects\DataTransferObject;
 use Faridibin\Paystack\Enums\RiskAction;
 
 class CustomerDTO implements DataTransferObject
 {
+    /**
+     * The Customer creation date
+     *
+     * @var DateTime $createdAt
+     */
+    public readonly ?DateTime $createdAt;
+
+    /**
+     * The Customer updated date
+     *
+     * @var DateTime $updatedAt
+     */
+    public readonly ?DateTime $updatedAt;
+
     /**
      * The metadata of the customer
      *
@@ -33,16 +48,34 @@ class CustomerDTO implements DataTransferObject
      */
     public function __construct(
         public readonly ?int $id = null,
+        public readonly string|int|null $integration = null,
         public readonly ?string $first_name = null,
         public readonly ?string $last_name = null,
         public readonly ?string $email = null,
         public readonly ?string $phone = null,
         public readonly ?string $international_format_phone = null,
         public readonly ?string $customer_code = null,
+        public readonly ?string $domain = null,
         array|string|null $metadata = null,
+        DateTime|string|null $createdAt = null,
+        DateTime|string|null $created_at = null,
+        DateTime|string|null $updatedAt = null,
+        DateTime|string|null $updated_at = null,
         RiskAction|string|null $risk_action = null,
         ...$args
     ) {
+        if ($createdAt || $created_at) {
+            $createdAt = $createdAt ?? $created_at;
+
+            $this->createdAt = !($createdAt instanceof DateTime) ? new DateTime($createdAt) : $createdAt;
+        }
+
+        if ($updatedAt || $updated_at) {
+            $updatedAt = $updatedAt ?? $updated_at;
+
+            $this->updatedAt = !($updatedAt instanceof DateTime) ? new DateTime($updatedAt) : $updatedAt;
+        }
+
         if ($metadata) {
             if (is_string($metadata)) {
                 $decoded = json_decode($metadata, true);
