@@ -6,6 +6,7 @@ use Faridibin\Paystack\Client;
 use Faridibin\Paystack\Contracts\ClientInterface;
 use Faridibin\Paystack\Contracts\Services\Transfers\RecipientsInterface;
 use Faridibin\Paystack\DataTransferObjects\Response;
+use Faridibin\Paystack\DataTransferObjects\Transfers\RecipientDTO;
 use Faridibin\Paystack\Enums\RecipientType;
 
 class Recipients implements RecipientsInterface
@@ -85,7 +86,7 @@ class Recipients implements RecipientsInterface
             ]
         ]);
 
-        return new Response($response);
+        return new Response($response, RecipientDTO::class, true);
     }
 
     /**
@@ -99,7 +100,7 @@ class Recipients implements RecipientsInterface
     {
         $response = $this->client->send('GET', "/transferrecipient/{$identifier}");
 
-        return new Response($response);
+        return new Response($response, RecipientDTO::class);
     }
 
     /**
