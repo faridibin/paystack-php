@@ -147,6 +147,12 @@ class TransactionDTO implements DataTransferObject
             $this->updatedAt = !($updatedAt instanceof DateTime) ? new DateTime($updatedAt) : $updatedAt;
         }
 
+        if ($paidAt || $paid_at) {
+            $paidAt = $paidAt ?? $paid_at;
+
+            $this->paidAt = !($paidAt instanceof DateTime) ? new DateTime($paidAt) : $paidAt;
+        }
+
         if ($authorization) {
             $this->authorization = is_array($authorization) ? new AuthorizationDTO(...$authorization) : $authorization;
         }
