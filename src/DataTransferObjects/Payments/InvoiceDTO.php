@@ -178,19 +178,14 @@ class InvoiceDTO implements DataTransferObject
         mixed $subaccount = null, // TODO: Implement Subaccount DTO
         mixed $metadata = null, // TODO: Implement Meta DTO
         mixed $log = null, // TODO: Implement Log DTO
-        ...$args
+        mixed $fees_split = null,
+        mixed $split = null,
+        mixed $pos_transaction_data = null,
+        mixed $source = null,
+        mixed $fees_breakdown = null,
+        mixed $connect = null,
     ) {
-
-        //     "metadata" => array:2 [▶]
-        //     "log" => array:9 [▶]
-        //     "fees_split" => null
-        //     "subaccount" => []
-        //     "split" => []
-        //     "order_id" => null
-        //     "pos_transaction_data" => null
-        //     "source" => null
-        //     "fees_breakdown" => null
-        //     "connect" => null
+        // TODO: Implement remaining properties
 
         if ($createdAt || $created_at) {
             $createdAt = $createdAt ?? $created_at;
@@ -249,13 +244,6 @@ class InvoiceDTO implements DataTransferObject
         if ($authorization) {
             $this->authorization = is_array($authorization) ? new AuthorizationDTO(...$authorization) : $authorization;
         }
-
-        dump(
-            $args,
-            // $subaccount,
-            // $metadata,
-            // $log,
-        );
     }
 
     /**
@@ -266,7 +254,38 @@ class InvoiceDTO implements DataTransferObject
     public function toArray(): array
     {
         return [
-            //
+            'id' => $this->id,
+            'subscription' => $this->subscription,
+            'integration' => $this->integration,
+            'transaction' => $this->transaction,
+            'order_id' => $this->order_id,
+            'invoice_code' => $this->invoice_code,
+            'receipt_number' => $this->receipt_number,
+            'reference' => $this->reference,
+            'domain' => $this->domain,
+            'message' => $this->message,
+            'gateway_response' => $this->gateway_response,
+            'ip_address' => $this->ip_address,
+            'description' => $this->description,
+            'notification_flag' => $this->notification_flag,
+            'amount' => $this->amount,
+            'fees' => $this->fees,
+            'requested_amount' => $this->requested_amount,
+            'retries' => $this->retries,
+            'paid' => $this->paid,
+            'status' => $this->status?->value,
+            'currency' => $this->currency?->value,
+            'channel' => $this->channel?->value,
+            'createdAt' => $this->createdAt?->format(DateTime::ATOM),
+            'updatedAt' => $this->updatedAt?->format(DateTime::ATOM),
+            'period_start' => $this->period_start?->format(DateTime::ATOM),
+            'period_end' => $this->period_end?->format(DateTime::ATOM),
+            'paidAt' => $this->paidAt?->format(DateTime::ATOM),
+            'next_notification' => $this->next_notification?->format(DateTime::ATOM),
+            'plan' => $this->plan?->toArray(),
+            'customer' => $this->customer?->toArray(),
+            'authorization' => $this->authorization?->toArray(),
+            // TODO: Implement remaining properties
         ];
     }
 }

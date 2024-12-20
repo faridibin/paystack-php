@@ -15,15 +15,15 @@ class Collection implements DataTransferObject
      */
     public readonly array $items;
 
-    public function __construct(array $items = [], ?string $dtoClass = null)
+    public function __construct(array|null $items = [], ?string $dtoClass = null)
     {
         if ($dtoClass && class_exists($dtoClass, true)) {
             $this->items = array_map(
                 fn($item) => new $dtoClass(...$item),
-                $items
+                $items ?? []
             );
         } else {
-            $this->items = $items;
+            $this->items = $items ?? [];
         }
     }
 

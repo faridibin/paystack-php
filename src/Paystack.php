@@ -21,7 +21,9 @@ final class Paystack implements PaystackInterface
      *
      * @var array<string, array>
      */
-    private array $serviceMap = [];
+    private array $serviceMap = [
+        'health' => [Health::class, Contracts\HealthInterface::class],
+    ];
 
     /**
      * Paystack constructor.
