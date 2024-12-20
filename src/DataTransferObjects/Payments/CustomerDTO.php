@@ -86,7 +86,8 @@ class CustomerDTO implements DataTransferObject
         mixed $total_transaction_value = null,
         mixed $dedicated_account = null,
         mixed $dedicated_accounts = null,
-        mixed $identifications = null
+        mixed $identifications = null,
+        ...$args
     ) {
         // TODO: Implement remaining properties
 
