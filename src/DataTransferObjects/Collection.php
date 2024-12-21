@@ -15,16 +15,18 @@ class Collection implements DataTransferObject
      */
     public readonly array $items;
 
-    public function __construct(array|null $items = [], ?string $dtoClass = null)
+    /**
+     * The Collection DTO constructor.
+     *
+     * @param array $items
+     * @param string|null $dtoClass
+     */
+    public function __construct(array $items = [], ?string $dtoClass = null)
     {
-        if ($dtoClass && class_exists($dtoClass, true)) {
-            $this->items = array_map(
-                fn($item) => new $dtoClass(...$item),
-                $items ?? []
-            );
-        } else {
-            $this->items = $items ?? [];
-        }
+        $this->items = ($dtoClass && class_exists($dtoClass, true)) ? array_map(
+            fn($item) => new $dtoClass(...$item),
+            $items ?? []
+        ) : $items;
     }
 
     /**

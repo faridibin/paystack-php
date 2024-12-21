@@ -96,21 +96,23 @@ class BankDTO implements DataTransferObject
     public function toArray(): array
     {
         return [
-            'id' => $this->id,
-            'name' => $this->name,
-            'slug' => $this->slug,
-            'code' => $this->code,
-            'longcode' => $this->longcode,
-            'gateway' => $this->gateway,
-            'country' => $this->country,
-            'currency' => $this->currency->value,
-            'type' => $this->type->value,
-            'pay_with_bank' => $this->pay_with_bank,
-            'supports_transfer' => $this->supports_transfer,
-            'active' => $this->active,
-            'is_deleted' => $this->is_deleted,
-            'created_at' => $this->createdAt?->format('Y-m-d H:i:s'),
-            'updated_at' => $this->updatedAt?->format('Y-m-d H:i:s'),
+            // TODO: Implement toArray() method. Only include the properties that are not null
+
+            // 'id' => $this->id,
+            // 'name' => $this->name,
+            // 'slug' => $this->slug,
+            // 'code' => $this->code,
+            // 'longcode' => $this->longcode,
+            // 'gateway' => $this->gateway,
+            // 'country' => $this->country,
+            // 'currency' => $this->currency->value,
+            // 'type' => $this->type->value,
+            // 'pay_with_bank' => $this->pay_with_bank,
+            // 'supports_transfer' => $this->supports_transfer,
+            // 'active' => $this->active,
+            // 'is_deleted' => $this->is_deleted,
+            // 'created_at' => $this->createdAt?->format('Y-m-d H:i:s'),
+            // 'updated_at' => $this->updatedAt?->format('Y-m-d H:i:s'),
         ];
     }
 }

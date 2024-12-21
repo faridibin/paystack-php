@@ -61,13 +61,16 @@ class SubscriberDTO implements DataTransferObject
     public function toArray(): array
     {
         return [
-            'customer_code' => $this->customer_code,
-            'customer_first_name' => $this->customer_first_name,
-            'customer_last_name' => $this->customer_last_name,
-            'customer_email' => $this->customer_email,
-            'customer_total_amount_paid' => $this->customer_total_amount_paid,
-            'currency' => $this->currency?->value,
-            'status' => $this->status?->value
+            // TODO: Implement toArray() method. Only include the properties that are not null
+
+
+            // 'customer_code' => $this->customer_code,
+            // 'customer_first_name' => $this->customer_first_name,
+            // 'customer_last_name' => $this->customer_last_name,
+            // 'customer_email' => $this->customer_email,
+            // 'customer_total_amount_paid' => $this->customer_total_amount_paid,
+            // 'currency' => $this->currency?->value,
+            // 'status' => $this->status?->value
         ];
     }
 }
