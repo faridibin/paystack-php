@@ -218,32 +218,35 @@ class SubscriptionDTO implements DataTransferObject
     public function toArray(): array
     {
         return [
-            'integration' => $this->integration,
-            'domain' => $this->domain,
-            'email_token' => $this->email_token,
-            'subscription_code' => $this->subscription_code,
-            'open_invoice' => $this->open_invoice,
-            'split_code' => $this->split_code,
-            'quantity' => $this->quantity,
-            'amount' => $this->amount,
-            'invoice_limit' => $this->invoice_limit,
-            'payments_count' => $this->payments_count,
-            'successful_payments' => $this->successful_payments,
-            'id' => $this->id,
-            'easy_cron_id' => $this->easy_cron_id,
-            'cron_expression' => $this->cron_expression,
-            'createdAt' => $this->createdAt?->format('Y-m-d H:i:s'),
-            'updatedAt' => $this->updatedAt?->format('Y-m-d H:i:s'),
-            'next_payment_date' => $this->next_payment_date?->format('Y-m-d H:i:s'),
-            'start' => $this->start?->format('Y-m-d H:i:s'),
-            'cancelledAt' => $this->cancelledAt?->format('Y-m-d H:i:s'),
-            'status' => $this->status->value,
-            'plan' => $this->plan instanceof DataTransferObject ? $this->plan->toArray() : $this->plan,
-            'customer' => $this->customer instanceof DataTransferObject ? $this->customer->toArray() : $this->customer,
-            'authorization' => $this->authorization instanceof DataTransferObject ? $this->authorization->toArray() : $this->authorization,
-            'most_recent_invoice' => $this->most_recent_invoice instanceof DataTransferObject ? $this->most_recent_invoice->toArray() : $this->most_recent_invoice,
-            'invoices' => $this->invoices instanceof DataTransferObject ? $this->invoices->toArray() : $this->invoices,
-            'invoices_history' => $this->invoices_history instanceof DataTransferObject ? $this->invoices_history->toArray() : $this->invoices_history
+            // TODO: Implement toArray() method. Only include the properties that are not null
+
+
+            // 'integration' => $this->integration,
+            // 'domain' => $this->domain,
+            // 'email_token' => $this->email_token,
+            // 'subscription_code' => $this->subscription_code,
+            // 'open_invoice' => $this->open_invoice,
+            // 'split_code' => $this->split_code,
+            // 'quantity' => $this->quantity,
+            // 'amount' => $this->amount,
+            // 'invoice_limit' => $this->invoice_limit,
+            // 'payments_count' => $this->payments_count,
+            // 'successful_payments' => $this->successful_payments,
+            // 'id' => $this->id,
+            // 'easy_cron_id' => $this->easy_cron_id,
+            // 'cron_expression' => $this->cron_expression,
+            // 'createdAt' => $this->createdAt?->format('Y-m-d H:i:s'),
+            // 'updatedAt' => $this->updatedAt?->format('Y-m-d H:i:s'),
+            // 'next_payment_date' => $this->next_payment_date?->format('Y-m-d H:i:s'),
+            // 'start' => $this->start?->format('Y-m-d H:i:s'),
+            // 'cancelledAt' => $this->cancelledAt?->format('Y-m-d H:i:s'),
+            // 'status' => $this->status->value,
+            // 'plan' => $this->plan instanceof DataTransferObject ? $this->plan->toArray() : $this->plan,
+            // 'customer' => $this->customer instanceof DataTransferObject ? $this->customer->toArray() : $this->customer,
+            // 'authorization' => $this->authorization instanceof DataTransferObject ? $this->authorization->toArray() : $this->authorization,
+            // 'most_recent_invoice' => $this->most_recent_invoice instanceof DataTransferObject ? $this->most_recent_invoice->toArray() : $this->most_recent_invoice,
+            // 'invoices' => $this->invoices instanceof DataTransferObject ? $this->invoices->toArray() : $this->invoices,
+            // 'invoices_history' => $this->invoices_history instanceof DataTransferObject ? $this->invoices_history->toArray() : $this->invoices_history
         ];
     }
 }

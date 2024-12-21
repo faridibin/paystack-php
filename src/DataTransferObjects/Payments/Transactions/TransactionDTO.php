@@ -169,10 +169,10 @@ class TransactionDTO implements DataTransferObject
 
         if ($metadata) {
             if (is_string($metadata)) {
-                $decoded = json_decode($metadata, true);
+                $metadata = json_decode($metadata, true);
 
                 if (json_last_error() === JSON_ERROR_NONE) {
-                    $this->metadata = $decoded;
+                    $this->metadata = $metadata;
                 }
             } else {
                 $this->metadata = $metadata;
@@ -226,28 +226,30 @@ class TransactionDTO implements DataTransferObject
     public function toArray(): array
     {
         return [
-            'id' => $this->id,
-            'domain' => $this->domain,
-            'reference' => $this->reference,
-            'receipt_number' => $this->receipt_number,
-            'message' => $this->message,
-            'gateway_response' => $this->gateway_response,
-            'ip_address' => $this->ip_address,
-            'helpdesk_link' => $this->helpdesk_link,
-            'amount' => $this->amount,
-            'requested_amount' => $this->requested_amount,
-            'fees' => $this->fees,
-            'metadata' => $this->metadata,
-            'currency' => $this->currency?->value,
-            'status' => $this->status?->value,
-            'channel' => $this->channel?->value,
-            'createdAt' => $this->createdAt?->format(DateTime::ATOM),
-            'updatedAt' => $this->updatedAt?->format(DateTime::ATOM),
-            'paidAt' => $this->paidAt?->format(DateTime::ATOM),
-            'transactionDate' => $this->transactionDate?->format(DateTime::ATOM),
-            'authorization' => $this->authorization instanceof DataTransferObject ? $this->authorization->toArray() : $this->authorization,
-            'customer' => $this->customer instanceof DataTransferObject ? $this->customer->toArray() : $this->customer,
-            'plan' => $this->plan instanceof DataTransferObject ? $this->plan->toArray() : $this->plan,
+            // TODO: Implement toArray() method. Only include the properties that are not null
+
+            // 'id' => $this->id,
+            // 'domain' => $this->domain,
+            // 'reference' => $this->reference,
+            // 'receipt_number' => $this->receipt_number,
+            // 'message' => $this->message,
+            // 'gateway_response' => $this->gateway_response,
+            // 'ip_address' => $this->ip_address,
+            // 'helpdesk_link' => $this->helpdesk_link,
+            // 'amount' => $this->amount,
+            // 'requested_amount' => $this->requested_amount,
+            // 'fees' => $this->fees,
+            // 'metadata' => $this->metadata ?? [],
+            // 'currency' => $this->currency?->value,
+            // 'status' => $this->status?->value,
+            // 'channel' => $this->channel?->value,
+            // 'createdAt' => $this->createdAt?->format(DateTime::ATOM),
+            // 'updatedAt' => $this->updatedAt?->format(DateTime::ATOM),
+            // 'paidAt' => $this->paidAt?->format(DateTime::ATOM),
+            // 'transactionDate' => $this->transactionDate?->format(DateTime::ATOM),
+            // 'authorization' => $this->authorization instanceof DataTransferObject ? $this->authorization->toArray() : $this->authorization,
+            // 'customer' => $this->customer instanceof DataTransferObject ? $this->customer->toArray() : $this->customer,
+            // 'plan' => $this->plan instanceof DataTransferObject ? $this->plan->toArray() : $this->plan,
         ];
     }
 }

@@ -53,16 +53,18 @@ class CountryDTO implements DataTransferObject
     public function toArray(): array
     {
         return [
-            'id' => $this->id,
-            'name' => $this->name,
-            'iso_code' => $this->iso_code,
-            'default_currency_code' => $this->default_currency_code,
-            'calling_code' => $this->calling_code,
-            'integration_defaults' => $this->integration_defaults,
-            'relationship' => $this->relationship->toArray(),
-            'pilot_mode' => $this->pilot_mode,
-            'can_go_live_automatically' => $this->can_go_live_automatically,
-            'active_for_dashboard_onboarding' => $this->active_for_dashboard_onboarding,
+            // TODO: Implement toArray() method. Only include the properties that are not null
+
+            // 'id' => $this->id,
+            // 'name' => $this->name,
+            // 'iso_code' => $this->iso_code,
+            // 'default_currency_code' => $this->default_currency_code,
+            // 'calling_code' => $this->calling_code,
+            // 'integration_defaults' => $this->integration_defaults,
+            // 'relationship' => $this->relationship->toArray(),
+            // 'pilot_mode' => $this->pilot_mode,
+            // 'can_go_live_automatically' => $this->can_go_live_automatically,
+            // 'active_for_dashboard_onboarding' => $this->active_for_dashboard_onboarding,
         ];
     }
 }

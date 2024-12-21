@@ -131,24 +131,26 @@ class CustomerDTO implements DataTransferObject
     public function toArray(): array
     {
         return [
-            'id' => $this->id,
-            'integration' => $this->integration,
-            'first_name' => $this->first_name,
-            'last_name' => $this->last_name,
-            'email' => $this->email,
-            'phone' => $this->phone,
-            'international_format_phone' => $this->international_format_phone,
-            'customer_code' => $this->customer_code,
-            'domain' => $this->domain,
-            'total_transactions' => $this->total_transactions,
-            'identified' => $this->identified,
-            'metadata' => $this->metadata,
-            'createdAt' => $this->createdAt?->format(DateTime::ATOM),
-            'updatedAt' => $this->updatedAt?->format(DateTime::ATOM),
-            'risk_action' => $this->risk_action?->value,
-            'authorizations' => $this->authorizations?->toArray(),
-            'subscriptions' => $this->subscriptions?->toArray(),
-            // TODO: Implement remaining properties
+            // TODO: Implement toArray() method. Only include the properties that are not null
+
+            // 'id' => $this->id,
+            // 'integration' => $this->integration,
+            // 'first_name' => $this->first_name,
+            // 'last_name' => $this->last_name,
+            // 'email' => $this->email,
+            // 'phone' => $this->phone,
+            // 'international_format_phone' => $this->international_format_phone,
+            // 'customer_code' => $this->customer_code,
+            // 'domain' => $this->domain,
+            // 'total_transactions' => $this->total_transactions,
+            // 'identified' => $this->identified,
+            // 'metadata' => $this->metadata,
+            // 'createdAt' => $this->createdAt?->format(DateTime::ATOM),
+            // 'updatedAt' => $this->updatedAt?->format(DateTime::ATOM),
+            // 'risk_action' => $this->risk_action?->value,
+            // 'authorizations' => $this->authorizations?->toArray(),
+            // 'subscriptions' => $this->subscriptions?->toArray(),
+            // // TODO: Implement remaining properties
         ];
     }
 }

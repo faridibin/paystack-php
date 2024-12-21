@@ -68,6 +68,25 @@ class Response implements DataTransferObject
     }
 
     /**
+     * Get an item from the collection by key.
+     *
+     * @param string $key
+     * @param mixed $default
+     * 
+     * @return mixed
+     */
+    public function get(string $key, mixed $default = null): mixed
+    {
+        $data = $this->data->toArray();
+
+        if (array_key_exists($key, $data)) {
+            return $data[$key];
+        }
+
+        return $default instanceof \Closure ? $default(...$data) : $default;
+    }
+
+    /**
      * Get the status code property of the response
      *
      * @return int
