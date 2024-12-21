@@ -51,6 +51,8 @@ class Response implements DataTransferObject
     ) {
         // TODO: Implement Meta DTO
 
+        dump($response);
+
         match (true) {
             $response instanceof Exception => $this->handleException($response),
             default => $this->handleResponse($response, $dtoClass),

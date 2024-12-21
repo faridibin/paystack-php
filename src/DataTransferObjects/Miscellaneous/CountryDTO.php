@@ -10,11 +10,11 @@ use Faridibin\Paystack\DataTransferObjects\Relationship;
 class CountryDTO implements DataTransferObject
 {
     /**
-     * The Relationship DTO
+     * The Relationships for the country
      *
-     * @var Relationship $relationship
+     * @var Relationship $relationships
      */
-    public readonly Relationship $relationship;
+    public readonly Relationship $relationships;
 
     /**
      * The Country DTO constructor.
@@ -42,7 +42,9 @@ class CountryDTO implements DataTransferObject
         public readonly bool $can_go_live_automatically,
         public readonly bool $active_for_dashboard_onboarding,
     ) {
-        $this->relationship = new Relationship(...$relationships);
+        $this->relationships = new Relationship(
+            // TODO: Implement Relationship DTO
+        );
     }
 
     /**
@@ -59,7 +61,7 @@ class CountryDTO implements DataTransferObject
             'default_currency_code' => $this->default_currency_code,
             'calling_code' => $this->calling_code,
             'integration_defaults' => $this->integration_defaults,
-            'relationship' => $this->relationship->toArray(),
+            'relationships' => $this->relationships->toArray(),
             'pilot_mode' => $this->pilot_mode,
             'can_go_live_automatically' => $this->can_go_live_automatically,
             'active_for_dashboard_onboarding' => $this->active_for_dashboard_onboarding,

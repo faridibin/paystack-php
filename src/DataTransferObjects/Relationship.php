@@ -11,7 +11,7 @@ class Relationship implements DataTransferObject
     public function __construct(...$args)
     {
         // TODO: Implement constructor
-        // dd($args);
+        dd($args);
     }
 
     public function toArray(): array
