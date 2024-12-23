@@ -5,9 +5,12 @@ declare(strict_types=1);
 namespace Faridibin\Paystack\DataTransferObjects\Miscellaneous;
 
 use Faridibin\Paystack\Contracts\DataTransferObjects\DataTransferObject;
+use Faridibin\Paystack\Traits\MapToArray;
 
 class StateDTO implements DataTransferObject
 {
+    use MapToArray;
+
     /**
      * The State DTO constructor.
      *
@@ -21,19 +24,5 @@ class StateDTO implements DataTransferObject
         public readonly string $abbreviation,
     ) {
         //
-    }
-
-    /**
-     * Convert the state to an array
-     *
-     * @return array
-     */
-    public function toArray(): array
-    {
-        return [
-            'name' => $this->name,
-            'slug' => $this->slug,
-            'abbreviation' => $this->abbreviation,
-        ];
     }
 }
