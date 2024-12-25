@@ -5,19 +5,12 @@ declare(strict_types=1);
 namespace Faridibin\Paystack\DataTransferObjects\Miscellaneous;
 
 use Faridibin\Paystack\Contracts\DataTransferObjects\DataTransferObject;
-use Faridibin\Paystack\DataTransferObjects\Relationship;
+use Faridibin\Paystack\Traits\HasRelationships;
 use Faridibin\Paystack\Traits\MapToArray;
 
 class CountryDTO implements DataTransferObject
 {
-    use MapToArray;
-
-    /**
-     * The Relationships for the country
-     *
-     * @var Relationship $relationships
-     */
-    public readonly Relationship $relationships;
+    use MapToArray, HasRelationships;
 
     /**
      * The Country DTO constructor.
@@ -40,13 +33,11 @@ class CountryDTO implements DataTransferObject
         public readonly string $default_currency_code,
         public readonly string $calling_code,
         public readonly array $integration_defaults,
-        array $relationships,
         public readonly bool $pilot_mode,
         public readonly bool $can_go_live_automatically,
         public readonly bool $active_for_dashboard_onboarding,
+        array $relationships,
     ) {
-        $this->relationships = new Relationship(
-            // TODO: Implement Relationship DTO
-        );
+        $this->resolveRelationships($relationships);
     }
 }
