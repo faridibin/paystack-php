@@ -67,11 +67,7 @@ class Customers implements CustomersInterface
             'json' => $data
         ]);
 
-        return new Response(
-            $response,
-            // CountriesDTO::class,
-            // true
-        );
+        return new Response($response, CustomerDTO::class);
     }
 
     /**
@@ -130,7 +126,7 @@ class Customers implements CustomersInterface
             ]
         ]);
 
-        return new Response($response);
+        return new Response($response, CustomerDTO::class);
     }
 
     /**

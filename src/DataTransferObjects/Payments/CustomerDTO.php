@@ -6,151 +6,106 @@ namespace Faridibin\Paystack\DataTransferObjects\Payments;
 
 use DateTime;
 use Faridibin\Paystack\Contracts\DataTransferObjects\DataTransferObject;
-use Faridibin\Paystack\DataTransferObjects\Collection;
-use Faridibin\Paystack\DataTransferObjects\Recurring\SubscriptionDTO;
-use Faridibin\Paystack\Enums\RiskAction;
+use Faridibin\Paystack\Traits\{HasMetadata, MapToArray};
+use Faridibin\Paystack\DataTransferObjects\{Collection, Recurring\SubscriptionDTO};
 
 class CustomerDTO implements DataTransferObject
 {
-    /**
-     * The Customer creation date
-     *
-     * @var DateTime $createdAt
-     */
-    public readonly ?DateTime $createdAt;
+    use HasMetadata, MapToArray;
 
     /**
-     * The Customer updated date
-     *
-     * @var DateTime $updatedAt
-     */
-    public readonly ?DateTime $updatedAt;
-
-    /**
-     * The metadata of the customer
-     *
-     * @var array $metadata
-     */
-    public readonly array $metadata;
-
-    /**
-     * The risk action of the customer
-     *
-     * @var RiskAction $risk_action
-     */
-    public readonly RiskAction $risk_action;
-
-    /**
-     * The authorizations of the customer
-     *
-     * @var Collection $authorizations
+     * The authorizations property
      */
     public readonly Collection $authorizations;
 
     /**
-     * The subscriptions of the customer
-     *
-     * @var Collection $subscriptions
+     * The subscriptions property
      */
     public readonly Collection $subscriptions;
 
     /**
+     * The createdAt property
+     */
+    public readonly DateTime $createdAt;
+
+    /**
+     * The updatedAt property
+     */
+    public readonly DateTime $updatedAt;
+
+    /**
      * The Customer DTO constructor.
-     *
-     * @param string $first_name
-     * @param string $last_name
-     * @param string $email
+     * 
+     * @param int $id
+     * @param int $integration
+     * @param string $domain
      * @param string $customer_code
+     * @param string $email
+     * @param mixed $first_name
+     * @param mixed $last_name
+     * @param mixed $phone
+     * @param array $metadata
+     * @param string $risk_action
+     * @param array $transactions
+     * @param array $authorizations
+     * @param array $subscriptions
+     * @param array $total_transaction_value
+     * @param mixed $total_transactions
+     * @param bool $identified
+     * @param mixed $identifications
+     * @param mixed $dedicated_account
+     * @param array $dedicated_accounts
+     * @param \DateTime|string $createdAt
+     * @param \DateTime|string $updatedAt
+     * @param \DateTime|string|null $created_at
+     * @param \DateTime|string|null $updated_at
      */
     public function __construct(
         public readonly ?int $id = null,
-        public readonly string|int|null $integration = null,
+        public readonly ?int $integration = null,
+        public readonly ?string $domain = null,
+        public readonly ?string $customer_code = null,
+        public readonly ?string $email = null,
         public readonly ?string $first_name = null,
         public readonly ?string $last_name = null,
-        public readonly ?string $email = null,
         public readonly ?string $phone = null,
         public readonly ?string $international_format_phone = null,
-        public readonly ?string $customer_code = null,
-        public readonly ?string $domain = null,
+        public readonly ?string $risk_action = null,
         public readonly ?int $total_transactions = null,
         public readonly ?bool $identified = null,
+        public readonly mixed $identifications = null,
+        public readonly mixed $dedicated_account = null,
+        public readonly array $total_transaction_value = [],
+        public readonly array $transactions = [],
+        public readonly array $dedicated_accounts = [],
+        array $authorizations = [],
+        array $subscriptions = [],
         array|string|null $metadata = null,
         DateTime|string|null $createdAt = null,
-        DateTime|string|null $created_at = null,
         DateTime|string|null $updatedAt = null,
+        DateTime|string|null $created_at = null,
         DateTime|string|null $updated_at = null,
-        RiskAction|string|null $risk_action = null,
-        mixed $authorizations = null,
-        mixed $subscriptions = null,
-        mixed $transactions = null, //TODO: Implement TransactionDTO
-        mixed $total_transaction_value = null,
-        mixed $dedicated_account = null,
-        mixed $dedicated_accounts = null,
-        mixed $identifications = null,
-        ...$args
+
+        ...$args // TODO: Remove this
     ) {
-        // TODO: Implement remaining properties
-
-        if ($createdAt || $created_at) {
-            $createdAt = $createdAt ?? $created_at;
-
-            $this->createdAt = !($createdAt instanceof DateTime) ? new DateTime($createdAt) : $createdAt;
-        }
-
-        if ($updatedAt || $updated_at) {
-            $updatedAt = $updatedAt ?? $updated_at;
-
-            $this->updatedAt = !($updatedAt instanceof DateTime) ? new DateTime($updatedAt) : $updatedAt;
-        }
-
-        if ($metadata) {
-            if (is_string($metadata)) {
-                $decoded = json_decode($metadata, true);
-
-                if (json_last_error() === JSON_ERROR_NONE) {
-                    $this->metadata = $decoded;
-                }
-            } else {
-                $this->metadata = $metadata;
-            }
-        }
-
-        if ($risk_action && !($risk_action instanceof RiskAction)) {
-            $this->risk_action = RiskAction::from($risk_action);
-        }
-
-        $this->subscriptions = new Collection($subscriptions, SubscriptionDTO::class);
         $this->authorizations = new Collection($authorizations, AuthorizationDTO::class);
-    }
+        $this->subscriptions = new Collection($subscriptions, SubscriptionDTO::class);
 
-    /**
-     * Convert the customer to an array
-     *
-     * @return array
-     */
-    public function toArray(): array
-    {
-        return [
-            // TODO: Implement toArray() method. Only include the properties that are not null
+        $createdAt = $createdAt ?? $created_at;
+        $updatedAt = $updatedAt ?? $updated_at;
 
-            // 'id' => $this->id,
-            // 'integration' => $this->integration,
-            // 'first_name' => $this->first_name,
-            // 'last_name' => $this->last_name,
-            // 'email' => $this->email,
-            // 'phone' => $this->phone,
-            // 'international_format_phone' => $this->international_format_phone,
-            // 'customer_code' => $this->customer_code,
-            // 'domain' => $this->domain,
-            // 'total_transactions' => $this->total_transactions,
-            // 'identified' => $this->identified,
-            // 'metadata' => $this->metadata,
-            // 'createdAt' => $this->createdAt?->format(DateTime::ATOM),
-            // 'updatedAt' => $this->updatedAt?->format(DateTime::ATOM),
-            // 'risk_action' => $this->risk_action?->value,
-            // 'authorizations' => $this->authorizations?->toArray(),
-            // 'subscriptions' => $this->subscriptions?->toArray(),
-            // // TODO: Implement remaining properties
-        ];
+        if ($createdAt) {
+            $this->createdAt = $createdAt instanceof DateTime ? $createdAt : new DateTime($createdAt);
+        }
+
+        if ($updatedAt) {
+            $this->updatedAt = $updatedAt instanceof DateTime ? $updatedAt : new DateTime($updatedAt);
+        }
+
+        $this->resolveMetadata($metadata);
+
+        // dump([
+        //     'customer_args' => $args, // TODO: Remove this
+        // ]);
     }
 }
