@@ -7,9 +7,12 @@ namespace Faridibin\Paystack\DataTransferObjects\Payments;
 use Faridibin\Paystack\Contracts\DataTransferObjects\DataTransferObject;
 use Faridibin\Paystack\Enums\Channels;
 use Faridibin\Paystack\Enums\Month;
+use Faridibin\Paystack\Traits\MapToArray;
 
 class AuthorizationDTO implements DataTransferObject
 {
+    use MapToArray;
+
     /**
      * The channel of the authorization
      *
@@ -33,41 +36,40 @@ class AuthorizationDTO implements DataTransferObject
 
     /**
      * The Authorization DTO constructor.
-     *
+     * 
+     * @param string $authorization_code
+     * @param string $bin
+     * @param string $last4
+     * @param string $exp_year
+     * @param string $card_type
+     * @param string $bank
+     * @param string $country_code
+     * @param string $brand
+     * @param string $signature
      * @param string|null $account_name
-     * @param string|null $signature
-     * @param string|null $bin
-     * @param string|null $card_type
-     * @param string|null $brand
-     * @param string|null $authorization_code
-     * @param string|null $bank
-     * @param string|null $description
-     * @param string|null $last4
-     * @param string|null $country_name
-     * @param string|null $country_code
-     * @param string|null $exp_year
      * @param bool|int|null $reusable
      * @param Month|string|int|null $exp_month
      * @param Channels|string|null $channel
      */
     public function __construct(
-        public readonly ?string $account_name = null,
-        public readonly ?string $signature = null,
-        public readonly ?string $bin = null,
-        public readonly ?string $card_type = null,
-        public readonly ?string $brand = null,
         public readonly ?string $authorization_code = null,
-        public readonly ?string $bank = null,
-        public readonly ?string $receiver_bank_account_number = null,
-        public readonly ?string $receiver_bank = null,
-        public readonly ?string $description = null,
+        public readonly ?string $bin = null,
         public readonly ?string $last4 = null,
-        public readonly ?string $country_name = null,
-        public readonly ?string $country_code = null,
         public readonly ?string $exp_year = null,
+        public readonly ?string $card_type = null,
+        public readonly ?string $bank = null,
+        public readonly ?string $country_code = null,
+        public readonly ?string $country_name = null,
+        public readonly ?string $brand = null,
+        public readonly ?string $signature = null,
+        public readonly ?string $account_name = null,
+        public readonly ?string $description = null,
+        public readonly ?string $receiver_bank = null,
+        public readonly ?string $receiver_bank_account_number = null,
         bool|int|null $reusable = null,
         Month|string|int|null $exp_month = null,
-        Channels|string $channel = null
+        Channels|string|null $channel = null,
+        ...$args // TODO: Remove this line  
     ) {
         if ($channel && !($channel instanceof Channels)) {
             $this->channel = Channels::from($channel);
@@ -80,33 +82,9 @@ class AuthorizationDTO implements DataTransferObject
         if (!is_null($reusable)) {
             $this->reusable = (bool) $reusable;
         }
-    }
 
-    /**
-     * Convert the authorization to an array
-     *
-     * @return array
-     */
-    public function toArray(): array
-    {
-        return [
-            'account_name' => $this->account_name,
-            'signature' => $this->signature,
-            'bin' => $this->bin,
-            'card_type' => $this->card_type,
-            'brand' => $this->brand,
-            'authorization_code' => $this->authorization_code,
-            'bank' => $this->bank,
-            'receiver_bank_account_number' => $this->receiver_bank_account_number,
-            'receiver_bank' => $this->receiver_bank,
-            'description' => $this->description,
-            'last4' => $this->last4,
-            'country_name' => $this->country_name,
-            'country_code' => $this->country_code,
-            'exp_year' => $this->exp_year,
-            'reusable' => $this->reusable,
-            'exp_month' => $this->exp_month?->value,
-            'channel' => $this->channel?->value,
-        ];
+        // dump([
+        //     'authorization_args' => $args, // TODO: Remove this line
+        // ]);
     }
 }

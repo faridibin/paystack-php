@@ -49,8 +49,6 @@ class Response implements DataTransferObject
         ?string $dtoClass = null,
         protected bool $isCollection = false
     ) {
-        // TODO: Implement Meta DTO
-
         match (true) {
             $response instanceof Exception => $this->handleException($response),
             default => $this->handleResponse($response, $dtoClass),
@@ -65,6 +63,25 @@ class Response implements DataTransferObject
     public function getData(): mixed
     {
         return $this->data;
+    }
+
+    /**
+     * Get an item from the collection by key.
+     *
+     * @param string $key
+     * @param mixed $default
+     * 
+     * @return mixed
+     */
+    public function get(string $key, mixed $default = null): mixed
+    {
+        $data = $this->data->toArray();
+
+        if (array_key_exists($key, $data)) {
+            return $data[$key];
+        }
+
+        return $default instanceof \Closure ? $default(...$data) : $default;
     }
 
     /**
@@ -188,9 +205,11 @@ class Response implements DataTransferObject
             }
         }
 
-        //
+        // TODO: Implement Meta DTO
         if (isset($response['meta'])) {
             # code...
         }
+
+        dump($response);
     }
 }

@@ -7,9 +7,12 @@ namespace Faridibin\Paystack\DataTransferObjects\Recurring;
 use Faridibin\Paystack\Contracts\DataTransferObjects\DataTransferObject;
 use Faridibin\Paystack\Enums\Currency;
 use Faridibin\Paystack\Enums\Status;
+use Faridibin\Paystack\Traits\MapToArray;
 
 class SubscriberDTO implements DataTransferObject
 {
+    use MapToArray;
+
     /**
      * The currency of the subscription
      *
@@ -36,13 +39,15 @@ class SubscriberDTO implements DataTransferObject
      * @param Status|string $subscription_status
      */
     public function __construct(
-        public readonly ?string $customer_code,
-        public readonly ?string $customer_first_name,
-        public readonly ?string $customer_last_name,
-        public readonly ?string $customer_email,
-        public readonly ?int $customer_total_amount_paid,
-        Currency|string|null $currency,
-        Status|string|null $subscription_status,
+        public readonly ?string $customer_code = null,
+        public readonly ?string $customer_first_name = null,
+        public readonly ?string $customer_last_name = null,
+        public readonly ?string $customer_email = null,
+        public readonly ?int $customer_total_amount_paid = null,
+        Currency|string|null $currency = null,
+        Status|string|null $subscription_status = null,
+
+        ...$args // TODO: Remove this line
     ) {
         if (!($currency instanceof Currency)) {
             $this->currency = Currency::from($currency);
@@ -51,23 +56,9 @@ class SubscriberDTO implements DataTransferObject
         if (!($subscription_status instanceof Status)) {
             $this->status = Status::from($subscription_status);
         }
-    }
 
-    /**
-     * Convert the subscriber to an array
-     *
-     * @return array
-     */
-    public function toArray(): array
-    {
-        return [
-            'customer_code' => $this->customer_code,
-            'customer_first_name' => $this->customer_first_name,
-            'customer_last_name' => $this->customer_last_name,
-            'customer_email' => $this->customer_email,
-            'customer_total_amount_paid' => $this->customer_total_amount_paid,
-            'currency' => $this->currency?->value,
-            'status' => $this->status?->value
-        ];
+        // dump([
+        //     'subscriber_args' => $args, // TODO: Remove this line
+        // ]);
     }
 }
