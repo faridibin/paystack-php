@@ -83,8 +83,10 @@ class AuthorizationDTO implements DataTransferObject
             $this->reusable = (bool) $reusable;
         }
 
-        // dump([
-        //     'authorization_args' => $args, // TODO: Remove this line
-        // ]);
+        if (!empty($args)) {
+            dump([
+                'authorization_args' => $args, // TODO: Remove this line
+            ]);
+        }
     }
 }

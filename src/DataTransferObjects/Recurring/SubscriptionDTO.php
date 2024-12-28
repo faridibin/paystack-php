@@ -146,9 +146,10 @@ class SubscriptionDTO implements DataTransferObject
         public readonly ?int $invoice_limit = null,
         public readonly ?int $payments_count = null,
         public readonly ?string $cron_expression = null,
-        array $authorization = [],
-        array $customer = [],
-        array $plan = [],
+        public readonly ?string $easy_cron_id = null,
+        mixed $authorization = null,
+        mixed $customer = null,
+        mixed $plan = null,
         mixed $most_recent_invoice = null,
         mixed $invoices = null,
         mixed $invoices_history = null,
@@ -201,9 +202,11 @@ class SubscriptionDTO implements DataTransferObject
             $this->status = Status::from($status);
         }
 
-        // dump([
-        //     'code' => $subscription_code,
-        //     'subscription_args' => $args, // TODO: Remove this line
-        // ]);
+        if (!empty($args)) {
+            dump([
+                'code' => $subscription_code,
+                'subscription_args' => $args, // TODO: Remove this line
+            ]);
+        }
     }
 }

@@ -220,8 +220,10 @@ class TransactionDTO implements DataTransferObject
         //     $this->plan = is_array($plan) ? new PlanDTO(...$plan) : $plan;
         // }
 
-        dump([
-            'transaction_args' => $args, // TODO: Remove this line
-        ]);
+        if (!empty($args)) {
+            dump([
+                'transaction_args' => $args, // TODO: Remove this line
+            ]);
+        }
     }
 }
