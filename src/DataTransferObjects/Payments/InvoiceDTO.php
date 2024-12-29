@@ -126,6 +126,13 @@ class InvoiceDTO implements DataTransferObject
     public readonly PlanDTO|string|int|null $plan;
 
     /**
+     * The subaccount of the invoice
+     *
+     * @var SubaccountDTO|string|int|null $subaccount
+     */
+    public readonly SubaccountDTO|string|int|null $subaccount;
+
+    /**
      * The log of the invoice
      * 
      * @var LogDTO|null $log
@@ -135,54 +142,54 @@ class InvoiceDTO implements DataTransferObject
     /**
      * The Authorization DTO constructor.
      *
+     * @param int|null $id
+     * @param int|string|null $integration
+     * @param string|null $invoice_code
+     * @param string|null $domain
+     * @param string|null $reference
+     * @param string|null $description
+     * @param string|null $receipt_number
+     * @param int|null $amount
+     * @param int|null $requested_amount
+     * @param string|null $message
+     * @param string|null $gateway_response
+     * @param string|null $ip_address
+     * @param int|null $fees
+     * @param array|null $fees_split
+     * @param array|null $split
+     * @param string|null $order_id
+     * @param array|null $pos_transaction_data
+     * @param string|null $source
+     * @param array|null $fees_breakdown
+     * @param array|null $connect
+     * @param string|null $notification_flag
+     * @param int|null $retries
+     * @param mixed|null $log
+     * @param mixed|null $authorization
+     * @param mixed|null $customer
+     * @param mixed|null $subscription
+     * @param mixed|null $transaction
+     * @param mixed|null $plan
+     * @param mixed|null $subaccount
+     * @param mixed|null $metadata
+     * @param bool|int|null $paid
+     * @param Currency|string|null $currency
+     * @param Channels|string|null $channel
+     * @param Status|string|null $status
+     * @param DateTime|string|null $createdAt
+     * @param DateTime|string|null $updatedAt
+     * @param DateTime|string|null $created_at
+     * @param DateTime|string|null $updated_at
+     * @param DateTime|string|null $periodStart
+     * @param DateTime|string|null $periodEnd
+     * @param DateTime|string|null $period_start
+     * @param DateTime|string|null $period_end
+     * @param DateTime|string|null $paid_at
+     * @param DateTime|string|null $paidAt
+     * @param DateTime|string|null $nextNotification
+     * @param DateTime|string|null $next_notification
      */
     public function __construct(
-        // public readonly ?int $id = null,
-        // public readonly string|int|null $subscription = null,
-        // public readonly string|int|null $integration = null,
-        // public readonly string|int|null $transaction = null,
-        // public readonly string|int|null $order_id = null,
-        // public readonly ?string $invoice_code = null,
-        // public readonly ?string $receipt_number = null,
-        // public readonly ?string $reference = null,
-        // public readonly ?string $domain = null,
-        // public readonly ?string $message = null,
-        // public readonly ?string $gateway_response = null,
-        // public readonly ?string $ip_address = null,
-        // public readonly ?string $description = null,
-        // public readonly ?string $notification_flag = null,
-        // public readonly ?int $amount = null,
-        // public readonly ?int $fees = null,
-        // public readonly ?int $requested_amount = null,
-        // public readonly ?int $retries = null,
-        // bool|int|null $paid = null,
-        // Status|string $status = Status::UNKNOWN,
-        // Currency|string|null $currency = null,
-        // Channels|string|null $channel = null,
-        // DateTime|string|null $createdAt = null,
-        // DateTime|string|null $created_at = null,
-        // DateTime|string|null $updatedAt = null,
-        // DateTime|string|null $updated_at = null,
-        // DateTime|string|null $period_start = null,
-        // DateTime|string|null $period_end = null,
-        // DateTime|string|null $paid_at = null,
-        // DateTime|string|null $paidAt = null,
-        // DateTime|string|null $next_notification = null,
-        // mixed $plan = null,
-        // mixed $customer = null,
-        // mixed $authorization = null,
-        // mixed $subaccount = null, // TODO: Implement Subaccount DTO
-        // mixed $metadata = null, // TODO: Implement Meta DTO
-        // mixed $log = null, // TODO: Implement Log DTO
-        // mixed $fees_split = null,
-        // mixed $split = null,
-        // mixed $pos_transaction_data = null,
-        // mixed $source = null,
-        // mixed $fees_breakdown = null,
-        // mixed $connect = null,
-
-
-
         public readonly ?int $id = null,
         public readonly string|int|null $integration = null,
         public readonly ?string $invoice_code = null,
@@ -196,15 +203,13 @@ class InvoiceDTO implements DataTransferObject
         public readonly ?string $gateway_response = null,
         public readonly ?string $ip_address = null,
         public readonly ?int $fees = null,
-        // public readonly ?array $fees_split,
-        // public readonly array $subaccount,
-        // public readonly array $split,
+        public readonly ?array $fees_split = null,
+        public readonly ?array $split = null,
         public readonly ?string $order_id = null,
-
-        // public readonly ?array $pos_transaction_data = null,
-        // public readonly ?string $source = null,
-        // public readonly ?array $fees_breakdown = null,
-        // public readonly ?array $connect = null,
+        public readonly ?array $pos_transaction_data = null,
+        public readonly ?string $source = null,
+        public readonly ?array $fees_breakdown = null,
+        public readonly ?array $connect = null,
         public readonly ?string $notification_flag = null,
         public readonly ?int $retries = null,
         mixed $log = null,
@@ -213,6 +218,7 @@ class InvoiceDTO implements DataTransferObject
         mixed $subscription = null,
         mixed $transaction = null,
         mixed $plan = null,
+        mixed $subaccount = null,
         mixed $metadata = null,
         bool|int|null $paid = null,
         Currency|string|null $currency = null,
@@ -231,16 +237,14 @@ class InvoiceDTO implements DataTransferObject
         DateTime|string|null $nextNotification = null,
         DateTime|string|null $next_notification = null,
 
-
         ...$args // TODO: Remove this line
     ) {
-        // TODO: Implement remaining properties
-
         $this->authorization = is_array($authorization) ? new AuthorizationDTO(...$authorization) : $authorization;
         $this->customer = is_array($customer) ? new CustomerDTO(...$customer) : $customer;
         $this->subscription = is_array($subscription) ? new SubscriptionDTO(...$subscription) : $subscription;
         $this->transaction = is_array($transaction) ? new TransactionDTO(...$transaction) : $transaction;
         $this->plan = is_array($plan) ? new PlanDTO(...$plan) : $plan;
+        $this->subaccount = is_array($subaccount) ? new SubaccountDTO(...$subaccount) : $subaccount;
         $this->log = is_array($log) ? new LogDTO(...$log) : $log;
 
         $this->paid = !is_null($paid) ? (bool) $paid : null;
