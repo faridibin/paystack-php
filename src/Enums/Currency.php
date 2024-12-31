@@ -41,4 +41,20 @@ enum Currency: string
             self::KES => 'Kenyan Shilling',
         };
     }
+
+    /**
+     * Get the locale of the currency.
+     *
+     * @return string
+     */
+    public function getLocale(): string
+    {
+        return match ($this) {
+            self::NGN => 'en_NG',
+            self::USD => 'en_US',
+            self::GHS => 'en_GH',
+            self::ZAR => 'en_ZA',
+            self::KES => 'en_KE',
+        };
+    }
 }
