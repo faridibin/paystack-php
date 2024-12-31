@@ -38,6 +38,13 @@ class Response implements DataTransferObject
     protected mixed $data;
 
     /**
+     * The meta property of the response
+     *
+     * @var ?Generic $meta
+     */
+    protected ?Generic $meta = null;
+
+    /**
      * The Response DTO constructor.
      *
      * @param array|Exception $response
@@ -75,6 +82,10 @@ class Response implements DataTransferObject
      */
     public function get(string $key, mixed $default = null): mixed
     {
+        if (!($this->data instanceof DataTransferObject)) {
+            return $default;
+        }
+
         $data = $this->data->toArray();
 
         if (array_key_exists($key, $data)) {
@@ -82,6 +93,16 @@ class Response implements DataTransferObject
         }
 
         return $default instanceof \Closure ? $default(...$data) : $default;
+    }
+
+    /**
+     * Get the meta data
+     * 
+     * @return mixed
+     */
+    public function getMeta(): mixed
+    {
+        return $this->meta;
     }
 
     /**
@@ -107,7 +128,7 @@ class Response implements DataTransferObject
     /**
      * Get the message property of the response
      *
-     * @return mixed
+     * @return string
      */
     public function getMessage(): string
     {
@@ -126,63 +147,17 @@ class Response implements DataTransferObject
      */
     public function toArray(): array
     {
-        return [
+        $response = [
             'status' => $this->getStatus(),
             'message' => $this->getMessage(),
-            'data' => $this->data->toArray(),
+            'data' => $this->data instanceof DataTransferObject ? $this->data->toArray() : $this->data,
         ];
-    }
 
-    /**
-     * Handle exception
-     *
-     * @param \Exception $exception
-     * @return void
-     */
-    private function handleException(Exception $exception): void
-    {
-        // TODO: Handle exception
-        $this->status = false;
+        if ($this->meta) {
+            $response['meta'] = $this->meta->toArray();
+        }
 
-        dd($exception, 'Exception');
-        //
-        // if ($response instanceof Exception || (!isset($response['status']) && !$response['status'])) {
-        //     // TODO: Handle exception
-        //     dd($response);
-
-        //     $this->status = false;
-        // }
-
-        // $this->status = $response['status'];
-
-        // dd(
-        //     $response['message'],
-        //     $response['data'],
-        //     $response['status'],
-        // );
-
-
-        // if ($isCollection) {
-        //     //
-        //     dd($dtoClass, $response);
-        // }
-
-        // dd($response, $dtoClass, $isCollection);
-        // $this->status = $response['status'] ?? false;
-        // $this->message = $response['message'] ?? '';
-
-        // if ($dtoClass && isset($response['data'])) {
-        //     if ($isCollection) {
-        //         $this->data = array_map(
-        //             fn ($item) => new $dtoClass($item),
-        //             $response['data']
-        //         );
-        //     } else {
-        //         $this->data = new $dtoClass($response['data']);
-        //     }
-        // } else {
-        //     $this->data = $response['data'] ?? null;
-        // }
+        return $response;
     }
 
     /**
@@ -194,22 +169,56 @@ class Response implements DataTransferObject
      */
     private function handleResponse(array $response, string $dtoClass = null): void
     {
-        $this->status = $response['status'];
-        $this->message = $response['message'];
+        $this->status = $response['status'] ?? false;
+        $this->message = $response['message'] ?? '';
+        $this->statusCode = $response['code'] ?? 200;
 
         if (isset($response['data'])) {
-            if ($dtoClass && class_exists($dtoClass, true)) {
-                $this->data = ($this->isCollection) ? new Collection($response['data'], $dtoClass) : new $dtoClass(...$response['data']);
-            } else {
-                $this->data = $response['data'];
-            }
+            $this->data = $this->transformData($response['data'], $dtoClass);
         }
 
-        // TODO: Implement Meta DTO
         if (isset($response['meta'])) {
-            # code...
+            $this->meta = new Generic($response['meta']);
+        }
+    }
+
+    /**
+     * Handle exception
+     *
+     * @param \Exception $exception
+     * @return void
+     */
+    private function handleException(Exception $exception): void
+    {
+        $this->status = false;
+        $this->statusCode = $exception->getCode() ?: 500;
+        $this->message = $exception->getMessage();
+
+        $this->data = new Generic([
+            'error' => $exception->getMessage(),
+            'file' => $exception->getFile(),
+            'line' => $exception->getLine(),
+            'trace' => $exception->getTraceAsString()
+        ]);
+    }
+
+    /**
+     * Transform response data based on DTO class and collection status
+     * 
+     * @param array $data
+     * @param string|null $dtoClass
+     * @return mixed
+     */
+    private function transformData(array $data, ?string $dtoClass): mixed
+    {
+        if (!$dtoClass || !class_exists($dtoClass)) {
+            return $this->isCollection
+                ? new Collection($data, Generic::class)
+                : new Generic($data);
         }
 
-        dump($response);
+        return $this->isCollection
+            ? new Collection($data, $dtoClass)
+            : new $dtoClass(...$data);
     }
 }
