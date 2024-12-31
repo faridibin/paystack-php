@@ -121,6 +121,9 @@ class PlanDTO implements DataTransferObject
         public readonly ?int $subscriptions_count = null,
         public readonly ?int $active_subscriptions_count = null,
         public readonly ?int $total_revenue = null,
+        public readonly ?int $total_subscriptions = null,
+        public readonly ?int $active_subscriptions = null,
+        public readonly ?int $total_subscriptions_revenue = null,
         array $subscriptions = [],
         array $pages = [],
         array $subscribers = [],
@@ -157,8 +160,10 @@ class PlanDTO implements DataTransferObject
             $this->updatedAt = $updatedAt instanceof DateTime ? $updatedAt : new DateTime($updatedAt);
         }
 
-        // dump([
-        //     'plan_args' => $args, // TODO: Remove this
-        // ]);
+        if (!empty($args)) {
+            dump([
+                'plan_args' => $args, // TODO: Remove this
+            ]);
+        }
     }
 }

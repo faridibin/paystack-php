@@ -6,6 +6,7 @@ use Faridibin\Paystack\Client;
 use Faridibin\Paystack\Contracts\ClientInterface;
 use Faridibin\Paystack\Contracts\Services\Payments\Transactions\TransactionsInterface;
 use Faridibin\Paystack\DataTransferObjects\Payments\Transactions\TransactionDTO;
+use Faridibin\Paystack\DataTransferObjects\Payments\Transactions\TransactionTotalsDTO;
 use Faridibin\Paystack\DataTransferObjects\Response;
 use Faridibin\Paystack\Enums\Currency;
 
@@ -152,7 +153,7 @@ class Transactions implements TransactionsInterface
             ]
         ]);
 
-        return new Response($response);
+        return new Response($response, TransactionTotalsDTO::class);
     }
 
     /**

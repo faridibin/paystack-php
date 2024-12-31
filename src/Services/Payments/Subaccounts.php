@@ -5,6 +5,7 @@ namespace Faridibin\Paystack\Services\Payments;
 use Faridibin\Paystack\Client;
 use Faridibin\Paystack\Contracts\ClientInterface;
 use Faridibin\Paystack\Contracts\Services\Payments\SubaccountsInterface;
+use Faridibin\Paystack\DataTransferObjects\Payments\SubaccountDTO;
 use Faridibin\Paystack\DataTransferObjects\Response;
 
 class Subaccounts implements SubaccountsInterface
@@ -43,11 +44,7 @@ class Subaccounts implements SubaccountsInterface
             ]
         ]);
 
-        return new Response(
-            $response,
-            // CountriesDTO::class,
-            // true
-        );
+        return new Response($response, SubaccountDTO::class);
     }
 
     /**
@@ -67,11 +64,7 @@ class Subaccounts implements SubaccountsInterface
             ]
         ]);
 
-        return new Response(
-            $response,
-            // CountriesDTO::class,
-            // true
-        );
+        return new Response($response, SubaccountDTO::class, true);
     }
 
     /**
@@ -85,11 +78,7 @@ class Subaccounts implements SubaccountsInterface
     {
         $response = $this->client->send('GET', "/subaccount/{$identifier}");
 
-        return new Response(
-            $response,
-            // CountriesDTO::class,
-            // true
-        );
+        return new Response($response, SubaccountDTO::class);
     }
 
     /**
@@ -106,10 +95,6 @@ class Subaccounts implements SubaccountsInterface
             'json' => $data
         ]);
 
-        return new Response(
-            $response,
-            // CountriesDTO::class,
-            // true
-        );
+        return new Response($response, SubaccountDTO::class);
     }
 }

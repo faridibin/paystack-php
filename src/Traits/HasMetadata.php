@@ -16,9 +16,9 @@ trait HasMetadata
     /**
      * Resolve the metadata
      *
-     * @param array|string|null $metadata
+     * @param mixed $metadata
      */
-    private function resolveMetadata(array|string|null $metadata): void
+    private function resolveMetadata(mixed $metadata): void
     {
         if (is_null($metadata)) {
             $this->metadata = null;

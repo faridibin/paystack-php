@@ -104,8 +104,10 @@ class CustomerDTO implements DataTransferObject
 
         $this->resolveMetadata($metadata);
 
-        // dump([
-        //     'customer_args' => $args, // TODO: Remove this
-        // ]);
+        if (!empty($args)) {
+            dump([
+                'customer_args' => $args, // TODO: Remove this
+            ]);
+        }
     }
 }

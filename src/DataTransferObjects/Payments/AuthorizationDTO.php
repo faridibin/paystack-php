@@ -60,6 +60,7 @@ class AuthorizationDTO implements DataTransferObject
         public readonly ?string $bank = null,
         public readonly ?string $country_code = null,
         public readonly ?string $country_name = null,
+        public readonly ?string $mobile_money_number = null,
         public readonly ?string $brand = null,
         public readonly ?string $signature = null,
         public readonly ?string $account_name = null,
@@ -83,8 +84,10 @@ class AuthorizationDTO implements DataTransferObject
             $this->reusable = (bool) $reusable;
         }
 
-        // dump([
-        //     'authorization_args' => $args, // TODO: Remove this line
-        // ]);
+        if (!empty($args)) {
+            dump([
+                'authorization_args' => $args, // TODO: Remove this line
+            ]);
+        }
     }
 }

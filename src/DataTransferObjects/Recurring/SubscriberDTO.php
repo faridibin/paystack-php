@@ -57,8 +57,10 @@ class SubscriberDTO implements DataTransferObject
             $this->status = Status::from($subscription_status);
         }
 
-        // dump([
-        //     'subscriber_args' => $args, // TODO: Remove this line
-        // ]);
+        if (!empty($args)) {
+            dump([
+                'subscriber_args' => $args, // TODO: Remove this line
+            ]);
+        }
     }
 }

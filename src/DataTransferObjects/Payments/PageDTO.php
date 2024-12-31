@@ -113,8 +113,10 @@ class PageDTO implements DataTransferObject
 
         $this->resolveMetadata($metadata);
 
-        // dump([
-        //     'page_args' => $args, // TODO: Remove this line
-        // ]);
+        if (!empty($args)) {
+            dump([
+                'page_args' => $args, // TODO: Remove this line
+            ]);
+        }
     }
 }
