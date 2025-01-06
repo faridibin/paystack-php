@@ -15,6 +15,23 @@ enum Interval: string
     case ANNUALLY = 'annually';
 
     /**
+     * Get the time unit for the interval
+     *
+     * @return string
+     */
+    public function getTimeUnit(): string
+    {
+        return match ($this) {
+            self::HOURLY => 'hour',
+            self::DAILY => 'day',
+            self::WEEKLY => 'week',
+            self::MONTHLY => 'month',
+            self::QUARTERLY => 'quarter',
+            self::BI_ANNUALLY, self::ANNUALLY => 'year',
+        };
+    }
+
+    /**
      * Calculate the next date based on the interval
      *
      * @param Carbon $date
