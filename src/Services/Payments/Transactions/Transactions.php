@@ -33,7 +33,7 @@ class Transactions implements TransactionsInterface
      * @param array $optional
      * @return \Faridibin\Paystack\DataTransferObjects\Response
      */
-    public function initializeTransaction(int $amount, string $email, array $optional = []): Response
+    public function initialize(int $amount, string $email, array $optional = []): Response
     {
         $response = $this->client->send('POST', '/transaction/initialize', [
             'json' => [
@@ -53,7 +53,7 @@ class Transactions implements TransactionsInterface
      * @param string $reference
      * @return \Faridibin\Paystack\DataTransferObjects\Response
      */
-    public function verifyTransaction(string $reference): Response
+    public function verify(string $reference): Response
     {
         $response = $this->client->send('GET', "/transaction/verify/{$reference}");
 
@@ -69,7 +69,7 @@ class Transactions implements TransactionsInterface
      * @param array $optional
      * @return \Faridibin\Paystack\DataTransferObjects\Response
      */
-    public function listTransactions(int $perPage = 50, int $page = 1, array $optional = []): Response
+    public function list(int $perPage = 50, int $page = 1, array $optional = []): Response
     {
         $response = $this->client->send('GET', '/transaction', [
             'query' => [
@@ -89,7 +89,7 @@ class Transactions implements TransactionsInterface
      * @param string $id
      * @return \Faridibin\Paystack\DataTransferObjects\Response
      */
-    public function fetchTransaction(string $id): Response
+    public function fetch(string $id): Response
     {
         $response = $this->client->send('GET', "/transaction/{$id}");
 
@@ -165,7 +165,7 @@ class Transactions implements TransactionsInterface
      * @param array $optional
      * @return \Faridibin\Paystack\DataTransferObjects\Response
      */
-    public function exportTransaction(int $perPage = 50, int $page = 1, array $optional = []): Response
+    public function export(int $perPage = 50, int $page = 1, array $optional = []): Response
     {
         $response = $this->client->send('GET', '/transaction/export', [
             'query' => [

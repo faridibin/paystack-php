@@ -30,7 +30,7 @@ class Customers implements CustomersInterface
      * @param array $data
      * @return \Faridibin\Paystack\DataTransferObjects\Response
      */
-    public function createCustomer(array $data = []): Response
+    public function create(array $data = []): Response
     {
         $response = $this->client->send('POST', '/customer', [
             'json' => $data
@@ -46,7 +46,7 @@ class Customers implements CustomersInterface
      * @param string $identifier An email or customer code for the customer you want to fetch
      * @return \Faridibin\Paystack\DataTransferObjects\Response
      */
-    public function fetchCustomer(string $identifier): Response
+    public function fetch(string $identifier): Response
     {
         $response = $this->client->send('GET', "/customer/{$identifier}");
 
@@ -61,7 +61,7 @@ class Customers implements CustomersInterface
      * @param array $data
      * @return \Faridibin\Paystack\DataTransferObjects\Response
      */
-    public function updateCustomer(string $code, array $data): Response
+    public function update(string $code, array $data): Response
     {
         $response = $this->client->send('PUT', "/customer/{$code}", [
             'json' => $data
@@ -80,7 +80,7 @@ class Customers implements CustomersInterface
      *
      * @return \Faridibin\Paystack\DataTransferObjects\Response
      */
-    public function listCustomers(int $perPage = 50, int $page = 1, array $optional = []): Response
+    public function list(int $perPage = 50, int $page = 1, array $optional = []): Response
     {
         $response = $this->client->send('GET', '/customer', [
             'query' => [
@@ -101,7 +101,7 @@ class Customers implements CustomersInterface
      * @param array $data
      * @return \Faridibin\Paystack\DataTransferObjects\Response
      */
-    public function validateCustomer(string $identifier, array $data): Response
+    public function validate(string $identifier, array $data): Response
     {
         $response = $this->client->send('POST', "/customer/{$identifier}/identification", [
             'json' => $data
@@ -117,7 +117,7 @@ class Customers implements CustomersInterface
      * @param string $identifier Customer's code, or email address
      * @return \Faridibin\Paystack\DataTransferObjects\Response
      */
-    public function setCustomerRiskStatus(string $identifier, RiskAction|string $riskAction = 'default'): Response
+    public function setRiskStatus(string $identifier, RiskAction|string $riskAction = 'default'): Response
     {
         $response = $this->client->send('POST', '/customer/set_risk_action', [
             'json' => [

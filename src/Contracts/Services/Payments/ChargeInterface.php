@@ -16,7 +16,7 @@ interface ChargeInterface extends PaymentsInterface
      * @param array $data
      * @return \Faridibin\Paystack\DataTransferObjects\Response
      */
-    public function createCharge(string $email, int $amount, array $optional = []): Response;
+    public function create(string $email, int $amount, array $optional = []): Response;
 
     /**
      * Submit PIN.
