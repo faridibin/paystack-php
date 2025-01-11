@@ -30,7 +30,7 @@ class Subscriptions implements SubscriptionsInterface
      * @param array $optional
      * @return Response
      */
-    public function createSubscription(string $customer, string $plan, array $optional = []): Response
+    public function create(string $customer, string $plan, array $optional = []): Response
     {
         $response = $this->client->send('POST', '/subscription', [
             'json' => [
@@ -52,7 +52,7 @@ class Subscriptions implements SubscriptionsInterface
      * @param array $optional
      * @return Response
      */
-    public function listSubscriptions(int $perPage = 50, int $page = 1, array $optional = []): Response
+    public function list(int $perPage = 50, int $page = 1, array $optional = []): Response
     {
         $response = $this->client->send('GET', '/subscription', [
             'query' => [
@@ -72,7 +72,7 @@ class Subscriptions implements SubscriptionsInterface
      * @param string $identifier The subscription ID or code you want to fetch
      * @return Response
      */
-    public function fetchSubscription(string $identifier): Response
+    public function fetch(string $identifier): Response
     {
         $response = $this->client->send('GET', "/subscription/{$identifier}");
 
@@ -88,7 +88,7 @@ class Subscriptions implements SubscriptionsInterface
      * @param bool $active Whether to enable or disable the subscription
      * @return Response
      */
-    public function toggleSubscription(string $code, string $token, bool $active = true): Response
+    public function toggle(string $code, string $token, bool $active = true): Response
     {
         $endpoint = sprintf('/subscription/%s', $active ? 'enable' : 'disable');
 

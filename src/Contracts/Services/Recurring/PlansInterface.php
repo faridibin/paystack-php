@@ -18,7 +18,7 @@ interface PlansInterface extends RecurringInterface
      * @param array $optional
      * @return \Faridibin\Paystack\DataTransferObjects\Response
      */
-    public function createPlan(string $name, int $amount, PlanInterval|string $interval, array $optional = []): Response;
+    public function create(string $name, int $amount, PlanInterval|string $interval, array $optional = []): Response;
 
     /**
      * List plans.
@@ -29,7 +29,7 @@ interface PlansInterface extends RecurringInterface
      * @param array $optional
      * @return \Faridibin\Paystack\DataTransferObjects\Response
      */
-    public function listPlans(int $perPage = 50, int $page = 1, array $optional = []): Response;
+    public function list(int $perPage = 50, int $page = 1, array $optional = []): Response;
 
     /**
      * Fetch Plan
@@ -38,7 +38,7 @@ interface PlansInterface extends RecurringInterface
      * @param string $identifier The plan ID or code you want to fetch
      * @return \Faridibin\Paystack\DataTransferObjects\Response
      */
-    public function fetchPlan(string $identifier): Response;
+    public function fetch(string $identifier): Response;
 
     /**
      * Update Plan
@@ -48,5 +48,5 @@ interface PlansInterface extends RecurringInterface
      * @param array $data
      * @return \Faridibin\Paystack\DataTransferObjects\Response
      */
-    public function updatePlan(string $identifier, array $data): Response;
+    public function update(string $identifier, array $data): Response;
 }
