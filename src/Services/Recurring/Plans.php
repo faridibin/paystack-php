@@ -32,7 +32,7 @@ class Plans implements PlansInterface
      * @param array $optional
      * @return \Faridibin\Paystack\DataTransferObjects\Response
      */
-    public function createPlan(string $name, int $amount, PlanInterval|string $interval, array $optional = []): Response
+    public function create(string $name, int $amount, PlanInterval|string $interval, array $optional = []): Response
     {
         $response = $this->client->send('POST', '/plan', [
             'json' => [
@@ -55,7 +55,7 @@ class Plans implements PlansInterface
      * @param array $optional
      * @return \Faridibin\Paystack\DataTransferObjects\Response
      */
-    public function listPlans(int $perPage = 50, int $page = 1, array $optional = []): Response
+    public function list(int $perPage = 50, int $page = 1, array $optional = []): Response
     {
         $response = $this->client->send('GET', '/plan', [
             'query' => [
@@ -75,7 +75,7 @@ class Plans implements PlansInterface
      * @param string $identifier The plan ID or code you want to fetch
      * @return \Faridibin\Paystack\DataTransferObjects\Response
      */
-    public function fetchPlan(string $identifier): Response
+    public function fetch(string $identifier): Response
     {
         $response = $this->client->send('GET', "/plan/{$identifier}");
 
@@ -90,7 +90,7 @@ class Plans implements PlansInterface
      * @param array $data
      * @return \Faridibin\Paystack\DataTransferObjects\Response
      */
-    public function updatePlan(string $identifier, array $data): Response
+    public function update(string $identifier, array $data): Response
     {
         $response = $this->client->send('PUT', "/plan/{$identifier}", [
             'json' => $data
