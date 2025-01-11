@@ -19,7 +19,7 @@ interface TransactionsInterface extends PaymentsInterface
      * @param array $optional
      * @return \Faridibin\Paystack\DataTransferObjects\Response
      */
-    public function initializeTransaction(int $amount, string $email, array $optional = []): Response;
+    public function initialize(int $amount, string $email, array $optional = []): Response;
 
     /**
      * Verify Transaction.
@@ -28,7 +28,7 @@ interface TransactionsInterface extends PaymentsInterface
      * @param string $reference
      * @return \Faridibin\Paystack\DataTransferObjects\Response
      */
-    public function verifyTransaction(string $reference): Response;
+    public function verify(string $reference): Response;
 
     /**
      * List Transactions.
@@ -39,7 +39,7 @@ interface TransactionsInterface extends PaymentsInterface
      * @param array $optional
      * @return \Faridibin\Paystack\DataTransferObjects\Response
      */
-    public function listTransactions(int $perPage = 50, int $page = 1, array $optional = []): Response;
+    public function list(int $perPage = 50, int $page = 1, array $optional = []): Response;
 
     /**
      * Fetch Transaction
@@ -48,7 +48,7 @@ interface TransactionsInterface extends PaymentsInterface
      * @param string $id
      * @return \Faridibin\Paystack\DataTransferObjects\Response
      */
-    public function fetchTransaction(string $id): Response;
+    public function fetch(string $id): Response;
 
     /**
      * Charge Authorization
@@ -91,7 +91,7 @@ interface TransactionsInterface extends PaymentsInterface
      * @param array $optional
      * @return \Faridibin\Paystack\DataTransferObjects\Response
      */
-    public function exportTransaction(int $perPage = 50, int $page = 1, array $optional = []): Response;
+    public function export(int $perPage = 50, int $page = 1, array $optional = []): Response;
 
     /**
      * Partial Debit

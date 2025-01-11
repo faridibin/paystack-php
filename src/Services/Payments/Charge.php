@@ -29,7 +29,7 @@ class Charge implements ChargeInterface
      * @param array $data
      * @return \Faridibin\Paystack\DataTransferObjects\Response
      */
-    public function createCharge(string $email, int $amount, array $optional = []): Response
+    public function create(string $email, int $amount, array $optional = []): Response
     {
         $response = $this->client->send('POST', '/charge', [
             'json' => [

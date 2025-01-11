@@ -16,7 +16,7 @@ interface CustomersInterface extends PaymentsInterface
      * @param array $data
      * @return \Faridibin\Paystack\DataTransferObjects\Response
      */
-    public function createCustomer(array $data = []): Response;
+    public function create(array $data = []): Response;
 
     /**
      * Fetch Customer
@@ -25,7 +25,7 @@ interface CustomersInterface extends PaymentsInterface
      * @param string $identifier An email or customer code for the customer you want to fetch
      * @return \Faridibin\Paystack\DataTransferObjects\Response
      */
-    public function fetchCustomer(string $identifier): Response;
+    public function fetch(string $identifier): Response;
 
     /**
      * Update a customer.
@@ -35,7 +35,7 @@ interface CustomersInterface extends PaymentsInterface
      * @param array $data
      * @return \Faridibin\Paystack\DataTransferObjects\Response
      */
-    public function updateCustomer(string $code, array $data): Response;
+    public function update(string $code, array $data): Response;
 
     /**
      * List Customer.
@@ -43,7 +43,7 @@ interface CustomersInterface extends PaymentsInterface
      *
      * @return \Faridibin\Paystack\DataTransferObjects\Response
      */
-    public function listCustomers(int $perPage = 50, int $page = 1, array $optional = []): Response;
+    public function list(int $perPage = 50, int $page = 1, array $optional = []): Response;
 
     /**
      * Validate Customer.
@@ -53,7 +53,7 @@ interface CustomersInterface extends PaymentsInterface
      * @param array $data
      * @return \Faridibin\Paystack\DataTransferObjects\Response
      */
-    public function validateCustomer(string $identifier, array $data): Response;
+    public function validate(string $identifier, array $data): Response;
 
     /**
      * Deactivate Customer.
@@ -62,7 +62,7 @@ interface CustomersInterface extends PaymentsInterface
      * @param string $identifier Customer's code, or email address
      * @return \Faridibin\Paystack\DataTransferObjects\Response
      */
-    public function setCustomerRiskStatus(string $identifier, RiskAction|string $riskAction = 'default'): Response;
+    public function setRiskStatus(string $identifier, RiskAction|string $riskAction = 'default'): Response;
 
     /**
      * Deactivate Authorization.
