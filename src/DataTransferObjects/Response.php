@@ -161,18 +161,6 @@ class Response implements DataTransferObject
     }
 
     /**
-     * Convert the response to an object
-     *
-     * @return \stdClass
-     */
-    public function asObject(): \stdClass
-    {
-        return $this->arrayToObject(
-            $this->toArray()
-        );
-    }
-
-    /**
      * Handle response
      *
      * @param array $response
@@ -232,34 +220,5 @@ class Response implements DataTransferObject
         return $this->isCollection
             ? new Collection($data, $dtoClass)
             : new $dtoClass(...$data);
-    }
-
-    /**
-     * Recursively convert an array to an object
-     *
-     * @param array $array
-     * @return \stdClass|array
-     */
-    private function arrayToObject(array $array): \stdClass|array
-    {
-        $object = new \stdClass();
-
-        foreach ($array as $key => $value) {
-            if (is_array($value)) {
-                // If it's a sequential array, keep it as array
-                if (array_keys($value) === range(0, count($value) - 1)) {
-                    $object->$key = array_map(function ($item) {
-                        return is_array($item) ? $this->arrayToObject($item) : $item;
-                    }, $value);
-                } else {
-                    // If associative array, convert to object
-                    $object->$key = $this->arrayToObject($value);
-                }
-            } else {
-                $object->$key = $value;
-            }
-        }
-
-        return $object;
     }
 }
