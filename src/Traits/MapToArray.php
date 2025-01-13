@@ -7,6 +7,7 @@ namespace Faridibin\Paystack\Traits;
 use DateTime;
 use BackedEnum;
 use ReflectionClass;
+use ReflectionProperty;
 use Faridibin\Paystack\Contracts\DataTransferObjects\DataTransferObject;
 
 trait MapToArray
@@ -17,15 +18,16 @@ trait MapToArray
     public function toArray(): array
     {
         $reflection = new ReflectionClass($this);
-        $properties = $reflection->getProperties();
+        $properties = $reflection->getProperties(ReflectionProperty::IS_READONLY);
         $array = [];
 
         foreach ($properties as $property) {
-            if (!$property->isReadOnly()) {
+            $name = $property->getName();
+
+            if (!$property->isInitialized($this)) {
                 continue;
             }
 
-            $name = $property->getName();
             $value = $property->getValue($this);
 
             if ($value === null) {
