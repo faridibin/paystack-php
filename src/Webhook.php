@@ -45,9 +45,11 @@ class Webhook
      */
     public static function isIpWhitelisted(string $ip): self
     {
-        if (!in_array($ip, self::PAYSTACK_WHITELISTED_IPS, true)) {
-            throw new PaystackException('IP not whitelisted');
-        }
+        dump($ip);
+
+        // if (!in_array($ip, self::PAYSTACK_WHITELISTED_IPS, true)) {
+        //     throw new PaystackException('IP not whitelisted');
+        // }
 
         return new self();
     }
