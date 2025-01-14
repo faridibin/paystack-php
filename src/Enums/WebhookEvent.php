@@ -1,6 +1,6 @@
 <?php
 
-namespace Faridibin\PaystackLaravel\Enums;
+namespace Faridibin\Paystack\Enums;
 
 enum WebhookEvent: string
 {
