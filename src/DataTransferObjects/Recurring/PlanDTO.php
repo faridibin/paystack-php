@@ -17,6 +17,20 @@ class PlanDTO implements DataTransferObject
     use MapToArray;
 
     /**
+     * The send invoices status
+     * 
+     * @var bool $send_invoices
+     */
+    public readonly bool $send_invoices;
+
+    /**
+     * The send sms status
+     * 
+     * @var bool $send_sms
+     */
+    public readonly bool $send_sms;
+
+    /**
      * The collection of pages
      *
      * @var Collection $pages
@@ -108,8 +122,6 @@ class PlanDTO implements DataTransferObject
         public readonly ?string $description = null,
         public readonly ?int $amount = null,
         public readonly ?int $invoice_limit = null,
-        public readonly ?bool $send_invoices = null,
-        public readonly ?bool $send_sms = null,
         public readonly ?bool $hosted_page = null,
         public readonly ?string $hosted_page_url = null,
         public readonly ?string $hosted_page_summary = null,
@@ -124,6 +136,8 @@ class PlanDTO implements DataTransferObject
         public readonly ?int $total_subscriptions = null,
         public readonly ?int $active_subscriptions = null,
         public readonly ?int $total_subscriptions_revenue = null,
+        bool|int|null $send_invoices = null,
+        bool|int|null $send_sms = null,
         array $subscriptions = [],
         array $pages = [],
         array $subscribers = [],
@@ -137,6 +151,9 @@ class PlanDTO implements DataTransferObject
 
         ...$args // TODO: Remove this
     ) {
+        $this->send_invoices = is_int($send_invoices) ? (bool)$send_invoices : $send_invoices;
+        $this->send_sms = is_int($send_sms) ? (bool)$send_sms : $send_sms;
+
         $this->pages = new Collection($pages, PageDTO::class);
         $this->subscriptions = new Collection($subscriptions, SubscriptionDTO::class);
         $this->subscribers = new Collection($subscribers, SubscriberDTO::class);
