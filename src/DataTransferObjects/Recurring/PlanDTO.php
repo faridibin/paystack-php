@@ -21,14 +21,14 @@ class PlanDTO implements DataTransferObject
      * 
      * @var bool $send_invoices
      */
-    public readonly bool $send_invoices;
+    public readonly bool|null $send_invoices;
 
     /**
      * The send sms status
      * 
      * @var bool $send_sms
      */
-    public readonly bool $send_sms;
+    public readonly bool|null $send_sms;
 
     /**
      * The collection of pages
