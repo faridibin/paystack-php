@@ -197,7 +197,7 @@ class InvoiceDTO implements DataTransferObject
         public readonly ?string $reference = null,
         public readonly ?string $description = null,
         public readonly ?string $receipt_number = null,
-        public readonly ?int $amount = null,
+        public readonly int|string|null $amount = null,
         public readonly ?int $requested_amount = null,
         public readonly ?string $message = null,
         public readonly ?string $gateway_response = null,
