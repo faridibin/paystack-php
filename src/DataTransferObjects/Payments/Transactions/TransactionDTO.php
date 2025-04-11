@@ -156,7 +156,7 @@ class TransactionDTO implements DataTransferObject
         public readonly ?string $reference = null,
         public readonly ?string $receipt_number = null,
         public readonly ?int $order_id = null,
-        public readonly ?int $amount = null,
+        public readonly int|string|null $amount = null,
         public readonly ?int $requested_amount = null,
         public readonly ?int $fees = null,
         public readonly ?array $fees_split = null,
