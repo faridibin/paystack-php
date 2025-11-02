@@ -56,6 +56,7 @@ class BankDTO implements DataTransferObject
      * @param RecipientType|string $type
      * @param bool $pay_with_bank
      * @param bool $supports_transfer
+     * @param bool $available_for_direct_debit
      * @param bool $active
      * @param bool $is_deleted
      * @param DateTime|string $createdAt
@@ -73,6 +74,7 @@ class BankDTO implements DataTransferObject
         RecipientType|string $type,
         public readonly bool $pay_with_bank,
         public readonly bool $supports_transfer,
+        public readonly bool $available_for_direct_debit,
         public readonly bool $active,
         public readonly bool $is_deleted,
         DateTime|string|null $createdAt = null,
