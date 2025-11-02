@@ -47,6 +47,29 @@ class Refunds implements RefundsInterface
     }
 
     /**
+     * Retry a refund.
+     * Retry a failed refund on your integration
+     *
+     * @param string $id
+     * @param array $optional
+     * @return \Faridibin\Paystack\DataTransferObjects\Response
+     */
+    public function retryRefund(string $id, array $optional = []): Response
+    {
+        $response = $this->client->send('POST', "/retry_with_customer_details/{$id}", [
+            'json' => [
+                ...$optional
+            ]
+        ]);
+
+        return new Response(
+            $response,
+            // CountriesDTO::class,
+            // true
+        );
+    }
+
+    /**
      * List refunds.
      * List refunds available on your integration
      *
