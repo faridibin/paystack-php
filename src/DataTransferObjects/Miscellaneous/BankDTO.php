@@ -7,7 +7,7 @@ namespace Faridibin\Paystack\DataTransferObjects\Miscellaneous;
 use DateTime;
 use Faridibin\Paystack\Contracts\DataTransferObjects\DataTransferObject;
 use Faridibin\Paystack\Enums\Currency;
-use Faridibin\Paystack\Enums\RecipientType;
+use Faridibin\Paystack\Enums\BankType;
 use Faridibin\Paystack\Traits\MapToArray;
 
 class BankDTO implements DataTransferObject
@@ -22,11 +22,11 @@ class BankDTO implements DataTransferObject
     public readonly Currency $currency;
 
     /**
-     * The type of recipient
+     * The type of bank
      *
-     * @var RecipientType $recipientType
+     * @var BankType $type
      */
-    public readonly RecipientType $type;
+    public readonly BankType $type;
 
     /**
      * The createdAt property of the bank
@@ -53,7 +53,7 @@ class BankDTO implements DataTransferObject
      * @param string|null $gateway
      * @param string $country
      * @param Currency|string $currency
-     * @param RecipientType|string $type
+     * @param BankType|string $type
      * @param bool $pay_with_bank
      * @param bool $supports_transfer
      * @param bool $available_for_direct_debit
@@ -71,7 +71,7 @@ class BankDTO implements DataTransferObject
         public readonly ?string $gateway,
         public readonly string $country,
         Currency|string $currency,
-        RecipientType|string $type,
+        BankType|string $type,
         public readonly bool $pay_with_bank,
         public readonly bool $supports_transfer,
         public readonly bool $available_for_direct_debit,
@@ -81,7 +81,7 @@ class BankDTO implements DataTransferObject
         DateTime|string|null $updatedAt = null,
     ) {
         $this->currency = $currency instanceof Currency ? $currency : Currency::from($currency);
-        $this->type = $type instanceof RecipientType ? $type : RecipientType::from($type);
+        $this->type = $type instanceof BankType ? $type : BankType::from($type);
 
         $this->createdAt = $createdAt instanceof DateTime ? $createdAt : ($createdAt ? new DateTime($createdAt) : null);
         $this->updatedAt = $updatedAt instanceof DateTime ? $updatedAt : ($updatedAt ? new DateTime($updatedAt) : null);
