@@ -2,11 +2,12 @@
 
 namespace Faridibin\Paystack\Enums;
 
-enum RecipientType: string
+enum BankType: string
 {
     case GHIPSS = 'ghipss';
     case MOBILE_MONEY = 'mobile_money';
     case KEPSS = 'kepss';
+    case MOBILE_MONEY_BUSINESS = 'mobile_money_business';
     case NUBAN = 'nuban';
     case BASA = 'basa';
 
@@ -21,8 +22,9 @@ enum RecipientType: string
             self::GHIPSS => 'Ghana Interbank Payment and Settlement Systems',
             self::MOBILE_MONEY => 'Mobile Money or MoMo is an account tied to a mobile number',
             self::KEPSS => 'Kenya Electronic Payment and Settlement System',
+            self::MOBILE_MONEY_BUSINESS => 'Mobile Money Business is an account tied to a mobile number for business purposes',
             self::NUBAN => 'Nigerian Uniform Bank Account Number',
-            self::BASA => 'Banking Association South Africa'
+            self::BASA => 'Banking Association South Africa',
         };
     }
 
@@ -37,6 +39,7 @@ enum RecipientType: string
             self::GHIPSS => ['GHS'],
             self::MOBILE_MONEY => ['GHS', 'KES'],
             self::KEPSS => ['KES'],
+            self::MOBILE_MONEY_BUSINESS => ['GHS', 'KES'],
             self::NUBAN => ['NGN'],
             self::BASA => ['ZAR'],
         };
