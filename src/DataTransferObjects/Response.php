@@ -77,7 +77,7 @@ class Response implements DataTransferObject
      *
      * @param string $key
      * @param mixed $default
-     * 
+     *
      * @return mixed
      */
     public function get(string $key, mixed $default = null): mixed
@@ -97,7 +97,7 @@ class Response implements DataTransferObject
 
     /**
      * Get the meta data
-     * 
+     *
      * @return mixed
      */
     public function getMeta(): mixed
@@ -167,7 +167,7 @@ class Response implements DataTransferObject
      * @param string|null $dtoClass
      * @return void
      */
-    private function handleResponse(array $response, string $dtoClass = null): void
+    private function handleResponse(array $response, ?string $dtoClass = null): void
     {
         $this->status = $response['status'] ?? false;
         $this->message = $response['message'] ?? '';
@@ -204,12 +204,12 @@ class Response implements DataTransferObject
 
     /**
      * Transform response data based on DTO class and collection status
-     * 
+     *
      * @param array $data
      * @param string|null $dtoClass
      * @return mixed
      */
-    private function transformData(array $data, ?string $dtoClass): mixed
+    private function transformData(array $data, ?string $dtoClass = null): mixed
     {
         if (!$dtoClass || !class_exists($dtoClass)) {
             return $this->isCollection
