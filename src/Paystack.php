@@ -7,6 +7,14 @@ namespace Faridibin\Paystack;
 use Faridibin\Paystack\Contracts\{PaystackInterface, Services\ServiceInterface};
 use Faridibin\Paystack\Exceptions\PaystackException;
 
+/**
+ * The main Paystack SDK entry point.
+ *
+ * Provides access to all Paystack API services via dynamic method calls.
+ * Services are lazily resolved and cached on first access.
+ *
+ * @see \Faridibin\Paystack\Contracts\PaystackInterface
+ */
 final class Paystack implements PaystackInterface
 {
     /**
@@ -62,12 +70,12 @@ final class Paystack implements PaystackInterface
     /**
      * Register a new service.
      *
-     * @param string $name
-     * @param string $serviceClass
-     * @param string $interfaceClass
-     * @return self
+     * @param string $name The service alias (e.g. 'transactions')
+     * @param string $serviceClass The fully-qualified service class name
+     * @param string $interfaceClass The fully-qualified interface class name
+     * @return static
      */
-    public function registerService(string $name, string $serviceClass, string $interfaceClass): self
+    public function registerService(string $name, string $serviceClass, string $interfaceClass): static
     {
         $this->serviceMap[$name] = [$serviceClass, $interfaceClass];
 
@@ -75,12 +83,12 @@ final class Paystack implements PaystackInterface
     }
 
     /**
-     * Register multiple services.
+     * Register multiple services at once.
      *
-     * @param array<string, array> $services
-     * @return self
+     * @param array<string, array{0: string, 1: string}> $services Map of alias => [serviceClass, interfaceClass]
+     * @return static
      */
-    public function registerServices(array $services): self
+    public function registerServices(array $services): static
     {
         foreach ($services as $name => [$serviceClass, $interfaceClass]) {
             $this->registerService($name, $serviceClass, $interfaceClass);

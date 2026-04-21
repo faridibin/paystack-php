@@ -6,6 +6,12 @@ namespace Faridibin\Paystack;
 
 use Faridibin\Paystack\Exceptions\PaystackException;
 
+/**
+ * Utility class for validating Paystack webhook requests.
+ *
+ * Provides HMAC-SHA512 signature validation and Paystack IP whitelisting.
+ * Chain {@see validateSignature()} and {@see isIpWhitelisted()} for full validation.
+ */
 class Webhook
 {
     /**
@@ -19,10 +25,12 @@ class Webhook
 
     /**
      * Validate the webhook signature.
-     * 
+     *
      * @param string $payload
      * @param string $signature
      * @param string $secretKey
+     * @return static
+     * @throws \Faridibin\Paystack\Exceptions\PaystackException
      */
     public static function validateSignature(string $payload, string $signature, string $secretKey): self
     {
@@ -41,7 +49,10 @@ class Webhook
 
     /**
      * Check if the IP is whitelisted.
+     *
      * @param string $ip
+     * @return static
+     * @throws \Faridibin\Paystack\Exceptions\PaystackException
      */
     public static function isIpWhitelisted(string $ip): self
     {

@@ -12,6 +12,14 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Exception\ServerException;
 
+/**
+ * Provides access to the Paystack platform health status.
+ *
+ * Queries the Paystack Atlassian Statuspage API to report on the operational
+ * status of all Paystack services.
+ *
+ * @see \Faridibin\Paystack\Contracts\HealthInterface
+ */
 final class Health implements HealthInterface
 {
     /**
