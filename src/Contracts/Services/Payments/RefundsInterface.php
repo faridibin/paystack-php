@@ -7,6 +7,9 @@ namespace Faridibin\Paystack\Contracts\Services\Payments;
 use Faridibin\Paystack\DataTransferObjects\Response;
 use Faridibin\Paystack\Enums\Currency;
 
+/**
+ * Defines the contract for refund operations.
+ */
 interface RefundsInterface extends PaymentsInterface
 {
     /**
@@ -15,7 +18,7 @@ interface RefundsInterface extends PaymentsInterface
      *
      * @param string $identifier
      * @param array $optional
-     * @return \Faridibin\Paystack\DataTransferObjects\Response
+     * @return Response
      */
     public function createRefund(string $identifier, array $optional = []): Response;
 
@@ -26,7 +29,7 @@ interface RefundsInterface extends PaymentsInterface
      * @param string $transactionId
      * @param Currency|string $currency
      * @param array $optional
-     * @return \Faridibin\Paystack\DataTransferObjects\Response
+     * @return Response
      */
     public function listRefunds(string $transactionId, Currency|string $currency, array $optional = []): Response;
 
@@ -35,7 +38,7 @@ interface RefundsInterface extends PaymentsInterface
      * Get details of a refund on your integration
      *
      * @param string $id
-     * @return \Faridibin\Paystack\DataTransferObjects\Response
+     * @return Response
      */
     public function fetchRefund(string $id): Response;
 }

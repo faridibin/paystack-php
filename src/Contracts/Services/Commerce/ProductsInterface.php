@@ -7,6 +7,9 @@ namespace Faridibin\Paystack\Contracts\Services\Commerce;
 use Faridibin\Paystack\DataTransferObjects\Response;
 use Faridibin\Paystack\Enums\Currency;
 
+/**
+ * Defines the contract for product management operations.
+ */
 interface ProductsInterface extends CommerceInterface
 {
     /**
@@ -18,7 +21,7 @@ interface ProductsInterface extends CommerceInterface
      * @param int $price
      * @param Currency|string $currency
      * @param array $optional
-     * @return \Faridibin\Paystack\DataTransferObjects\Response
+     * @return Response
      */
     public function createProduct(string $name, string $description, int $price, Currency|string $currency, array $optional = []): Response;
 
@@ -27,7 +30,7 @@ interface ProductsInterface extends CommerceInterface
      * Get details of a product on your integration
      *
      * @param string $id
-     * @return \Faridibin\Paystack\DataTransferObjects\Response
+     * @return Response
      */
     public function fetchProduct(string $id): Response;
 
@@ -37,7 +40,7 @@ interface ProductsInterface extends CommerceInterface
      *
      * @param string $id
      * @param array $data
-     * @return \Faridibin\Paystack\DataTransferObjects\Response
+     * @return Response
      */
     public function updateProduct(string $id, array $data): Response;
 
@@ -45,7 +48,7 @@ interface ProductsInterface extends CommerceInterface
      * List Products.
      * List products available on your integration.
      *
-     * @return \Faridibin\Paystack\DataTransferObjects\Response
+     * @return Response
      */
     public function listProducts(int $perPage = 50, int $page = 1, array $optional = []): Response;
 }

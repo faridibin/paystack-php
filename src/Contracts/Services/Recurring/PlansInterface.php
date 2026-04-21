@@ -7,6 +7,9 @@ namespace Faridibin\Paystack\Contracts\Services\Recurring;
 use Faridibin\Paystack\DataTransferObjects\Response;
 use Faridibin\Paystack\Enums\PlanInterval;
 
+/**
+ * Defines the contract for subscription plan operations.
+ */
 interface PlansInterface extends RecurringInterface
 {
     /**
@@ -16,7 +19,7 @@ interface PlansInterface extends RecurringInterface
      * @param int $amount
      * @param PlanInterval|string $interval
      * @param array $optional
-     * @return \Faridibin\Paystack\DataTransferObjects\Response
+     * @return Response
      */
     public function create(string $name, int $amount, PlanInterval|string $interval, array $optional = []): Response;
 
@@ -27,7 +30,7 @@ interface PlansInterface extends RecurringInterface
      * @param int $perPage
      * @param int $page
      * @param array $optional
-     * @return \Faridibin\Paystack\DataTransferObjects\Response
+     * @return Response
      */
     public function list(int $perPage = 50, int $page = 1, array $optional = []): Response;
 
@@ -36,7 +39,7 @@ interface PlansInterface extends RecurringInterface
      * Get details of a plan on your integration
      *
      * @param string $identifier The plan ID or code you want to fetch
-     * @return \Faridibin\Paystack\DataTransferObjects\Response
+     * @return Response
      */
     public function fetch(string $identifier): Response;
 
@@ -46,7 +49,7 @@ interface PlansInterface extends RecurringInterface
      *
      * @param string $identifier The plan ID or code you want to update
      * @param array $data
-     * @return \Faridibin\Paystack\DataTransferObjects\Response
+     * @return Response
      */
     public function update(string $identifier, array $data): Response;
 }

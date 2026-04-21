@@ -8,6 +8,9 @@ use Faridibin\Paystack\Contracts\Services\ServiceInterface;
 use Faridibin\Paystack\DataTransferObjects\Response;
 use Faridibin\Paystack\Enums\Health;
 
+/**
+ * Defines the contract for the Paystack platform health service.
+ */
 interface HealthInterface extends ServiceInterface
 {
     /**

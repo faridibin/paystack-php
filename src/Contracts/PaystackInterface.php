@@ -4,32 +4,26 @@ declare(strict_types=1);
 
 namespace Faridibin\Paystack\Contracts;
 
-use Faridibin\Paystack\Contracts\Services\{
-    VerificationInterface,
-    PaymentsInterface,
-    TerminalInterface,
-    TransfersInterface
-};
-
+/**
+ * Defines the contract for the main Paystack SDK entry point.
+ */
 interface PaystackInterface
 {
-    // /**
-    //  * Get the payment service
-    //  */
-    // public function payments(): PaymentsInterface;
+    /**
+     * Register a new service with the SDK.
+     *
+     * @param string $name The service alias (e.g. 'transactions')
+     * @param string $serviceClass The fully-qualified service class name
+     * @param string $interfaceClass The fully-qualified interface class name
+     * @return static
+     */
+    public function registerService(string $name, string $serviceClass, string $interfaceClass): static;
 
-    // /**
-    //  * Get the terminal service
-    //  */
-    // public function terminal(): TerminalInterface;
-
-    // /**
-    //  * Get the transfers service
-    //  */
-    // public function transfers(): TransfersInterface;
-
-    // /**
-    //  * Get the identity verification service
-    //  */
-    // public function identity(): VerificationInterface;
+    /**
+     * Register multiple services at once.
+     *
+     * @param array<string, array{0: string, 1: string}> $services Map of alias => [serviceClass, interfaceClass]
+     * @return static
+     */
+    public function registerServices(array $services): static;
 }

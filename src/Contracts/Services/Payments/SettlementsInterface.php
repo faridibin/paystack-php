@@ -6,6 +6,9 @@ namespace Faridibin\Paystack\Contracts\Services\Payments;
 
 use Faridibin\Paystack\DataTransferObjects\Response;
 
+/**
+ * Defines the contract for settlement operations.
+ */
 interface SettlementsInterface extends PaymentsInterface
 {
     /**
@@ -15,7 +18,7 @@ interface SettlementsInterface extends PaymentsInterface
      * @param int $perPage
      * @param int $page
      * @param array $optional
-     * @return \Faridibin\Paystack\DataTransferObjects\Response
+     * @return Response
      */
     public function listSettlements(int $perPage = 50, int $page = 1, array $optional = []): Response;
 
@@ -27,7 +30,7 @@ interface SettlementsInterface extends PaymentsInterface
      * @param int $perPage
      * @param int $page
      * @param array $optional
-     * @return \Faridibin\Paystack\DataTransferObjects\Response
+     * @return Response
      */
     public function listSettlementTransactions(string $identifier, int $perPage = 50, int $page = 1, array $optional = []): Response;
 }

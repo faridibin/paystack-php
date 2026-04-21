@@ -6,6 +6,9 @@ namespace Faridibin\Paystack\Contracts\Services\Recurring;
 
 use Faridibin\Paystack\DataTransferObjects\Response;
 
+/**
+ * Defines the contract for subscription management operations.
+ */
 interface SubscriptionsInterface extends RecurringInterface
 {
     /**

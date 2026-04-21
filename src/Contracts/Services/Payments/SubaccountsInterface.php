@@ -6,6 +6,9 @@ namespace Faridibin\Paystack\Contracts\Services\Payments;
 
 use Faridibin\Paystack\DataTransferObjects\Response;
 
+/**
+ * Defines the contract for subaccount management operations.
+ */
 interface SubaccountsInterface extends PaymentsInterface
 {
     /**
@@ -16,7 +19,7 @@ interface SubaccountsInterface extends PaymentsInterface
      * @param string $accountNumber
      * @param float $percentageCharge
      * @param array $optional
-     * @return \Faridibin\Paystack\DataTransferObjects\Response
+     * @return Response
      */
     public function createSubaccount(string $businessName, string $bankCode, string $accountNumber, float $percentageCharge, array $optional = []): Response;
 
@@ -24,8 +27,10 @@ interface SubaccountsInterface extends PaymentsInterface
      * List Subaccounts
      * List subaccounts available on your integration
      *
-     * @param string $id
-     * @return \Faridibin\Paystack\DataTransferObjects\Response
+     * @param int $perPage
+     * @param int $page
+     * @param array $optional
+     * @return Response
      */
     public function listSubaccounts(int $perPage = 50, int $page = 1, array $optional = []): Response;
 
@@ -34,7 +39,7 @@ interface SubaccountsInterface extends PaymentsInterface
      * Get details of a subaccount on your integration
      *
      * @param string $identifier The subaccount ID or code you want to fetch
-     * @return \Faridibin\Paystack\DataTransferObjects\Response
+     * @return Response
      */
     public function fetchSubaccount(string $identifier): Response;
 
@@ -44,7 +49,7 @@ interface SubaccountsInterface extends PaymentsInterface
      *
      * @param string $identifier The subaccount ID or code you want to update
      * @param array $data
-     * @return \Faridibin\Paystack\DataTransferObjects\Response
+     * @return Response
      */
     public function updateSubaccount(string $identifier, array $data): Response;
 }

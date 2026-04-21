@@ -6,6 +6,9 @@ namespace Faridibin\Paystack\Contracts\Services\Payments;
 
 use Faridibin\Paystack\DataTransferObjects\Response;
 
+/**
+ * Defines the contract for Apple Pay domain management.
+ */
 interface ApplePayInterface extends PaymentsInterface
 {
     /**
@@ -13,15 +16,19 @@ interface ApplePayInterface extends PaymentsInterface
      * Register a top-level domain or subdomain for your Apple Pay integration.
      *
      * @param string $domain
-     * @return \Faridibin\Paystack\DataTransferObjects\Response
+     * @return Response
      */
     public function registerDomain(string $domain): Response;
 
     /**
      * List Domains
      * List all the domains you have registered for your Apple Pay integration.
+     * 
+     * @param bool $useCursor
+     * @param string $next
+     * @param string $previous
      *
-     * @return \Faridibin\Paystack\DataTransferObjects\Response
+     * @return Response
      */
     public function listDomains(bool $useCursor = false, string $next = '', string $previous = ''): Response;
 
@@ -30,7 +37,7 @@ interface ApplePayInterface extends PaymentsInterface
      * Unregister a top-level domain or subdomain previously used for your Apple Pay integration.
      *
      * @param string $domain
-     * @return \Faridibin\Paystack\DataTransferObjects\Response
+     * @return Response
      */
     public function unregisterDomain(string $domain): Response;
 }

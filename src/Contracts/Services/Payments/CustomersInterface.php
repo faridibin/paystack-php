@@ -14,7 +14,7 @@ interface CustomersInterface extends PaymentsInterface
      * Create a customer on your integration
      *
      * @param array $data
-     * @return \Faridibin\Paystack\DataTransferObjects\Response
+     * @return Response
      */
     public function create(array $data = []): Response;
 
@@ -23,7 +23,7 @@ interface CustomersInterface extends PaymentsInterface
      * Get details of a customer on your integration.
      *
      * @param string $identifier An email or customer code for the customer you want to fetch
-     * @return \Faridibin\Paystack\DataTransferObjects\Response
+     * @return Response
      */
     public function fetch(string $identifier): Response;
 
@@ -33,15 +33,15 @@ interface CustomersInterface extends PaymentsInterface
      *
      * @param string $id
      * @param array $data
-     * @return \Faridibin\Paystack\DataTransferObjects\Response
+     * @return Response
      */
-    public function update(string $code, array $data): Response;
+    public function update(string $id, array $data): Response;
 
     /**
      * List Customer.
      * List customers available on your integration.
      *
-     * @return \Faridibin\Paystack\DataTransferObjects\Response
+     * @return Response
      */
     public function list(int $perPage = 50, int $page = 1, array $optional = []): Response;
 
@@ -51,7 +51,7 @@ interface CustomersInterface extends PaymentsInterface
      *
      * @param string $identifier Email, or customer code of customer to be identified
      * @param array $data
-     * @return \Faridibin\Paystack\DataTransferObjects\Response
+     * @return Response
      */
     public function validate(string $identifier, array $data): Response;
 
@@ -60,7 +60,8 @@ interface CustomersInterface extends PaymentsInterface
      * Deactivate a customer on your integration
      *
      * @param string $identifier Customer's code, or email address
-     * @return \Faridibin\Paystack\DataTransferObjects\Response
+     * @param RiskAction|string $riskAction The risk action to be applied
+     * @return Response
      */
     public function setRiskStatus(string $identifier, RiskAction|string $riskAction = 'default'): Response;
 
@@ -69,7 +70,56 @@ interface CustomersInterface extends PaymentsInterface
      * Deactivate an authorization when the card needs to be forgotten
      *
      * @param string $authorizationCode
-     * @return \Faridibin\Paystack\DataTransferObjects\Response
+     * @return Response
      */
     public function deactivateAuthorization(string $authorizationCode): Response;
+
+    /**
+     * Initialize Authorization.
+     * Initiate a reusable authorization request to your customers
+     * 
+     * @param string $email The customer's email address
+     * @param int $amount The amount to be authorized in kobo. This should be a minimum of 100 kobo (₦1.00)
+     * @param array $optional Optional parameters for the authorization initialization
+     * @return Response
+     */
+    public function initializeAuthorization(string $email, int $amount, array $optional = []): Response;
+
+    /**
+     * Verify Authorization.
+     * Check the status of an authorization request
+     *
+     * @param string $reference The reference of the authorization request
+     * @return Response
+     */
+    public function verifyAuthorization(string $reference): Response;
+
+    /**
+     * Initialize Direct Debit.
+     * Link a customer's account for Direct Debit
+     * 
+     * @param string $customerId The customer's ID
+     * @param array $data The data required to initialize Direct Debit
+     * @return Response
+     */
+    public function initializeDirectDebit(string $customerId, array $data): Response;
+
+    /**
+     * Direct Debit Activation Charge.
+     * Trigger the activation charge for a Direct Debit mandate
+     * 
+     * @param string $customerId The customer's ID
+     * @param array $data The data required to trigger the activation charge
+     * @return Response
+     */
+    public function directDebitActivationCharge(string $customerId, array $data): Response;
+
+    /**
+     * Fetch Mandate Authorizations.
+     * Get a customer's Direct Debit mandate authorizations
+     * 
+     * @param string $customerId The customer's ID
+     * @return Response
+     */
+    public function fetchMandateAuthorizations(string $customerId): Response;
 }

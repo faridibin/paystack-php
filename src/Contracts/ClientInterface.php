@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Faridibin\Paystack\Contracts;
 
+/**
+ * Defines the contract for the Paystack HTTP client.
+ */
 interface ClientInterface
 {
     /**
@@ -19,6 +22,8 @@ interface ClientInterface
 
     /**
      * Get the secret key used for API authentication
+     *
+     * @return string
      */
     public function getSecretKey(): string;
 }
