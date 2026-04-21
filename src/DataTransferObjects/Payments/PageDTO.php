@@ -11,6 +11,12 @@ use Faridibin\Paystack\Enums\PaymentPageType;
 use Faridibin\Paystack\Traits\HasMetadata;
 use Faridibin\Paystack\Traits\MapToArray;
 
+/**
+ * Data Transfer Object representing a Paystack payment page.
+ *
+ * Encapsulates payment page configuration including type, currency,
+ * and associated metadata.
+ */
 class PageDTO implements DataTransferObject
 {
     use HasMetadata, MapToArray;

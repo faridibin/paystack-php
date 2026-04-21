@@ -9,6 +9,12 @@ use Faridibin\Paystack\DataTransferObjects\Collection;
 use Faridibin\Paystack\Enums\Currency;
 use Faridibin\Paystack\Traits\MapToArray;
 
+/**
+ * Data Transfer Object representing Paystack transaction totals.
+ *
+ * Aggregates total transaction volumes and pending transfer amounts,
+ * broken down by currency.
+ */
 class TransactionTotalsDTO implements DataTransferObject
 {
     use MapToArray;

@@ -9,6 +9,11 @@ use Faridibin\Paystack\Contracts\DataTransferObjects\DataTransferObject;
 use Faridibin\Paystack\Traits\{HasMetadata, MapToArray};
 use Faridibin\Paystack\DataTransferObjects\{Collection, Recurring\SubscriptionDTO};
 
+/**
+ * Data Transfer Object representing a Paystack customer.
+ *
+ * Includes customer details, authorizations, subscriptions, and metadata.
+ */
 class CustomerDTO implements DataTransferObject
 {
     use HasMetadata, MapToArray;

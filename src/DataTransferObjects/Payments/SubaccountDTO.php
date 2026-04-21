@@ -10,6 +10,12 @@ use Faridibin\Paystack\Enums\Currency;
 use Faridibin\Paystack\Traits\HasMetadata;
 use Faridibin\Paystack\Traits\MapToArray;
 
+/**
+ * Data Transfer Object representing a Paystack subaccount.
+ *
+ * Encapsulates subaccount details including bank information, settlement
+ * configuration, and percentage charge settings.
+ */
 class SubaccountDTO implements DataTransferObject
 {
     use HasMetadata, MapToArray;
@@ -104,14 +110,14 @@ class SubaccountDTO implements DataTransferObject
 
         ...$args // TODO: Remove this line
     ) {
-        $this->active = is_int($active) ? (bool)$active : $active;
+        $this->active = \is_int($active) ? (bool)$active : $active;
 
         if ($currency && !($currency instanceof Currency)) {
             $this->currency = Currency::from($currency);
         }
 
-        $createdAt = $createdAt ?? $created_at;
-        $updatedAt = $updatedAt ?? $updated_at;
+        $createdAt ??= $created_at;
+        $updatedAt ??= $updated_at;
 
         if ($createdAt) {
             $this->createdAt = $createdAt instanceof DateTime ? $createdAt : new DateTime($createdAt);

@@ -9,6 +9,12 @@ use Faridibin\Paystack\Enums\Currency;
 use Faridibin\Paystack\Enums\Status;
 use Faridibin\Paystack\Traits\MapToArray;
 
+/**
+ * Data Transfer Object representing a subscriber to a Paystack plan.
+ *
+ * Encapsulates subscriber identity and their associated subscription status
+ * and total amount paid.
+ */
 class SubscriberDTO implements DataTransferObject
 {
     use MapToArray;

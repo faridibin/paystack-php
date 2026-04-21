@@ -9,6 +9,12 @@ use Faridibin\Paystack\Contracts\DataTransferObjects\DataTransferObject;
 use Faridibin\Paystack\DataTransferObjects\Collection;
 use Faridibin\Paystack\Traits\MapToArray;
 
+/**
+ * Data Transfer Object representing the transaction log from a Paystack transaction.
+ *
+ * Captures timing, authentication, attempt counts, and a full history of
+ * steps taken during transaction processing.
+ */
 class LogDTO implements DataTransferObject
 {
     use MapToArray;
@@ -53,14 +59,14 @@ class LogDTO implements DataTransferObject
         mixed $history = null
     ) {
         if ($start_time) {
-            if (is_int($start_time)) {
+            if (\is_int($start_time)) {
                 $start_time = date('Y-m-d H:i:s', $start_time);
             }
 
             $this->start_time = !($start_time instanceof DateTime) ? new DateTime($start_time) : $start_time;
         }
 
-        $this->history = is_array($history) ? new Collection($history, HistoryDTO::class) : $history;
+        $this->history = \is_array($history) ? new Collection($history, HistoryDTO::class) : $history;
     }
 
     /**

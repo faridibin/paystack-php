@@ -10,6 +10,9 @@ use Faridibin\Paystack\Enums\Currency;
 use Faridibin\Paystack\Enums\BankType;
 use Faridibin\Paystack\Traits\MapToArray;
 
+/**
+ * Data Transfer Object representing a bank supported by Paystack.
+ */
 class BankDTO implements DataTransferObject
 {
     use MapToArray;

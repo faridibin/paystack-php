@@ -13,6 +13,12 @@ use Faridibin\Paystack\DataTransferObjects\Payments\InvoiceDTO;
 use Faridibin\Paystack\Enums\Status;
 use Faridibin\Paystack\Traits\MapToArray;
 
+/**
+ * Data Transfer Object representing a Paystack subscription.
+ *
+ * Encapsulates subscription details including customer, authorization, plan,
+ * invoices, and scheduling information.
+ */
 class SubscriptionDTO implements DataTransferObject
 {
     use MapToArray;
@@ -187,7 +193,7 @@ class SubscriptionDTO implements DataTransferObject
         }
 
         if ($start) {
-            if (is_int($start)) {
+            if (\is_int($start)) {
                 $start = date('Y-m-d H:i:s', $start);
             }
 

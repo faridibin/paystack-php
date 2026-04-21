@@ -7,6 +7,12 @@ namespace Faridibin\Paystack\DataTransferObjects;
 use Exception;
 use Faridibin\Paystack\Contracts\DataTransferObjects\DataTransferObject;
 
+/**
+ * Represents a Paystack API response, wrapping the raw HTTP response data.
+ *
+ * Handles both successful responses and exceptions, transforming the `data`
+ * field into the appropriate DTO or Collection.
+ */
 class Response implements DataTransferObject
 {
     /**
@@ -88,7 +94,7 @@ class Response implements DataTransferObject
 
         $data = $this->data->toArray();
 
-        if (array_key_exists($key, $data)) {
+        if (\array_key_exists($key, $data)) {
             return $data[$key];
         }
 

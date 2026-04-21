@@ -17,6 +17,12 @@ use Faridibin\Paystack\Enums\Status;
 use Faridibin\Paystack\Traits\HasMetadata;
 use Faridibin\Paystack\Traits\MapToArray;
 
+/**
+ * Data Transfer Object representing a Paystack transaction.
+ *
+ * Encapsulates all transaction details including customer, authorization,
+ * plan, subaccount, and log information with proper type casting.
+ */
 class TransactionDTO implements DataTransferObject
 {
     use HasMetadata, MapToArray;

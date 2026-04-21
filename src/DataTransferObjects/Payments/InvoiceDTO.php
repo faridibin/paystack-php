@@ -16,6 +16,12 @@ use Faridibin\Paystack\Enums\Status;
 use Faridibin\Paystack\Traits\HasMetadata;
 use Faridibin\Paystack\Traits\MapToArray;
 
+/**
+ * Data Transfer Object representing a Paystack invoice (payment request).
+ *
+ * Encapsulates invoice details including customer, subscription, transaction,
+ * plan, subaccount, and log information with proper type casting.
+ */
 class InvoiceDTO implements DataTransferObject
 {
     use HasMetadata, MapToArray;

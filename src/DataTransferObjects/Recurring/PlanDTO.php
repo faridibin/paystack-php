@@ -12,6 +12,11 @@ use Faridibin\Paystack\Enums\Currency;
 use Faridibin\Paystack\Enums\Interval;
 use Faridibin\Paystack\Traits\MapToArray;
 
+/**
+ * Data Transfer Object representing a Paystack subscription plan.
+ *
+ * Includes plan details, subscribers, subscriptions, and payment pages.
+ */
 class PlanDTO implements DataTransferObject
 {
     use MapToArray;
@@ -151,8 +156,8 @@ class PlanDTO implements DataTransferObject
 
         ...$args // TODO: Remove this
     ) {
-        $this->send_invoices = is_int($send_invoices) ? (bool)$send_invoices : $send_invoices;
-        $this->send_sms = is_int($send_sms) ? (bool)$send_sms : $send_sms;
+        $this->send_invoices = \is_int($send_invoices) ? (bool)$send_invoices : $send_invoices;
+        $this->send_sms = \is_int($send_sms) ? (bool)$send_sms : $send_sms;
 
         $this->pages = new Collection($pages, PageDTO::class);
         $this->subscriptions = new Collection($subscriptions, SubscriptionDTO::class);

@@ -7,6 +7,11 @@ namespace Faridibin\Paystack\DataTransferObjects\Miscellaneous;
 use Faridibin\Paystack\Contracts\DataTransferObjects\DataTransferObject;
 use Faridibin\Paystack\Traits\MapToArray;
 
+/**
+ * Data Transfer Object representing a state or region supported by Paystack.
+ *
+ * Used for address verification (AVS) within a given country.
+ */
 class StateDTO implements DataTransferObject
 {
     use MapToArray;

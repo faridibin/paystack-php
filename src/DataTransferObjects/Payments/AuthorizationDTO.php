@@ -9,6 +9,12 @@ use Faridibin\Paystack\Enums\Channels;
 use Faridibin\Paystack\Enums\Month;
 use Faridibin\Paystack\Traits\MapToArray;
 
+/**
+ * Data Transfer Object representing a Paystack payment authorization.
+ *
+ * Encapsulates card or bank authorization details including channel, expiry,
+ * and reusability status.
+ */
 class AuthorizationDTO implements DataTransferObject
 {
     use MapToArray;

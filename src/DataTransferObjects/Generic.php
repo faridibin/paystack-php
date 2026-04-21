@@ -7,6 +7,12 @@ namespace Faridibin\Paystack\DataTransferObjects;
 use Faridibin\Paystack\Contracts\DataTransferObjects\DataTransferObject;
 use Faridibin\Paystack\Traits\MapToArray;
 
+/**
+ * A generic, dynamic Data Transfer Object for untyped API response data.
+ *
+ * Stores arbitrary key-value pairs and exposes them via magic property access.
+ * Nested arrays are recursively wrapped in Generic instances.
+ */
 class Generic implements DataTransferObject
 {
     use MapToArray;

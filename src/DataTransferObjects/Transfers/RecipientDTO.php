@@ -6,6 +6,11 @@ namespace Faridibin\Paystack\DataTransferObjects\Transfers;
 
 use Faridibin\Paystack\Contracts\DataTransferObjects\DataTransferObject;
 
+/**
+ * Data Transfer Object representing a Paystack transfer recipient.
+ *
+ * @todo Implementation is pending.
+ */
 class RecipientDTO implements DataTransferObject
 {
     /**

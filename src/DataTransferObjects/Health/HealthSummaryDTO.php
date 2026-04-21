@@ -8,6 +8,12 @@ use DateTime;
 use DateTimeZone;
 use Faridibin\Paystack\Contracts\DataTransferObjects\DataTransferObject;
 
+/**
+ * Data Transfer Object representing the overall Paystack platform health summary.
+ *
+ * Aggregates the page metadata and indicator status reported by the
+ * Paystack Atlassian Statuspage API.
+ */
 class HealthSummaryDTO implements DataTransferObject
 {
     /**

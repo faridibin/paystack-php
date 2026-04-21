@@ -8,6 +8,11 @@ use Faridibin\Paystack\Contracts\DataTransferObjects\DataTransferObject;
 use Faridibin\Paystack\Traits\HasRelationships;
 use Faridibin\Paystack\Traits\MapToArray;
 
+/**
+ * Data Transfer Object representing a country supported by Paystack.
+ *
+ * Includes country metadata, integration defaults, and relationship data.
+ */
 class CountryDTO implements DataTransferObject
 {
     use MapToArray, HasRelationships;
