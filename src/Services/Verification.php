@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Faridibin\Paystack\Services;
 
 use Faridibin\Paystack\Client;
@@ -7,12 +9,17 @@ use Faridibin\Paystack\Contracts\ClientInterface;
 use Faridibin\Paystack\Contracts\Services\VerificationInterface;
 use Faridibin\Paystack\DataTransferObjects\Response;
 
+/**
+ * Service for verifying accounts, card BINs, and bank account details.
+ */
 class Verification implements VerificationInterface
 {
     /**
      * The Verification service constructor.
      *
-     * @param \Faridibin\Paystack\Contracts\ClientInterface $client
+     * @param string|null $secretKey The Paystack secret key (used if no client is injected)
+     * @param \Faridibin\Paystack\Contracts\ClientInterface|null $client The HTTP client instance
+     * @throws \Faridibin\Paystack\Exceptions\PaystackException
      */
     public function __construct(
         ?string $secretKey = null,
@@ -27,7 +34,7 @@ class Verification implements VerificationInterface
      *
      * @param string $accountNumber
      * @param string $bankCode
-     * @return \Faridibin\Paystack\DataTransferObjects\Response
+     * @return Response
      */
     public function resolveAccount(string $accountNumber, string $bankCode): Response
     {
@@ -38,37 +45,29 @@ class Verification implements VerificationInterface
             ]
         ]);
 
-        return new Response(
-            $response,
-            // CountriesDTO::class,
-            // true
-        );
+       return new Response($response);
     }
 
     /**
      * Validate an account
      * Confirm the authenticity of a customer's account number before sending money
      *
-     * @param array $account
-     * @return \Faridibin\Paystack\DataTransferObjects\Response
+     * @param array $bin
+     * @return Response
      */
     public function resolveCardBin(string $bin): Response
     {
         $response = $this->client->send('GET', "/decision/bin/{$bin}");
 
-        return new Response(
-            $response,
-            // CountriesDTO::class,
-            // true
-        );
+        return new Response($response);
     }
 
     /**
      * Resolve a card bin
      * Get more information about a customer's card
      *
-     * @param string $bin
-     * @return \Faridibin\Paystack\DataTransferObjects\Response
+     * @param string $data
+     * @return Response
      */
     public function validateAccount(array $data): Response
     {
@@ -76,10 +75,6 @@ class Verification implements VerificationInterface
             'json' => $data
         ]);
 
-        return new Response(
-            $response,
-            // CountriesDTO::class,
-            // true
-        );
+       return new Response($response);
     }
 }

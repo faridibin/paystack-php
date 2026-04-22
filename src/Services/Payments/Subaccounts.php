@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Faridibin\Paystack\Services\Payments;
 
 use Faridibin\Paystack\Client;
@@ -8,12 +10,17 @@ use Faridibin\Paystack\Contracts\Services\Payments\SubaccountsInterface;
 use Faridibin\Paystack\DataTransferObjects\Payments\SubaccountDTO;
 use Faridibin\Paystack\DataTransferObjects\Response;
 
+/**
+ * Service for managing subaccounts for split payments.
+ */
 class Subaccounts implements SubaccountsInterface
 {
     /**
      * The Subaccounts service constructor.
      *
-     * @param \Faridibin\Paystack\Contracts\ClientInterface $client
+     * @param string|null $secretKey The Paystack secret key (used if no client is injected)
+     * @param \Faridibin\Paystack\Contracts\ClientInterface|null $client The HTTP client instance
+     * @throws \Faridibin\Paystack\Exceptions\PaystackException
      */
     public function __construct(
         ?string $secretKey = null,
@@ -30,7 +37,7 @@ class Subaccounts implements SubaccountsInterface
      * @param string $accountNumber
      * @param float $percentageCharge
      * @param array $optional
-     * @return \Faridibin\Paystack\DataTransferObjects\Response
+     * @return Response
      */
     public function createSubaccount(string $businessName, string $bankCode, string $accountNumber, float $percentageCharge, array $optional = []): Response
     {
@@ -51,8 +58,10 @@ class Subaccounts implements SubaccountsInterface
      * List Subaccounts
      * List subaccounts available on your integration
      *
-     * @param string $id
-     * @return \Faridibin\Paystack\DataTransferObjects\Response
+     * @param string $perPage Number of records to return per page (default: 50)
+     * @param string $page Page number to return (default: 1)
+     * @param array $optional Additional query parameters to filter the list of subaccounts
+     * @return Response
      */
     public function listSubaccounts(int $perPage = 50, int $page = 1, array $optional = []): Response
     {
@@ -72,7 +81,7 @@ class Subaccounts implements SubaccountsInterface
      * Get details of a subaccount on your integration
      *
      * @param string $identifier The subaccount ID or code you want to fetch
-     * @return \Faridibin\Paystack\DataTransferObjects\Response
+     * @return Response
      */
     public function fetchSubaccount(string $identifier): Response
     {
@@ -87,7 +96,7 @@ class Subaccounts implements SubaccountsInterface
      *
      * @param string $identifier The subaccount ID or code you want to update
      * @param array $data
-     * @return \Faridibin\Paystack\DataTransferObjects\Response
+     * @return Response
      */
     public function updateSubaccount(string $identifier, array $data): Response
     {

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Faridibin\Paystack\Services\Transfers;
 
 use Faridibin\Paystack\Client;
@@ -9,12 +11,17 @@ use Faridibin\Paystack\DataTransferObjects\Response;
 use Faridibin\Paystack\Enums\Currency;
 use Faridibin\Paystack\Enums\TransferSource;
 
+/**
+ * Service for initiating and managing money transfers.
+ */
 class Transfers implements TransfersInterface
 {
     /**
      * The Transfers service constructor.
      *
-     * @param \Faridibin\Paystack\Contracts\ClientInterface $client
+     * @param string|null $secretKey The Paystack secret key (used if no client is injected)
+     * @param \Faridibin\Paystack\Contracts\ClientInterface|null $client The HTTP client instance
+     * @throws \Faridibin\Paystack\Exceptions\PaystackException
      */
     public function __construct(
         ?string $secretKey = null,
@@ -31,7 +38,7 @@ class Transfers implements TransfersInterface
      * @param int $amount
      * @param string $recipient
      * @param array $optional
-     * @return \Faridibin\Paystack\DataTransferObjects\Response
+     * @return Response
      */
     public function initiateTransfer(int $amount, string $recipient, array $optional = []): Response
     {
@@ -53,7 +60,7 @@ class Transfers implements TransfersInterface
      *
      * @param string $transferCode
      * @param string $otp
-     * @return \Faridibin\Paystack\DataTransferObjects\Response
+     * @return Response
      */
     public function finalizeTransfer(string $transferCode, string $otp): Response
     {
@@ -74,11 +81,11 @@ class Transfers implements TransfersInterface
      *
      * @param Currency|string $currency
      * @param array $transfers
-     * @return \Faridibin\Paystack\DataTransferObjects\Response
+     * @return Response
      */
     public function initiateBulkTransfer(Currency|string $currency, array $transfers): Response
     {
-        $response = $this->client->send('POST', '/transfer/finalize_transfer', [
+        $response = $this->client->send('POST', '/transfer/bulk', [
             'json' => [
                 'currency' => $currency,
                 'source' => TransferSource::BALANCE,
@@ -97,7 +104,7 @@ class Transfers implements TransfersInterface
      * @param int $perPage
      * @param int $page
      * @param array $optional
-     * @return \Faridibin\Paystack\DataTransferObjects\Response
+     * @return Response
      */
     public function listTransfers(string $recipient, int $perPage = 50, int $page = 1, array $optional = []): Response
     {
@@ -118,7 +125,7 @@ class Transfers implements TransfersInterface
      * Get details of a transfer on your integration.
      *
      * @param string $identifier
-     * @return \Faridibin\Paystack\DataTransferObjects\Response
+     * @return Response
      */
     public function fetchTransfer(string $identifier): Response
     {
@@ -132,11 +139,99 @@ class Transfers implements TransfersInterface
      * Verify the status of a transfer on your integration.
      *
      * @param string $reference
-     * @return \Faridibin\Paystack\DataTransferObjects\Response
+     * @return Response
      */
     public function verifyTransfer(string $reference): Response
     {
         $response = $this->client->send('GET', "/transfer/verify/{$reference}");
+
+        return new Response($response);
+    }
+
+    /**
+     * Export Transfers
+     * Export a list of transfers you made on your integration
+     *
+     * @param int $perPage
+     * @param int $page
+     * @param array $optional
+     * @return Response
+     */
+    public function exportTransfers(int $perPage = 50, int $page = 1, array $optional = []): Response
+    {
+        $response = $this->client->send('GET', '/transfer/export', [
+            'query' => [
+                'perPage' => $perPage,
+                'page' => $page,
+                ...$optional
+            ]
+        ]);
+
+        return new Response($response);
+    }
+
+    /**
+     * Resend OTP for Transfer
+     * Generates a new OTP and sends to customer in the event they are having trouble receiving one.
+     *
+     * @param string $transferCode
+     * @param string $reason
+     * @return Response
+     */
+    public function resendOtp(string $transferCode, string $reason): Response
+    {
+        $response = $this->client->send('POST', '/transfer/resend_otp', [
+            'json' => [
+                'transfer_code' => $transferCode,
+                'reason' => $reason
+            ]
+        ]);
+
+        return new Response($response);
+    }
+
+    /**
+     * Disable OTP Requirement for Transfers
+     * This is used in the event that you want to be able to complete transfers programmatically without use of OTPs.
+     * No arguments required.
+     *
+     * @return Response
+     */
+    public function disableOtp(): Response
+    {
+        $response = $this->client->send('POST', '/transfer/disable_otp');
+
+        return new Response($response);
+    }
+
+    /**
+     * Finalize Disabling of OTP Requirement for Transfers
+     * Finalize the request to disable OTP on your transfers.
+     *
+     * @param string $otp
+     * @return Response
+     */
+    public function disableOtpFinalize(string $otp): Response
+    {
+        $response = $this->client->send('POST', '/transfer/disable_otp_finalize', [
+            'json' => [
+                'otp' => $otp
+            ]
+        ]);
+
+        return new Response($response);
+    }
+
+    /**
+     * Enable OTP Requirement for Transfers
+     * In the event that a transfer was initiated without OTP, Paystack will stop sending OTP to your business number.
+     * Use this endpoint to enable OTP again.
+     *
+     * @return Response
+     */
+    public function enableOtp(): Response
+    {
+        $response = $this->client->send('POST', '/transfer/enable_otp');
 
         return new Response($response);
     }

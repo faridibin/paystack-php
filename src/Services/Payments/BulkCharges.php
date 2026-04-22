@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Faridibin\Paystack\Services\Payments;
 
 use Faridibin\Paystack\Client;
@@ -8,12 +10,17 @@ use Faridibin\Paystack\Contracts\Services\Payments\BulkChargesInterface;
 use Faridibin\Paystack\DataTransferObjects\Response;
 use Faridibin\Paystack\Enums\Status;
 
+/**
+ * Service for batching and managing bulk charge operations.
+ */
 class BulkCharges implements BulkChargesInterface
 {
     /**
-     * The Bulk Charges service constructor.
+     * The BulkCharges service constructor.
      *
-     * @param \Faridibin\Paystack\Contracts\ClientInterface $client
+     * @param string|null $secretKey The Paystack secret key (used if no client is injected)
+     * @param \Faridibin\Paystack\Contracts\ClientInterface|null $client The HTTP client instance
+     * @throws \Faridibin\Paystack\Exceptions\PaystackException
      */
     public function __construct(
         ?string $secretKey = null,
@@ -26,7 +33,7 @@ class BulkCharges implements BulkChargesInterface
      * Initiate a bulk charge.
      *
      * @param array $data
-     * @return \Faridibin\Paystack\DataTransferObjects\Response
+     * @return Response
      */
     public function initiateBulkCharge(array $data = []): Response
     {

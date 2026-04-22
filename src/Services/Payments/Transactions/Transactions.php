@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Faridibin\Paystack\Services\Payments\Transactions;
 
 use Faridibin\Paystack\Client;
@@ -10,12 +12,17 @@ use Faridibin\Paystack\DataTransferObjects\Payments\Transactions\TransactionTota
 use Faridibin\Paystack\DataTransferObjects\Response;
 use Faridibin\Paystack\Enums\Currency;
 
+/**
+ * Service for initializing, verifying, and managing transactions.
+ */
 class Transactions implements TransactionsInterface
 {
     /**
      * The Transactions service constructor.
      *
-     * @param \Faridibin\Paystack\Contracts\ClientInterface $client
+     * @param string|null $secretKey The Paystack secret key (used if no client is injected)
+     * @param \Faridibin\Paystack\Contracts\ClientInterface|null $client The HTTP client instance
+     * @throws \Faridibin\Paystack\Exceptions\PaystackException
      */
     public function __construct(
         ?string $secretKey = null,
@@ -31,7 +38,7 @@ class Transactions implements TransactionsInterface
      * @param int $amount
      * @param string $email
      * @param array $optional
-     * @return \Faridibin\Paystack\DataTransferObjects\Response
+     * @return Response
      */
     public function initialize(int $amount, string $email, array $optional = []): Response
     {
@@ -51,7 +58,7 @@ class Transactions implements TransactionsInterface
      * Confirm the status of a transaction
      *
      * @param string $reference
-     * @return \Faridibin\Paystack\DataTransferObjects\Response
+     * @return Response
      */
     public function verify(string $reference): Response
     {
@@ -67,7 +74,7 @@ class Transactions implements TransactionsInterface
      * @param int $perPage
      * @param int $page
      * @param array $optional
-     * @return \Faridibin\Paystack\DataTransferObjects\Response
+     * @return Response
      */
     public function list(int $perPage = 50, int $page = 1, array $optional = []): Response
     {
@@ -87,7 +94,7 @@ class Transactions implements TransactionsInterface
      * Get details of a transaction carried out on your integration.
      *
      * @param string $id
-     * @return \Faridibin\Paystack\DataTransferObjects\Response
+     * @return Response
      */
     public function fetch(string $id): Response
     {
@@ -104,7 +111,7 @@ class Transactions implements TransactionsInterface
      * @param int $amount
      * @param string $email
      * @param array $optional
-     * @return \Faridibin\Paystack\DataTransferObjects\Response
+     * @return Response
      */
     public function chargeAuthorization(string $authorizationCode, int $amount, string $email,  array $optional = []): Response
     {
@@ -125,7 +132,7 @@ class Transactions implements TransactionsInterface
      * Get a detailed timeline of a transaction carried out on your integration.
      *
      * @param string $id
-     * @return \Faridibin\Paystack\DataTransferObjects\Response
+     * @return Response
      */
     public function viewTransactionTimeline(string $id): Response
     {
@@ -141,7 +148,7 @@ class Transactions implements TransactionsInterface
      * @param int $perPage
      * @param int $page
      * @param array $optional
-     * @return \Faridibin\Paystack\DataTransferObjects\Response
+     * @return Response
      */
     public function transactionTotals(int $perPage = 50, int $page = 1, array $optional = []): Response
     {
@@ -163,7 +170,7 @@ class Transactions implements TransactionsInterface
      * @param int $perPage
      * @param int $page
      * @param array $optional
-     * @return \Faridibin\Paystack\DataTransferObjects\Response
+     * @return Response
      */
     public function export(int $perPage = 50, int $page = 1, array $optional = []): Response
     {
@@ -187,11 +194,11 @@ class Transactions implements TransactionsInterface
      * @param Currency|string $currency
      * @param string $email
      * @param array $optional
-     * @return \Faridibin\Paystack\DataTransferObjects\Response
+     * @return Response
      */
     public function partialDebit(string $authorizationCode, int $amount,  Currency|string $currency, string $email, array $optional = []): Response
     {
-        $response = $this->client->send('POST', '/transaction/charge_authorization', [
+        $response = $this->client->send('POST', '/transaction/partial_debit', [
             'json' => [
                 'currency' => $currency,
                 'amount' => $amount,
