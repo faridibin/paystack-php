@@ -29,6 +29,22 @@ class Storefront implements StorefrontInterface
     }
 
     /**
+     * Create Storefront
+     * Create a storefront on your integration
+     *
+     * @param array $data
+     * @return Response
+     */
+    public function create(array $data): Response
+    {
+        $response = $this->client->send('POST', '/storefront', [
+            'json' => $data
+        ]);
+
+        return new Response($response);
+    }
+
+    /**
      * List Storefronts
      * List the storefronts on your integration
      *
@@ -54,12 +70,130 @@ class Storefront implements StorefrontInterface
      * Fetch Storefront
      * Get the details of a storefront on your integration
      *
-     * @param string $slug The slug of the storefront
+     * @param string $id The storefront ID
      * @return Response
      */
-    public function fetch(string $slug): Response
+    public function fetch(string $id): Response
     {
-        $response = $this->client->send('GET', "/storefront/{$slug}");
+        $response = $this->client->send('GET', "/storefront/{$id}");
+
+        return new Response($response);
+    }
+
+    /**
+     * Update Storefront
+     * Update an existing storefront on your integration
+     *
+     * @param string $id The storefront ID
+     * @param array $data
+     * @return Response
+     */
+    public function update(string $id, array $data): Response
+    {
+        $response = $this->client->send('PUT', "/storefront/{$id}", [
+            'json' => $data
+        ]);
+
+        return new Response($response);
+    }
+
+    /**
+     * Delete Storefront
+     * Delete a storefront on your integration
+     *
+     * @param string $id The storefront ID
+     * @return Response
+     */
+    public function delete(string $id): Response
+    {
+        $response = $this->client->send('DELETE', "/storefront/{$id}");
+
+        return new Response($response);
+    }
+
+    /**
+     * Verify Storefront Slug
+     * Verify the availability of a storefront slug
+     *
+     * @param string $slug The slug to verify
+     * @return Response
+     */
+    public function verifySlug(string $slug): Response
+    {
+        $response = $this->client->send('GET', "/storefront/verify/{$slug}");
+
+        return new Response($response);
+    }
+
+    /**
+     * Duplicate Storefront
+     * Duplicate an existing storefront on your integration
+     *
+     * @param string $id The storefront ID
+     * @return Response
+     */
+    public function duplicate(string $id): Response
+    {
+        $response = $this->client->send('POST', "/storefront/{$id}/duplicate");
+
+        return new Response($response);
+    }
+
+    /**
+     * Publish Storefront
+     * Publish a storefront on your integration
+     *
+     * @param string $id The storefront ID
+     * @return Response
+     */
+    public function publish(string $id): Response
+    {
+        $response = $this->client->send('POST', "/storefront/{$id}/publish");
+
+        return new Response($response);
+    }
+
+    /**
+     * Fetch Storefront Orders
+     * List the orders for a storefront
+     *
+     * @param string $id The storefront ID
+     * @return Response
+     */
+    public function fetchOrders(string $id): Response
+    {
+        $response = $this->client->send('GET', "/storefront/{$id}/order");
+
+        return new Response($response);
+    }
+
+    /**
+     * List Storefront Products
+     * List the products attached to a storefront
+     *
+     * @param string $id The storefront ID
+     * @return Response
+     */
+    public function listProducts(string $id): Response
+    {
+        $response = $this->client->send('GET', "/storefront/{$id}/product");
+
+        return new Response($response);
+    }
+
+    /**
+     * Add Products to Storefront
+     * Add one or more products to a storefront
+     *
+     * @param string $id The storefront ID
+     * @param array $data
+     * @return Response
+     */
+    public function addProducts(string $id, array $data): Response
+    {
+        $response = $this->client->send('POST', "/storefront/{$id}/product", [
+            'json' => $data
+        ]);
 
         return new Response($response);
     }

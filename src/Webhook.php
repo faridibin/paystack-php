@@ -29,8 +29,8 @@ class Webhook
      * @param string $payload
      * @param string $signature
      * @param string $secretKey
-     * @return static
-     * @throws \Faridibin\Paystack\Exceptions\PaystackException
+     * @return self
+     * @throws PaystackException
      */
     public static function validateSignature(string $payload, string $signature, string $secretKey): self
     {
@@ -51,8 +51,8 @@ class Webhook
      * Check if the IP is whitelisted.
      *
      * @param string $ip
-     * @return static
-     * @throws \Faridibin\Paystack\Exceptions\PaystackException
+     * @return self
+     * @throws PaystackException
      */
     public static function isIpWhitelisted(string $ip): self
     {

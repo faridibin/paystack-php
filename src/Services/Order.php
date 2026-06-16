@@ -18,7 +18,7 @@ class Order implements OrderInterface
      * The Order service constructor.
      *
      * @param string|null $secretKey The Paystack secret key (used if no client is injected)
-     * @param \Faridibin\Paystack\Contracts\ClientInterface|null $client The HTTP client instance
+     * @param ClientInterface|null $client The HTTP client instance
      * @throws \Faridibin\Paystack\Exceptions\PaystackException
      */
     public function __construct(
@@ -81,18 +81,29 @@ class Order implements OrderInterface
     }
 
     /**
-     * Update Order
-     * Update the details of an order on your integration
+     * Fetch Product Orders
+     * Fetch all orders for a particular product
      *
-     * @param string $id The order ID
-     * @param array $data
+     * @param string $productId The product ID
      * @return Response
      */
-    public function update(string $id, array $data): Response
+    public function fetchByProduct(string $productId): Response
     {
-        $response = $this->client->send('PUT', "/order/{$id}", [
-            'json' => $data
-        ]);
+        $response = $this->client->send('GET', "/order/product/{$productId}");
+
+        return new Response($response);
+    }
+
+    /**
+     * Validate Order
+     * Validate a pay for me order
+     *
+     * @param string $code The order code
+     * @return Response
+     */
+    public function validate(string $code): Response
+    {
+        $response = $this->client->send('GET', "/order/{$code}/validate");
 
         return new Response($response);
     }

@@ -33,7 +33,9 @@ class Charge implements ChargeInterface
      * Create a charge.
      * Initiate a payment by integrating the payment channel of your choice.
      *
-     * @param array $data
+     * @param string $email
+     * @param int $amount
+     * @param array $optional
      * @return Response
      */
     public function create(string $email, int $amount, array $optional = []): Response

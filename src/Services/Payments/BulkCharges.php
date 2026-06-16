@@ -37,7 +37,7 @@ class BulkCharges implements BulkChargesInterface
      */
     public function initiateBulkCharge(array $data = []): Response
     {
-        $response = $this->client->send('POST', 'bulkcharge', [
+        $response = $this->client->send('POST', '/bulkcharge', [
             'json' => $data
         ]);
 
@@ -55,7 +55,7 @@ class BulkCharges implements BulkChargesInterface
      */
     public function listBulkChargeBatches(int $perPage = 50, int $page = 1, array $optional = []): Response
     {
-        $response = $this->client->send('GET', 'bulkcharge', [
+        $response = $this->client->send('GET', '/bulkcharge', [
             'query' => [
                 'perPage' => $perPage,
                 'page' => $page,
@@ -75,7 +75,7 @@ class BulkCharges implements BulkChargesInterface
      */
     public function fetchBulkChargeBatch(string $identifier): Response
     {
-        $response = $this->client->send('GET', "bulkcharge/{$identifier}");
+        $response = $this->client->send('GET', "/bulkcharge/{$identifier}");
 
         return new Response($response);
     }
@@ -97,7 +97,7 @@ class BulkCharges implements BulkChargesInterface
      */
     public function fetchChargesInBatch(string $identifier, Status|string $status, int $perPage = 50, int $page = 1, array $optional = []): Response
     {
-        $response = $this->client->send('GET', "bulkcharge/{$identifier}/charges", [
+        $response = $this->client->send('GET', "/bulkcharge/{$identifier}/charges", [
             'query' => [
                 'status' => $status,
                 'perPage' => $perPage,
@@ -118,7 +118,7 @@ class BulkCharges implements BulkChargesInterface
      */
     public function pauseBulkChargeBatch(string $code): Response
     {
-        $response = $this->client->send('POST', "bulkcharge/pause/{$code}");
+        $response = $this->client->send('GET', "/bulkcharge/pause/{$code}");
 
         return new Response($response);
     }
@@ -132,7 +132,7 @@ class BulkCharges implements BulkChargesInterface
      */
     public function resumeBulkChargeBatch(string $code): Response
     {
-        $response = $this->client->send('POST', "bulkcharge/resume/{$code}");
+        $response = $this->client->send('GET', "/bulkcharge/resume/{$code}");
 
         return new Response($response);
     }

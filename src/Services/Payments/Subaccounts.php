@@ -33,18 +33,18 @@ class Subaccounts implements SubaccountsInterface
      * Create a subaccount.
      *
      * @param string $businessName
-     * @param string $bankCode
+     * @param string $settlementBank Bank code from the List Banks endpoint
      * @param string $accountNumber
      * @param float $percentageCharge
      * @param array $optional
      * @return Response
      */
-    public function createSubaccount(string $businessName, string $bankCode, string $accountNumber, float $percentageCharge, array $optional = []): Response
+    public function createSubaccount(string $businessName, string $settlementBank, string $accountNumber, float $percentageCharge, array $optional = []): Response
     {
         $response = $this->client->send('POST', '/subaccount', [
             'json' => [
                 'business_name' => $businessName,
-                'bank_code' => $bankCode,
+                'settlement_bank' => $settlementBank,
                 'account_number' => $accountNumber,
                 'percentage_charge' => $percentageCharge,
                 ...$optional
@@ -58,8 +58,8 @@ class Subaccounts implements SubaccountsInterface
      * List Subaccounts
      * List subaccounts available on your integration
      *
-     * @param string $perPage Number of records to return per page (default: 50)
-     * @param string $page Page number to return (default: 1)
+     * @param int $perPage Number of records to return per page (default: 50)
+     * @param int $page Page number to return (default: 1)
      * @param array $optional Additional query parameters to filter the list of subaccounts
      * @return Response
      */

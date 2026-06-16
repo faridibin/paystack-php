@@ -20,12 +20,12 @@ trait HasMetadata
      */
     private function resolveMetadata(mixed $metadata): void
     {
-        if (is_null($metadata)) {
+        if ($metadata === null) {
             $this->metadata = null;
             return;
         }
 
-        if (is_string($metadata)) {
+        if (\is_string($metadata)) {
             $decoded = json_decode($metadata, true);
 
             if (json_last_error() === JSON_ERROR_NONE) {
@@ -35,7 +35,7 @@ trait HasMetadata
             }
         }
 
-        $this->metadata = is_array($metadata) ? $metadata : null;
+        $this->metadata = \is_array($metadata) ? $metadata : null;
     }
 
     /**

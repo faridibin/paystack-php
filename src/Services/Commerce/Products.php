@@ -104,4 +104,18 @@ class Products implements ProductsInterface
 
         return new Response($response);
     }
+
+    /**
+     * Delete a product.
+     * Delete a previously created product on your integration
+     *
+     * @param string $id
+     * @return Response
+     */
+    public function deleteProduct(string $id): Response
+    {
+        $response = $this->client->send('DELETE', "/product/{$id}");
+
+        return new Response($response);
+    }
 }

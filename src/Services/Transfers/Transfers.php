@@ -37,15 +37,17 @@ class Transfers implements TransfersInterface
      *
      * @param int $amount
      * @param string $recipient
+     * @param string $reference Unique identifier for idempotency (lowercase alphanumeric with -,_ allowed)
      * @param array $optional
      * @return Response
      */
-    public function initiateTransfer(int $amount, string $recipient, array $optional = []): Response
+    public function initiateTransfer(int $amount, string $recipient, string $reference, array $optional = []): Response
     {
         $response = $this->client->send('POST', '/transfer', [
             'json' => [
                 'amount' => $amount,
                 'recipient' => $recipient,
+                'reference' => $reference,
                 'source' => TransferSource::BALANCE,
                 ...$optional
             ]

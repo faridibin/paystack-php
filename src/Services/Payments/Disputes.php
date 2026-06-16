@@ -97,7 +97,7 @@ class Disputes implements DisputesInterface
      */
     public function updateDispute(string $id, array $data): Response
     {
-        $response = $this->client->send('PUT', "dispute/{$id}", [
+        $response = $this->client->send('PUT', "/dispute/{$id}", [
             'json' => $data
         ]);
 
@@ -118,7 +118,7 @@ class Disputes implements DisputesInterface
      */
     public function addEvidence(string $id, string $customerEmail, string $customerName, string $customerPhone, string $serviceDetails, array $optional = []): Response
     {
-        $response = $this->client->send('POST', "dispute/{$id}/evidence", [
+        $response = $this->client->send('POST', "/dispute/{$id}/evidence", [
             'json' => [
                 'customer_email' => $customerEmail,
                 'customer_name' => $customerName,
@@ -163,7 +163,7 @@ class Disputes implements DisputesInterface
      */
     public function resolveDispute(string $id, Resolution|string $resolution, string $message, int $refundAmount, string $filename, array $optional = []): Response
     {
-        $response = $this->client->send('PUT', "dispute/{$id}/resolve", [
+        $response = $this->client->send('PUT', "/dispute/{$id}/resolve", [
             'json' => [
                 'resolution' => $resolution,
                 'message' => $message,

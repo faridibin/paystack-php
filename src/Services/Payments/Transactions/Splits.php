@@ -51,7 +51,7 @@ class Splits implements SplitsInterface
                 'type' => $type,
                 'currency' => $currency,
                 'subaccounts' => $subaccounts,
-                'bearer' => $bearer,
+                'bearer_type' => $bearer,
                 'bearer_subaccount' => $bearerSubaccount
             ]
         ]);

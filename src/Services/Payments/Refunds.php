@@ -61,7 +61,7 @@ class Refunds implements RefundsInterface
      */
     public function retryRefund(string $identifier, Currency|string $currency, string $bankId, string $accountNumber): Response
     {
-        $response = $this->client->send('POST', "/retry_with_customer_details/{$identifier}", [
+        $response = $this->client->send('POST', "/refund/retry_with_customer_details/{$identifier}", [
             'json' => [
                 'refund_account_details' => [
                     'currency' => $currency,

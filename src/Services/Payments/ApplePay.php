@@ -56,7 +56,7 @@ class ApplePay implements ApplePayInterface
     {
         $response = $this->client->send('GET', '/apple-pay/domain', [
             'query' => [
-                'name' => $useCursor,
+                'use_cursor' => $useCursor,
                 'next' => $next,
                 'previous' => $previous,
             ]

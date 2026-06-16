@@ -49,10 +49,10 @@ class Verification implements VerificationInterface
     }
 
     /**
-     * Validate an account
-     * Confirm the authenticity of a customer's account number before sending money
+     * Resolve a card BIN
+     * Get more information about a customer's card
      *
-     * @param array $bin
+     * @param string $bin
      * @return Response
      */
     public function resolveCardBin(string $bin): Response
@@ -63,10 +63,10 @@ class Verification implements VerificationInterface
     }
 
     /**
-     * Resolve a card bin
-     * Get more information about a customer's card
+     * Validate an account
+     * Confirm the authenticity of a customer's account number before sending money
      *
-     * @param string $data
+     * @param array $data
      * @return Response
      */
     public function validateAccount(array $data): Response

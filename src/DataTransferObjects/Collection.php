@@ -30,7 +30,7 @@ class Collection implements DataTransferObject
     {
         $this->items = ($dtoClass && class_exists($dtoClass, true)) ? array_map(
             fn($item) => new $dtoClass(...$item),
-            $items ?? []
+            $items
         ) : $items;
     }
 

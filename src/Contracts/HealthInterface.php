@@ -42,7 +42,7 @@ interface HealthInterface extends ServiceInterface
     /**
      * Get the health status of Paystack services.
      *
-     * @return string
+     * @return Health
      */
     public function healthy(): Health;
 

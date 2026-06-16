@@ -145,7 +145,7 @@ class Customers implements CustomersInterface
      */
     public function deactivateAuthorization(string $authorizationCode): Response
     {
-        $response = $this->client->send('POST', '/customer/deactivate_authorization', [
+        $response = $this->client->send('POST', '/customer/authorization/deactivate', [
             'json' => [
                 'authorization_code' => $authorizationCode,
             ]
@@ -159,16 +159,16 @@ class Customers implements CustomersInterface
      * Initiate a reusable authorization request to your customers
      *
      * @param string $email
-     * @param int $amount
+     * @param string $channel The authorization channel. Currently only 'direct_debit' is supported.
      * @param array $optional
      * @return Response
      */
-    public function initializeAuthorization(string $email, int $amount, array $optional = []): Response
+    public function initializeAuthorization(string $email, string $channel = 'direct_debit', array $optional = []): Response
     {
         $response = $this->client->send('POST', '/customer/authorization/initialize', [
             'json' => [
                 'email' => $email,
-                'amount' => $amount,
+                'channel' => $channel,
                 ...$optional
             ]
         ]);

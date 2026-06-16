@@ -6,8 +6,18 @@ namespace Faridibin\Paystack\DataTransferObjects;
 
 use Faridibin\Paystack\Contracts\DataTransferObjects\DataTransferObject;
 
+/**
+ * Represents relational data in a Paystack API response.
+ *
+ * @todo Implementation is pending.
+ */
 class Relationships implements DataTransferObject
 {
+    /**
+     * The raw relationships data.
+     */
+    private readonly array $relationships;
+
     /**
      * The Relationship DTO constructor.
      *
@@ -15,23 +25,7 @@ class Relationships implements DataTransferObject
      */
     public function __construct(array $relationships = [])
     {
-        // TODO: Implement constructor
-
-        foreach ($relationships as $key => $relationship) {
-            dump($key, $relationship);
-
-            // $this->items[$key] = $this->resolveRelationship(
-            //     $key,
-            //     $relationship['type'],
-            //     $relationship['data'],
-            //     $relationship['supported_currencies'] ?? null
-            // );
-        }
-
-        // dd(
-        //     $this,
-        //     $relationships
-        // );
+        $this->relationships = $relationships;
     }
 
     /**
@@ -41,7 +35,6 @@ class Relationships implements DataTransferObject
      */
     public function toArray(): array
     {
-        // TODO: Implement toArray() method.
-        return [];
+        return $this->relationships;
     }
 }

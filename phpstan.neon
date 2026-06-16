@@ -1,0 +1,16 @@
+parameters:
+    level: 5
+    paths:
+        - src
+
+    ignoreErrors:
+        # DTOs initialise readonly properties (metadata, relationships) and the
+        # Health response via a private trait method called from the constructor.
+        # This is valid at runtime — readonly props may be written once from within
+        # class scope — but PHPStan only recognises direct constructor assignment.
+        - '#Readonly property .* is assigned outside of the constructor\.#'
+
+        # DTO constructors keep a `...$args` variadic as a deliberate safety net so
+        # that undocumented or future Paystack response fields are absorbed instead
+        # of throwing. It is intentionally unused.
+        - '#Constructor of class .* has an unused parameter \$args\.#'
