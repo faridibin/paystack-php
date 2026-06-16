@@ -38,15 +38,6 @@ interface OrderInterface extends ServiceInterface
     public function fetch(string $id): Response;
 
     /**
-     * Update an existing order by ID.
-     *
-     * @param string $id
-     * @param array $data
-     * @return Response
-     */
-    public function update(string $id, array $data): Response;
-
-    /**
      * Fetch all orders for a particular product.
      *
      * @param string $productId
