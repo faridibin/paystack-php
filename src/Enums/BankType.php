@@ -1,7 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Faridibin\Paystack\Enums;
 
+/**
+ * Represents the available bank types supported by Paystack.
+ */
 enum BankType: string
 {
     case GHIPSS = 'ghipss';

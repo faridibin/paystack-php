@@ -1,9 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Faridibin\Paystack\Enums;
 
 use Carbon\Carbon;
 
+/**
+ * Represents time intervals used for subscription billing.
+ */
 enum Interval: string
 {
     case HOURLY = 'hourly';

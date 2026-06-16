@@ -1,7 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Faridibin\Paystack\Enums;
 
+/**
+ * Represents the supported currencies on the Paystack platform.
+ */
 enum Currency: string
 {
     case NGN = 'NGN';

@@ -1,8 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Faridibin\Paystack\Enums;
 
-enum  PlanInterval: string
+/**
+ * Represents billing intervals for subscription plans.
+ */
+enum PlanInterval: string
 {
     case DAILY = 'daily';
     case WEEKLY = 'weekly';
