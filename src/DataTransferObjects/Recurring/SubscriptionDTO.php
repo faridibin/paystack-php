@@ -11,6 +11,7 @@ use Faridibin\Paystack\DataTransferObjects\Payments\AuthorizationDTO;
 use Faridibin\Paystack\DataTransferObjects\Payments\CustomerDTO;
 use Faridibin\Paystack\DataTransferObjects\Payments\InvoiceDTO;
 use Faridibin\Paystack\Enums\Status;
+use Faridibin\Paystack\Traits\HasMetadata;
 use Faridibin\Paystack\Traits\MapToArray;
 
 /**
@@ -21,7 +22,7 @@ use Faridibin\Paystack\Traits\MapToArray;
  */
 class SubscriptionDTO implements DataTransferObject
 {
-    use MapToArray;
+    use HasMetadata, MapToArray;
 
     /**
      * The authorization of the subscription
@@ -137,6 +138,7 @@ class SubscriptionDTO implements DataTransferObject
      * @param DateTime|string|null $next_payment_date
      * @param DateTime|string|int|null $start
      * @param DateTime|string|null $cancelledAt
+     * @param array|string|null $metadata
      */
     public function __construct(
         public readonly ?int $id = null,
@@ -167,6 +169,7 @@ class SubscriptionDTO implements DataTransferObject
         DateTime|string|null $next_payment_date = null,
         DateTime|string|int|null $start = null,
         DateTime|string|null $cancelledAt = null,
+        array|string|null $metadata = null,
 
         ...$args
     ) {
@@ -180,32 +183,21 @@ class SubscriptionDTO implements DataTransferObject
         $createdAt = $createdAt ?? $created_at;
         $updatedAt = $updatedAt ?? $updated_at;
 
-        if ($createdAt) {
-            $this->createdAt = $createdAt instanceof DateTime ? $createdAt : new DateTime($createdAt);
+        $this->createdAt = $createdAt ? ($createdAt instanceof DateTime ? $createdAt : new DateTime($createdAt)) : null;
+        $this->updatedAt = $updatedAt ? ($updatedAt instanceof DateTime ? $updatedAt : new DateTime($updatedAt)) : null;
+        $this->next_payment_date = $next_payment_date ? ($next_payment_date instanceof DateTime ? $next_payment_date : new DateTime($next_payment_date)) : null;
+
+        if ($start && \is_int($start)) {
+            $start = date('Y-m-d H:i:s', $start);
         }
 
-        if ($updatedAt) {
-            $this->updatedAt = $updatedAt instanceof DateTime ? $updatedAt : new DateTime($updatedAt);
-        }
+        $this->start = $start ? ($start instanceof DateTime ? $start : new DateTime($start)) : null;
+        $this->cancelledAt = $cancelledAt ? ($cancelledAt instanceof DateTime ? $cancelledAt : new DateTime($cancelledAt)) : null;
 
-        if ($next_payment_date) {
-            $this->next_payment_date = !($next_payment_date instanceof DateTime) ? new DateTime($next_payment_date) : $next_payment_date;
-        }
+        $this->status = $status instanceof Status
+            ? $status
+            : (is_string($status) && $status !== '' ? Status::from($status) : Status::UNKNOWN);
 
-        if ($start) {
-            if (\is_int($start)) {
-                $start = date('Y-m-d H:i:s', $start);
-            }
-
-            $this->start = !($start instanceof DateTime) ? new DateTime($start) : $start;
-        }
-
-        if ($cancelledAt) {
-            $this->cancelledAt = !($cancelledAt instanceof DateTime) ? new DateTime($cancelledAt) : $cancelledAt;
-        }
-
-        if ($status && !($status instanceof Status)) {
-            $this->status = Status::from($status);
-        }
+        $this->resolveMetadata($metadata);
     }
 }

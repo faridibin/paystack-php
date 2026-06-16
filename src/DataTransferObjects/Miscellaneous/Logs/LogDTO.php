@@ -58,13 +58,11 @@ class LogDTO implements DataTransferObject
         DateTime|string|int|null $start_time = null,
         mixed $history = null
     ) {
-        if ($start_time) {
-            if (\is_int($start_time)) {
-                $start_time = date('Y-m-d H:i:s', $start_time);
-            }
-
-            $this->start_time = !($start_time instanceof DateTime) ? new DateTime($start_time) : $start_time;
+        if ($start_time && \is_int($start_time)) {
+            $start_time = date('Y-m-d H:i:s', $start_time);
         }
+
+        $this->start_time = $start_time ? ($start_time instanceof DateTime ? $start_time : new DateTime($start_time)) : null;
 
         $this->history = \is_array($history) ? new Collection($history, HistoryDTO::class) : $history;
     }

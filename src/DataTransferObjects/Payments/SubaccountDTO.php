@@ -32,7 +32,7 @@ class SubaccountDTO implements DataTransferObject
      *
      * @var Currency $currency
      */
-    public readonly Currency $currency;
+    public readonly ?Currency $currency;
 
     /**
      * The Subaccount creation date
@@ -112,20 +112,15 @@ class SubaccountDTO implements DataTransferObject
     ) {
         $this->active = \is_int($active) ? (bool)$active : $active;
 
-        if ($currency && !($currency instanceof Currency)) {
-            $this->currency = Currency::from($currency);
-        }
+        $this->currency = $currency instanceof Currency
+            ? $currency
+            : (is_string($currency) && $currency !== '' ? Currency::from($currency) : null);
 
         $createdAt ??= $created_at;
         $updatedAt ??= $updated_at;
 
-        if ($createdAt) {
-            $this->createdAt = $createdAt instanceof DateTime ? $createdAt : new DateTime($createdAt);
-        }
-
-        if ($updatedAt) {
-            $this->updatedAt = $updatedAt instanceof DateTime ? $updatedAt : new DateTime($updatedAt);
-        }
+        $this->createdAt = $createdAt ? ($createdAt instanceof DateTime ? $createdAt : new DateTime($createdAt)) : null;
+        $this->updatedAt = $updatedAt ? ($updatedAt instanceof DateTime ? $updatedAt : new DateTime($updatedAt)) : null;
 
         $this->resolveMetadata($metadata);
     }

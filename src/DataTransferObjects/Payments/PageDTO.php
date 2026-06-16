@@ -26,14 +26,14 @@ class PageDTO implements DataTransferObject
      *
      * @var PaymentPageType $interval
      */
-    public readonly PaymentPageType $type;
+    public readonly ?PaymentPageType $type;
 
     /**
      * The currency of the page
      *
      * @var Currency $currency
      */
-    public readonly Currency $currency;
+    public readonly ?Currency $currency;
 
     /**
      * The Page creation date
@@ -101,21 +101,16 @@ class PageDTO implements DataTransferObject
 
         ...$args
     ) {
-        if ($type && !($type instanceof PaymentPageType)) {
-            $this->type = PaymentPageType::from($type);
-        }
+        $this->type = $type instanceof PaymentPageType
+            ? $type
+            : (is_string($type) && $type !== '' ? PaymentPageType::from($type) : null);
 
-        if ($currency && !($currency instanceof Currency)) {
-            $this->currency = Currency::from($currency);
-        }
+        $this->currency = $currency instanceof Currency
+            ? $currency
+            : (is_string($currency) && $currency !== '' ? Currency::from($currency) : null);
 
-        if ($createdAt) {
-            $this->createdAt = $createdAt instanceof DateTime ? $createdAt : new DateTime($createdAt);
-        }
-
-        if ($updatedAt) {
-            $this->updatedAt = $updatedAt instanceof DateTime ? $updatedAt : new DateTime($updatedAt);
-        }
+        $this->createdAt = $createdAt ? ($createdAt instanceof DateTime ? $createdAt : new DateTime($createdAt)) : null;
+        $this->updatedAt = $updatedAt ? ($updatedAt instanceof DateTime ? $updatedAt : new DateTime($updatedAt)) : null;
 
         $this->resolveMetadata($metadata);
     }

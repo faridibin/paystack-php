@@ -24,14 +24,14 @@ class SubscriberDTO implements DataTransferObject
      *
      * @var Currency $currency
      */
-    public readonly Currency $currency;
+    public readonly ?Currency $currency;
 
     /**
      * The status of the subscription
      *
      * @var Status $status
      */
-    public readonly Status $status;
+    public readonly ?Status $status;
 
     /**
      * The subscriber DTO constructor.
@@ -55,12 +55,12 @@ class SubscriberDTO implements DataTransferObject
 
         ...$args
     ) {
-        if (!($currency instanceof Currency)) {
-            $this->currency = Currency::from($currency);
-        }
+        $this->currency = $currency instanceof Currency
+            ? $currency
+            : (is_string($currency) && $currency !== '' ? Currency::from($currency) : null);
 
-        if (!($subscription_status instanceof Status)) {
-            $this->status = Status::from($subscription_status);
-        }
+        $this->status = $subscription_status instanceof Status
+            ? $subscription_status
+            : (is_string($subscription_status) && $subscription_status !== '' ? Status::from($subscription_status) : null);
     }
 }

@@ -24,14 +24,14 @@ class AuthorizationDTO implements DataTransferObject
      *
      * @var Channels $channel
      */
-    public readonly Channels $channel;
+    public readonly ?Channels $channel;
 
     /**
      * The expiry month of the authorization
      *
      * @var Month $exp_month
      */
-    public readonly Month $exp_month;
+    public readonly ?Month $exp_month;
 
     /**
      * The reusable status of the authorization
@@ -78,16 +78,14 @@ class AuthorizationDTO implements DataTransferObject
         Channels|string|null $channel = null,
         ...$args
     ) {
-        if ($channel && !($channel instanceof Channels)) {
-            $this->channel = Channels::from($channel);
-        }
+        $this->channel = $channel instanceof Channels
+            ? $channel
+            : (is_string($channel) && $channel !== '' ? Channels::from($channel) : null);
 
-        if ($exp_month && !($exp_month instanceof Month)) {
-            $this->exp_month = Month::fromValue($exp_month);
-        }
+        $this->exp_month = $exp_month instanceof Month
+            ? $exp_month
+            : ($exp_month !== null && $exp_month !== '' ? Month::fromValue($exp_month) : null);
 
-        if ($reusable !== null) {
-            $this->reusable = (bool) $reusable;
-        }
+        $this->reusable = $reusable !== null ? (bool) $reusable : null;
     }
 }

@@ -21,26 +21,34 @@ class RecipientDTO implements DataTransferObject
     /**
      * The createdAt property
      */
-    public readonly DateTime $createdAt;
+    public readonly ?DateTime $createdAt;
 
     /**
      * The updatedAt property
      */
-    public readonly DateTime $updatedAt;
+    public readonly ?DateTime $updatedAt;
 
     /**
      * The type of the recipient
      *
      * @var RecipientType $type
      */
-    public readonly RecipientType $type;
+    public readonly ?RecipientType $type;
 
     /**
      * The currency of the recipient
      *
      * @var Currency $currency
      */
-    public readonly Currency $currency;
+    public readonly ?Currency $currency;
+
+    /**
+     * Whether the recipient has been deleted.
+     * Paystack returns this as `isDeleted` or `is_deleted` depending on the endpoint.
+     *
+     * @var bool|null $isDeleted
+     */
+    public readonly ?bool $isDeleted;
 
     /**
      * The Recipient DTO constructor.
@@ -56,7 +64,8 @@ class RecipientDTO implements DataTransferObject
         public readonly ?string $recipient_account = null,
         public readonly ?string $institution_code = null,
         public readonly ?string $email = null,
-        public readonly ?bool $isDeleted = null,
+        bool|null $isDeleted = null,
+        bool|null $is_deleted = null,
         public readonly array $details = [],
         RecipientType|string|null $type = null,
         Currency|string|null $currency = null,
@@ -67,24 +76,21 @@ class RecipientDTO implements DataTransferObject
         DateTime|string|null $updated_at = null,
         ...$args
     ) {
-        if ($type !== null) {
-            $this->type = $type instanceof RecipientType ? $type : RecipientType::from($type);
-        }
+        $this->isDeleted = $isDeleted ?? $is_deleted;
 
-        if ($currency !== null) {
-            $this->currency = $currency instanceof Currency ? $currency : Currency::from($currency);
-        }
+        $this->type = $type instanceof RecipientType
+            ? $type
+            : (is_string($type) && $type !== '' ? RecipientType::from($type) : null);
+
+        $this->currency = $currency instanceof Currency
+            ? $currency
+            : (is_string($currency) && $currency !== '' ? Currency::from($currency) : null);
 
         $createdAt ??= $created_at;
         $updatedAt ??= $updated_at;
 
-        if ($createdAt) {
-            $this->createdAt = $createdAt instanceof DateTime ? $createdAt : new DateTime($createdAt);
-        }
-
-        if ($updatedAt) {
-            $this->updatedAt = $updatedAt instanceof DateTime ? $updatedAt : new DateTime($updatedAt);
-        }
+        $this->createdAt = $createdAt ? ($createdAt instanceof DateTime ? $createdAt : new DateTime($createdAt)) : null;
+        $this->updatedAt = $updatedAt ? ($updatedAt instanceof DateTime ? $updatedAt : new DateTime($updatedAt)) : null;
 
         $this->resolveMetadata($metadata);
     }

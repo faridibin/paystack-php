@@ -61,14 +61,14 @@ class PlanDTO implements DataTransferObject
      *
      * @var Currency $currency
      */
-    public readonly Currency $currency;
+    public readonly ?Currency $currency;
 
     /**
      * The interval of the plan
      *
      * @var Interval $interval
      */
-    public readonly Interval $interval;
+    public readonly ?Interval $interval;
 
     /**
      * The Plan creation date
@@ -163,23 +163,18 @@ class PlanDTO implements DataTransferObject
         $this->subscriptions = new Collection($subscriptions, SubscriptionDTO::class);
         $this->subscribers = new Collection($subscribers, SubscriberDTO::class);
 
-        if ($currency && !($currency instanceof Currency)) {
-            $this->currency = Currency::from($currency);
-        }
+        $this->currency = $currency instanceof Currency
+            ? $currency
+            : (is_string($currency) && $currency !== '' ? Currency::from($currency) : null);
 
-        if ($interval && !($interval instanceof Interval)) {
-            $this->interval = Interval::from($interval);
-        }
+        $this->interval = $interval instanceof Interval
+            ? $interval
+            : (is_string($interval) && $interval !== '' ? Interval::from($interval) : null);
 
-        $createdAt = $createdAt ?? $created_at;
-        $updatedAt = $updatedAt ?? $updated_at;
+        $createdAt ??= $created_at;
+        $updatedAt ??= $updated_at;
 
-        if ($createdAt) {
-            $this->createdAt = $createdAt instanceof DateTime ? $createdAt : new DateTime($createdAt);
-        }
-
-        if ($updatedAt) {
-            $this->updatedAt = $updatedAt instanceof DateTime ? $updatedAt : new DateTime($updatedAt);
-        }
+        $this->createdAt = $createdAt ? ($createdAt instanceof DateTime ? $createdAt : new DateTime($createdAt)) : null;
+        $this->updatedAt = $updatedAt ? ($updatedAt instanceof DateTime ? $updatedAt : new DateTime($updatedAt)) : null;
     }
 }

@@ -58,8 +58,9 @@ class HealthSummaryDTO implements DataTransferObject
     ) {
         $this->name = $page['name'] ?? 'Paystack';
         $this->updated_at = new DateTime($page['updated_at'] ?? 'now', new DateTimeZone($page['time_zone'] ?? 'Africa/Lagos'));
-        $this->status = $status['description'] === 'All Systems Operational';
-        $this->indicator = $status['indicator'];
+        $this->status = ($status['description'] ?? null) === 'All Systems Operational';
+        $this->description = $status['description'] ?? null;
+        $this->indicator = $status['indicator'] ?? '';
     }
 
     public function toArray(): array
