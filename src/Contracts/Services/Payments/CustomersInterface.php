@@ -77,13 +77,13 @@ interface CustomersInterface extends PaymentsInterface
     /**
      * Initialize Authorization.
      * Initiate a reusable authorization request to your customers
-     * 
+     *
      * @param string $email The customer's email address
-     * @param int $amount The amount to be authorized in kobo. This should be a minimum of 100 kobo (₦1.00)
+     * @param string $channel The authorization channel. Currently only 'direct_debit' is supported.
      * @param array $optional Optional parameters for the authorization initialization
      * @return Response
      */
-    public function initializeAuthorization(string $email, int $amount, array $optional = []): Response;
+    public function initializeAuthorization(string $email, string $channel = 'direct_debit', array $optional = []): Response;
 
     /**
      * Verify Authorization.

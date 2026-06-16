@@ -45,4 +45,20 @@ interface OrderInterface extends ServiceInterface
      * @return Response
      */
     public function update(string $id, array $data): Response;
+
+    /**
+     * Fetch all orders for a particular product.
+     *
+     * @param string $productId
+     * @return Response
+     */
+    public function fetchByProduct(string $productId): Response;
+
+    /**
+     * Validate a pay for me order.
+     *
+     * @param string $code
+     * @return Response
+     */
+    public function validate(string $code): Response;
 }

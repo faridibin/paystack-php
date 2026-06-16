@@ -41,7 +41,7 @@ final class Paystack implements PaystackInterface
      */
     public function __construct(?string $secretKey = null, private ?Contracts\ClientInterface $client = null)
     {
-        if (is_null($secretKey)) {
+        if ($secretKey === null) {
             throw new PaystackException('Secret key is required.');
         }
 

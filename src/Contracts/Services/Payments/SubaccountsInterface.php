@@ -15,13 +15,13 @@ interface SubaccountsInterface extends PaymentsInterface
      * Create a subaccount.
      *
      * @param string $businessName
-     * @param string $bankCode
+     * @param string $settlementBank Bank code from the List Banks endpoint
      * @param string $accountNumber
      * @param float $percentageCharge
      * @param array $optional
      * @return Response
      */
-    public function createSubaccount(string $businessName, string $bankCode, string $accountNumber, float $percentageCharge, array $optional = []): Response;
+    public function createSubaccount(string $businessName, string $settlementBank, string $accountNumber, float $percentageCharge, array $optional = []): Response;
 
     /**
      * List Subaccounts

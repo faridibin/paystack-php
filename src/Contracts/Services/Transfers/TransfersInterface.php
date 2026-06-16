@@ -16,10 +16,11 @@ interface TransfersInterface extends TransferInterface
      *
      * @param int $amount
      * @param string $recipient
+     * @param string $reference
      * @param array $optional
      * @return Response
      */
-    public function initiateTransfer(int $amount, string $recipient, array $optional = []): Response;
+    public function initiateTransfer(int $amount, string $recipient, string $reference, array $optional = []): Response;
 
     /**
      * Finalize Transfer
