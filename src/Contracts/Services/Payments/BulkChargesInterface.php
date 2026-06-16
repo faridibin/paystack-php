@@ -7,13 +7,16 @@ namespace Faridibin\Paystack\Contracts\Services\Payments;
 use Faridibin\Paystack\DataTransferObjects\Response;
 use Faridibin\Paystack\Enums\Status;
 
+/**
+ * Defines the contract for bulk charge operations.
+ */
 interface BulkChargesInterface extends PaymentsInterface
 {
     /**
      * Initiate a bulk charge.
      *
      * @param array $data
-     * @return \Faridibin\Paystack\DataTransferObjects\Response
+     * @return Response
      */
     public function initiateBulkCharge(array $data = []): Response;
 

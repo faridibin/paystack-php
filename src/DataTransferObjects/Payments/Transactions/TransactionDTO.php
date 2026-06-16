@@ -17,6 +17,12 @@ use Faridibin\Paystack\Enums\Status;
 use Faridibin\Paystack\Traits\HasMetadata;
 use Faridibin\Paystack\Traits\MapToArray;
 
+/**
+ * Data Transfer Object representing a Paystack transaction.
+ *
+ * Encapsulates all transaction details including customer, authorization,
+ * plan, subaccount, and log information with proper type casting.
+ */
 class TransactionDTO implements DataTransferObject
 {
     use HasMetadata, MapToArray;
@@ -26,21 +32,21 @@ class TransactionDTO implements DataTransferObject
      *
      * @var Currency $currency
      */
-    public readonly Currency $currency;
+    public readonly ?Currency $currency;
 
     /**
      * The status of the transaction
      *
      * @var Status $status
      */
-    public readonly Status $status;
+    public readonly ?Status $status;
 
     /**
      * The channel of the transaction
      *
      * @var Channels $channel
      */
-    public readonly Channels $channel;
+    public readonly ?Channels $channel;
 
     /**
      * The Transaction creation date
@@ -101,7 +107,7 @@ class TransactionDTO implements DataTransferObject
     /**
      * The subaccount of the transaction
      *
-     * @var SubaccountDTO|string|int|null $subaccount
+     * @var SubaccountDTO|string|null $subaccount
      */
     public readonly SubaccountDTO|string|null $subaccount;
 
@@ -189,7 +195,7 @@ class TransactionDTO implements DataTransferObject
         DateTime|string|null $transaction_date = null,
 
 
-        ...$args // TODO: Remove this line
+        ...$args
     ) {
         $this->customer = is_array($customer) ? new CustomerDTO(...$customer) : $customer;
         $this->authorization = is_array($authorization) ? new AuthorizationDTO(...$authorization) : $authorization;
@@ -199,47 +205,28 @@ class TransactionDTO implements DataTransferObject
         $this->log = is_array($log) ? new LogDTO(...$log) : $log;
 
 
-        if ($status && !($status instanceof Status)) {
-            $this->status = Status::from($status);
-        }
+        $this->status = $status instanceof Status
+            ? $status
+            : (is_string($status) && $status !== '' ? Status::from($status) : null);
 
-        if ($channel && !($channel instanceof Channels)) {
-            $this->channel = Channels::from($channel);
-        }
+        $this->channel = $channel instanceof Channels
+            ? $channel
+            : (is_string($channel) && $channel !== '' ? Channels::from($channel) : null);
 
-        if ($currency && !($currency instanceof Currency)) {
-            $this->currency = Currency::from($currency);
-        }
+        $this->currency = $currency instanceof Currency
+            ? $currency
+            : (is_string($currency) && $currency !== '' ? Currency::from($currency) : null);
 
         $createdAt = $createdAt ?? $created_at;
         $updatedAt = $updatedAt ?? $updated_at;
         $paidAt = $paidAt ?? $paid_at;
         $transactionDate = $transactionDate ?? $transaction_date;
 
-        if ($createdAt) {
-            $this->createdAt = $createdAt instanceof DateTime ? $createdAt : new DateTime($createdAt);
-        }
-
-        if ($updatedAt) {
-            $this->updatedAt = $updatedAt instanceof DateTime ? $updatedAt : new DateTime($updatedAt);
-        }
-
-        if ($paidAt) {
-            $this->paidAt = $paidAt instanceof DateTime ? $paidAt : new DateTime($paidAt);
-        }
-
-        if ($transactionDate) {
-            $this->transactionDate = $transactionDate instanceof DateTime ? $transactionDate : new DateTime($transactionDate);
-        }
+        $this->createdAt = $createdAt ? ($createdAt instanceof DateTime ? $createdAt : new DateTime($createdAt)) : null;
+        $this->updatedAt = $updatedAt ? ($updatedAt instanceof DateTime ? $updatedAt : new DateTime($updatedAt)) : null;
+        $this->paidAt = $paidAt ? ($paidAt instanceof DateTime ? $paidAt : new DateTime($paidAt)) : null;
+        $this->transactionDate = $transactionDate ? ($transactionDate instanceof DateTime ? $transactionDate : new DateTime($transactionDate)) : null;
 
         $this->resolveMetadata($metadata);
-
-
-        if (!empty($args)) {
-            dump([
-                'id' => $id,
-                'transaction_args' => $args, // TODO: Remove this line
-            ]);
-        }
     }
 }

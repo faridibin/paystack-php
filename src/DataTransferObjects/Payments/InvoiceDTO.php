@@ -16,6 +16,12 @@ use Faridibin\Paystack\Enums\Status;
 use Faridibin\Paystack\Traits\HasMetadata;
 use Faridibin\Paystack\Traits\MapToArray;
 
+/**
+ * Data Transfer Object representing a Paystack invoice (payment request).
+ *
+ * Encapsulates invoice details including customer, subscription, transaction,
+ * plan, subaccount, and log information with proper type casting.
+ */
 class InvoiceDTO implements DataTransferObject
 {
     use HasMetadata, MapToArray;
@@ -25,21 +31,21 @@ class InvoiceDTO implements DataTransferObject
      *
      * @var Currency $currency
      */
-    public readonly Currency $currency;
+    public readonly ?Currency $currency;
 
     /**
      * The channel of the invoice
      *
      * @var Channels $channel
      */
-    public readonly Channels $channel;
+    public readonly ?Channels $channel;
 
     /**
      * The status of the invoice
      *
      * @var Status $status
      */
-    public readonly Status $status;
+    public readonly ?Status $status;
 
     /**
      * The Invoice creation date
@@ -164,6 +170,18 @@ class InvoiceDTO implements DataTransferObject
      * @param array|null $connect
      * @param string|null $notification_flag
      * @param int|null $retries
+     * @param string|null $request_code
+     * @param string|null $offline_reference
+     * @param string|null $pdf_url
+     * @param string|null $split_code
+     * @param string|null $due_date
+     * @param int|null $invoice_number
+     * @param int|null $pending_amount
+     * @param bool|null $has_invoice
+     * @param mixed $discount
+     * @param array|null $line_items
+     * @param array|null $tax
+     * @param array|null $notifications
      * @param mixed|null $log
      * @param mixed|null $authorization
      * @param mixed|null $customer
@@ -212,6 +230,18 @@ class InvoiceDTO implements DataTransferObject
         public readonly ?array $connect = null,
         public readonly ?string $notification_flag = null,
         public readonly ?int $retries = null,
+        public readonly ?string $request_code = null,
+        public readonly ?string $offline_reference = null,
+        public readonly ?string $pdf_url = null,
+        public readonly ?string $split_code = null,
+        public readonly ?string $due_date = null,
+        public readonly ?int $invoice_number = null,
+        public readonly ?int $pending_amount = null,
+        public readonly ?bool $has_invoice = null,
+        public readonly mixed $discount = null,
+        public readonly ?array $line_items = null,
+        public readonly ?array $tax = null,
+        public readonly ?array $notifications = null,
         mixed $log = null,
         mixed $authorization = null,
         mixed $customer = null,
@@ -237,7 +267,7 @@ class InvoiceDTO implements DataTransferObject
         DateTime|string|null $nextNotification = null,
         DateTime|string|null $next_notification = null,
 
-        ...$args // TODO: Remove this line
+        ...$args
     ) {
         $this->authorization = is_array($authorization) ? new AuthorizationDTO(...$authorization) : $authorization;
         $this->customer = is_array($customer) ? new CustomerDTO(...$customer) : $customer;
@@ -249,17 +279,17 @@ class InvoiceDTO implements DataTransferObject
 
         $this->paid = !is_null($paid) ? (bool) $paid : null;
 
-        if ($currency && !($currency instanceof Currency)) {
-            $this->currency = Currency::from($currency);
-        }
+        $this->currency = $currency instanceof Currency
+            ? $currency
+            : (is_string($currency) && $currency !== '' ? Currency::from($currency) : null);
 
-        if ($channel && !($channel instanceof Channels)) {
-            $this->channel = Channels::from($channel);
-        }
+        $this->channel = $channel instanceof Channels
+            ? $channel
+            : (is_string($channel) && $channel !== '' ? Channels::from($channel) : null);
 
-        if ($status && !($status instanceof Status)) {
-            $this->status = Status::from($status);
-        }
+        $this->status = $status instanceof Status
+            ? $status
+            : (is_string($status) && $status !== '' ? Status::from($status) : null);
 
         $createdAt = $createdAt ?? $created_at;
         $updatedAt = $updatedAt ?? $updated_at;
@@ -268,37 +298,13 @@ class InvoiceDTO implements DataTransferObject
         $periodEnd = $periodEnd ?? $period_end;
         $nextNotification = $nextNotification ?? $next_notification;
 
-        if ($createdAt) {
-            $this->createdAt = $createdAt instanceof DateTime ? $createdAt : new DateTime($createdAt);
-        }
-
-        if ($updatedAt) {
-            $this->updatedAt = $updatedAt instanceof DateTime ? $updatedAt : new DateTime($updatedAt);
-        }
-
-        if ($paidAt) {
-            $this->paidAt = $paidAt instanceof DateTime ? $paidAt : new DateTime($paidAt);
-        }
-
-        if ($periodStart) {
-            $this->periodStart = $periodStart instanceof DateTime ? $periodStart : new DateTime($periodStart);
-        }
-
-        if ($periodEnd) {
-            $this->periodEnd = $periodEnd instanceof DateTime ? $periodEnd : new DateTime($periodEnd);
-        }
-
-        if ($nextNotification) {
-            $this->nextNotification = $next_notification instanceof DateTime ?  $nextNotification : new DateTime($nextNotification);
-        }
+        $this->createdAt = $createdAt ? ($createdAt instanceof DateTime ? $createdAt : new DateTime($createdAt)) : null;
+        $this->updatedAt = $updatedAt ? ($updatedAt instanceof DateTime ? $updatedAt : new DateTime($updatedAt)) : null;
+        $this->paidAt = $paidAt ? ($paidAt instanceof DateTime ? $paidAt : new DateTime($paidAt)) : null;
+        $this->periodStart = $periodStart ? ($periodStart instanceof DateTime ? $periodStart : new DateTime($periodStart)) : null;
+        $this->periodEnd = $periodEnd ? ($periodEnd instanceof DateTime ? $periodEnd : new DateTime($periodEnd)) : null;
+        $this->nextNotification = $nextNotification ? ($nextNotification instanceof DateTime ? $nextNotification : new DateTime($nextNotification)) : null;
 
         $this->resolveMetadata($metadata);
-
-        if (!empty($args)) {
-            dump([
-                'code' => $invoice_code,
-                'invoice_args' => $args, // TODO: Remove this line
-            ]);
-        }
     }
 }

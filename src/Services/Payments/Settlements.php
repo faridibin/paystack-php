@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Faridibin\Paystack\Services\Payments;
 
 use Faridibin\Paystack\Client;
@@ -7,12 +9,17 @@ use Faridibin\Paystack\Contracts\ClientInterface;
 use Faridibin\Paystack\Contracts\Services\Payments\SettlementsInterface;
 use Faridibin\Paystack\DataTransferObjects\Response;
 
+/**
+ * Service for viewing settlement records on your integration.
+ */
 class Settlements implements SettlementsInterface
 {
     /**
      * The Settlements service constructor.
      *
-     * @param \Faridibin\Paystack\Contracts\ClientInterface $client
+     * @param string|null $secretKey The Paystack secret key (used if no client is injected)
+     * @param \Faridibin\Paystack\Contracts\ClientInterface|null $client The HTTP client instance
+     * @throws \Faridibin\Paystack\Exceptions\PaystackException
      */
     public function __construct(
         ?string $secretKey = null,
@@ -28,7 +35,7 @@ class Settlements implements SettlementsInterface
      * @param int $perPage
      * @param int $page
      * @param array $optional
-     * @return \Faridibin\Paystack\DataTransferObjects\Response
+     * @return Response
      */
     public function listSettlements(int $perPage = 50, int $page = 1, array $optional = []): Response
     {
@@ -40,11 +47,7 @@ class Settlements implements SettlementsInterface
             ]
         ]);
 
-        return new Response(
-            $response,
-            // CountriesDTO::class,
-            // true
-        );
+       return new Response($response);
     }
 
     /**
@@ -55,7 +58,7 @@ class Settlements implements SettlementsInterface
      * @param int $perPage
      * @param int $page
      * @param array $optional
-     * @return \Faridibin\Paystack\DataTransferObjects\Response
+     * @return Response
      */
     public function listSettlementTransactions(string $identifier, int $perPage = 50, int $page = 1, array $optional = []): Response
     {
@@ -67,10 +70,6 @@ class Settlements implements SettlementsInterface
             ]
         ]);
 
-        return new Response(
-            $response,
-            // CountriesDTO::class,
-            // true
-        );
+       return new Response($response);
     }
 }

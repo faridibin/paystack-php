@@ -9,6 +9,12 @@ use Faridibin\Paystack\DataTransferObjects\Collection;
 use Faridibin\Paystack\Enums\Currency;
 use Faridibin\Paystack\Traits\MapToArray;
 
+/**
+ * Data Transfer Object representing Paystack transaction totals.
+ *
+ * Aggregates total transaction volumes and pending transfer amounts,
+ * broken down by currency.
+ */
 class TransactionTotalsDTO implements DataTransferObject
 {
     use MapToArray;
@@ -43,7 +49,7 @@ class TransactionTotalsDTO implements DataTransferObject
         ?array $total_volume_by_currency = null,
         ?array $pending_transfers_by_currency = null,
 
-        ...$args // TODO: Remove this line
+        ...$args
     ) {
         $this->total_volume_by_currency = new Collection(
             array_map(
@@ -65,10 +71,5 @@ class TransactionTotalsDTO implements DataTransferObject
             )
         );
 
-        if (!empty($args)) {
-            dump([
-                'plan_args' => $args, // TODO: Remove this
-            ]);
-        }
     }
 }

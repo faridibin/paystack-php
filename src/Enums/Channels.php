@@ -1,7 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Faridibin\Paystack\Enums;
 
+/**
+ * Represents the available payment channels on Paystack.
+ */
 enum Channels: string
 {
     case BANK = 'bank';
@@ -46,11 +51,11 @@ enum Channels: string
      */
     public static function getChannels(string|array|Channels|null $channels = null): ?array
     {
-        if (is_null($channels)) {
+        if ($channels === null) {
             return null;
         }
 
-        if (is_array($channels)) {
+        if (\is_array($channels)) {
             return array_map(
                 fn($channel) => $channel instanceof Channels ? $channel->value : $channel,
                 $channels

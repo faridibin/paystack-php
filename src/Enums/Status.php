@@ -1,7 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Faridibin\Paystack\Enums;
 
+/**
+ * Represents the various statuses across Paystack transactions and resources.
+ */
 enum Status: string
 {
     case ACTIVE = 'active';
@@ -59,11 +64,11 @@ enum Status: string
      */
     public static function getStatus(string|array|Status|null $status = null): ?array
     {
-        if (is_null($status)) {
+        if ($status === null) {
             return null;
         }
 
-        if (is_array($status)) {
+        if (\is_array($status)) {
             return array_map(
                 fn($stat) => $stat instanceof Status ? $stat->value : $stat,
                 $status

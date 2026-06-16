@@ -10,6 +10,12 @@ use Faridibin\Paystack\Enums\Currency;
 use Faridibin\Paystack\Traits\HasMetadata;
 use Faridibin\Paystack\Traits\MapToArray;
 
+/**
+ * Data Transfer Object representing a Paystack subaccount.
+ *
+ * Encapsulates subaccount details including bank information, settlement
+ * configuration, and percentage charge settings.
+ */
 class SubaccountDTO implements DataTransferObject
 {
     use HasMetadata, MapToArray;
@@ -26,7 +32,7 @@ class SubaccountDTO implements DataTransferObject
      *
      * @var Currency $currency
      */
-    public readonly Currency $currency;
+    public readonly ?Currency $currency;
 
     /**
      * The Subaccount creation date
@@ -57,7 +63,7 @@ class SubaccountDTO implements DataTransferObject
      * @param string|null $primary_contact_email
      * @param string|null $primary_contact_phone
      * @param string|null $domain
-     * @param int|null $percentage_charge
+     * @param int|float|null $percentage_charge
      * @param string|null $settlement_bank
      * @param string|null $account_number
      * @param string|null $settlement_schedule
@@ -86,7 +92,7 @@ class SubaccountDTO implements DataTransferObject
         public readonly ?string $primary_contact_email = null,
         public readonly ?string $primary_contact_phone = null,
         public readonly ?string $domain = null,
-        public readonly ?int $percentage_charge = null,
+        public readonly int|float|null $percentage_charge = null,
         public readonly ?string $settlement_bank = null,
         public readonly ?string $account_number = null,
         public readonly ?string $settlement_schedule = null,
@@ -102,31 +108,20 @@ class SubaccountDTO implements DataTransferObject
         DateTime|string|null $created_at = null,
         DateTime|string|null $updated_at = null,
 
-        ...$args // TODO: Remove this line
+        ...$args
     ) {
-        $this->active = is_int($active) ? (bool)$active : $active;
+        $this->active = \is_int($active) ? (bool)$active : $active;
 
-        if ($currency && !($currency instanceof Currency)) {
-            $this->currency = Currency::from($currency);
-        }
+        $this->currency = $currency instanceof Currency
+            ? $currency
+            : (is_string($currency) && $currency !== '' ? Currency::from($currency) : null);
 
-        $createdAt = $createdAt ?? $created_at;
-        $updatedAt = $updatedAt ?? $updated_at;
+        $createdAt ??= $created_at;
+        $updatedAt ??= $updated_at;
 
-        if ($createdAt) {
-            $this->createdAt = $createdAt instanceof DateTime ? $createdAt : new DateTime($createdAt);
-        }
-
-        if ($updatedAt) {
-            $this->updatedAt = $updatedAt instanceof DateTime ? $updatedAt : new DateTime($updatedAt);
-        }
+        $this->createdAt = $createdAt ? ($createdAt instanceof DateTime ? $createdAt : new DateTime($createdAt)) : null;
+        $this->updatedAt = $updatedAt ? ($updatedAt instanceof DateTime ? $updatedAt : new DateTime($updatedAt)) : null;
 
         $this->resolveMetadata($metadata);
-
-        if (!empty($args)) {
-            dump([
-                'subaccount_args' => $args, // TODO: Remove this line
-            ]);
-        }
     }
 }

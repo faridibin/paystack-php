@@ -9,6 +9,12 @@ use Faridibin\Paystack\Enums\Channels;
 use Faridibin\Paystack\Enums\Month;
 use Faridibin\Paystack\Traits\MapToArray;
 
+/**
+ * Data Transfer Object representing a Paystack payment authorization.
+ *
+ * Encapsulates card or bank authorization details including channel, expiry,
+ * and reusability status.
+ */
 class AuthorizationDTO implements DataTransferObject
 {
     use MapToArray;
@@ -18,14 +24,14 @@ class AuthorizationDTO implements DataTransferObject
      *
      * @var Channels $channel
      */
-    public readonly Channels $channel;
+    public readonly ?Channels $channel;
 
     /**
      * The expiry month of the authorization
      *
      * @var Month $exp_month
      */
-    public readonly Month $exp_month;
+    public readonly ?Month $exp_month;
 
     /**
      * The reusable status of the authorization
@@ -70,24 +76,16 @@ class AuthorizationDTO implements DataTransferObject
         bool|int|null $reusable = null,
         Month|string|int|null $exp_month = null,
         Channels|string|null $channel = null,
-        ...$args // TODO: Remove this line  
+        ...$args
     ) {
-        if ($channel && !($channel instanceof Channels)) {
-            $this->channel = Channels::from($channel);
-        }
+        $this->channel = $channel instanceof Channels
+            ? $channel
+            : (is_string($channel) && $channel !== '' ? Channels::from($channel) : null);
 
-        if ($exp_month && !($exp_month instanceof Month)) {
-            $this->exp_month = Month::fromValue($exp_month);
-        }
+        $this->exp_month = $exp_month instanceof Month
+            ? $exp_month
+            : ($exp_month !== null && $exp_month !== '' ? Month::fromValue($exp_month) : null);
 
-        if (!is_null($reusable)) {
-            $this->reusable = (bool) $reusable;
-        }
-
-        if (!empty($args)) {
-            dump([
-                'authorization_args' => $args, // TODO: Remove this line
-            ]);
-        }
+        $this->reusable = $reusable !== null ? (bool) $reusable : null;
     }
 }

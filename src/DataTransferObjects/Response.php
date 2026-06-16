@@ -7,6 +7,12 @@ namespace Faridibin\Paystack\DataTransferObjects;
 use Exception;
 use Faridibin\Paystack\Contracts\DataTransferObjects\DataTransferObject;
 
+/**
+ * Represents a Paystack API response, wrapping the raw HTTP response data.
+ *
+ * Handles both successful responses and exceptions, transforming the `data`
+ * field into the appropriate DTO or Collection.
+ */
 class Response implements DataTransferObject
 {
     /**
@@ -77,7 +83,7 @@ class Response implements DataTransferObject
      *
      * @param string $key
      * @param mixed $default
-     * 
+     *
      * @return mixed
      */
     public function get(string $key, mixed $default = null): mixed
@@ -88,7 +94,7 @@ class Response implements DataTransferObject
 
         $data = $this->data->toArray();
 
-        if (array_key_exists($key, $data)) {
+        if (\array_key_exists($key, $data)) {
             return $data[$key];
         }
 
@@ -97,7 +103,7 @@ class Response implements DataTransferObject
 
     /**
      * Get the meta data
-     * 
+     *
      * @return mixed
      */
     public function getMeta(): mixed
@@ -167,7 +173,7 @@ class Response implements DataTransferObject
      * @param string|null $dtoClass
      * @return void
      */
-    private function handleResponse(array $response, string $dtoClass = null): void
+    private function handleResponse(array $response, ?string $dtoClass = null): void
     {
         $this->status = $response['status'] ?? false;
         $this->message = $response['message'] ?? '';
@@ -204,12 +210,12 @@ class Response implements DataTransferObject
 
     /**
      * Transform response data based on DTO class and collection status
-     * 
+     *
      * @param array $data
      * @param string|null $dtoClass
      * @return mixed
      */
-    private function transformData(array $data, ?string $dtoClass): mixed
+    private function transformData(array $data, ?string $dtoClass = null): mixed
     {
         if (!$dtoClass || !class_exists($dtoClass)) {
             return $this->isCollection

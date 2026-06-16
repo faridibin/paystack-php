@@ -7,6 +7,12 @@ namespace Faridibin\Paystack\DataTransferObjects\Health;
 use DateTime;
 use Faridibin\Paystack\Contracts\DataTransferObjects\DataTransferObject;
 
+/**
+ * Data Transfer Object representing the operational status of a single Paystack service.
+ *
+ * Provides the service name, operational flag, status string, description,
+ * and the time the status was last updated.
+ */
 class HealthStatusDTO implements DataTransferObject
 {
     /**

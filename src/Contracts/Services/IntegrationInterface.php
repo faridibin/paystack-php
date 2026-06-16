@@ -6,6 +6,9 @@ namespace Faridibin\Paystack\Contracts\Services;
 
 use Faridibin\Paystack\DataTransferObjects\Response;
 
+/**
+ * Defines the contract for integration management operations.
+ */
 interface IntegrationInterface extends ServiceInterface
 {
     /**

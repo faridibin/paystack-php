@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Faridibin\Paystack\Services\Payments;
 
 use Faridibin\Paystack\Client;
@@ -8,12 +10,17 @@ use Faridibin\Paystack\Contracts\Services\Payments\BulkChargesInterface;
 use Faridibin\Paystack\DataTransferObjects\Response;
 use Faridibin\Paystack\Enums\Status;
 
+/**
+ * Service for batching and managing bulk charge operations.
+ */
 class BulkCharges implements BulkChargesInterface
 {
     /**
-     * The Bulk Charges service constructor.
+     * The BulkCharges service constructor.
      *
-     * @param \Faridibin\Paystack\Contracts\ClientInterface $client
+     * @param string|null $secretKey The Paystack secret key (used if no client is injected)
+     * @param \Faridibin\Paystack\Contracts\ClientInterface|null $client The HTTP client instance
+     * @throws \Faridibin\Paystack\Exceptions\PaystackException
      */
     public function __construct(
         ?string $secretKey = null,
@@ -26,11 +33,11 @@ class BulkCharges implements BulkChargesInterface
      * Initiate a bulk charge.
      *
      * @param array $data
-     * @return \Faridibin\Paystack\DataTransferObjects\Response
+     * @return Response
      */
     public function initiateBulkCharge(array $data = []): Response
     {
-        $response = $this->client->send('POST', 'bulkcharge', [
+        $response = $this->client->send('POST', '/bulkcharge', [
             'json' => $data
         ]);
 
@@ -48,7 +55,7 @@ class BulkCharges implements BulkChargesInterface
      */
     public function listBulkChargeBatches(int $perPage = 50, int $page = 1, array $optional = []): Response
     {
-        $response = $this->client->send('GET', 'bulkcharge', [
+        $response = $this->client->send('GET', '/bulkcharge', [
             'query' => [
                 'perPage' => $perPage,
                 'page' => $page,
@@ -68,7 +75,7 @@ class BulkCharges implements BulkChargesInterface
      */
     public function fetchBulkChargeBatch(string $identifier): Response
     {
-        $response = $this->client->send('GET', "bulkcharge/{$identifier}");
+        $response = $this->client->send('GET', "/bulkcharge/{$identifier}");
 
         return new Response($response);
     }
@@ -90,7 +97,7 @@ class BulkCharges implements BulkChargesInterface
      */
     public function fetchChargesInBatch(string $identifier, Status|string $status, int $perPage = 50, int $page = 1, array $optional = []): Response
     {
-        $response = $this->client->send('GET', "bulkcharge/{$identifier}/charges", [
+        $response = $this->client->send('GET', "/bulkcharge/{$identifier}/charges", [
             'query' => [
                 'status' => $status,
                 'perPage' => $perPage,
@@ -111,7 +118,7 @@ class BulkCharges implements BulkChargesInterface
      */
     public function pauseBulkChargeBatch(string $code): Response
     {
-        $response = $this->client->send('POST', "bulkcharge/pause/{$code}");
+        $response = $this->client->send('GET', "/bulkcharge/pause/{$code}");
 
         return new Response($response);
     }
@@ -125,7 +132,7 @@ class BulkCharges implements BulkChargesInterface
      */
     public function resumeBulkChargeBatch(string $code): Response
     {
-        $response = $this->client->send('POST', "bulkcharge/resume/{$code}");
+        $response = $this->client->send('GET', "/bulkcharge/resume/{$code}");
 
         return new Response($response);
     }

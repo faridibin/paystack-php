@@ -9,6 +9,13 @@ use Faridibin\Paystack\Exceptions\{AuthenticationException, ApiException, Paysta
 use GuzzleHttp\Client as GuzzleHttpClient;
 use GuzzleHttp\Exception\{ClientException, ServerException, GuzzleException};
 
+/**
+ * HTTP client for communicating with the Paystack REST API.
+ *
+ * Wraps GuzzleHttp and translates HTTP errors into typed Paystack exceptions.
+ *
+ * @see \Faridibin\Paystack\Contracts\ClientInterface
+ */
 final class Client implements ClientInterface
 {
     /**

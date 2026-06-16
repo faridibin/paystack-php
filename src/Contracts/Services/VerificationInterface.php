@@ -6,6 +6,9 @@ namespace Faridibin\Paystack\Contracts\Services;
 
 use Faridibin\Paystack\DataTransferObjects\Response;
 
+/**
+ * Defines the contract for account and card verification operations.
+ */
 interface VerificationInterface extends ServiceInterface
 {
     /**
@@ -14,7 +17,7 @@ interface VerificationInterface extends ServiceInterface
      *
      * @param string $accountNumber
      * @param string $bankCode
-     * @return \Faridibin\Paystack\DataTransferObjects\Response
+     * @return Response
      */
     public function resolveAccount(string $accountNumber, string $bankCode): Response;
 
@@ -23,7 +26,7 @@ interface VerificationInterface extends ServiceInterface
      * Confirm the authenticity of a customer's account number before sending money
      *
      * @param array $account
-     * @return \Faridibin\Paystack\DataTransferObjects\Response
+     * @return Response
      */
     public function validateAccount(array $account): Response;
 
@@ -32,7 +35,7 @@ interface VerificationInterface extends ServiceInterface
      * Get more information about a customer's card
      *
      * @param string $bin
-     * @return \Faridibin\Paystack\DataTransferObjects\Response
+     * @return Response
      */
     public function resolveCardBin(string $bin): Response;
 }

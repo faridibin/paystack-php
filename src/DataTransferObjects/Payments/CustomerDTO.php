@@ -9,6 +9,11 @@ use Faridibin\Paystack\Contracts\DataTransferObjects\DataTransferObject;
 use Faridibin\Paystack\Traits\{HasMetadata, MapToArray};
 use Faridibin\Paystack\DataTransferObjects\{Collection, Recurring\SubscriptionDTO};
 
+/**
+ * Data Transfer Object representing a Paystack customer.
+ *
+ * Includes customer details, authorizations, subscriptions, and metadata.
+ */
 class CustomerDTO implements DataTransferObject
 {
     use HasMetadata, MapToArray;
@@ -26,12 +31,12 @@ class CustomerDTO implements DataTransferObject
     /**
      * The createdAt property
      */
-    public readonly DateTime $createdAt;
+    public readonly ?DateTime $createdAt;
 
     /**
      * The updatedAt property
      */
-    public readonly DateTime $updatedAt;
+    public readonly ?DateTime $updatedAt;
 
     /**
      * The Customer DTO constructor.
@@ -41,16 +46,16 @@ class CustomerDTO implements DataTransferObject
      * @param string $domain
      * @param string $customer_code
      * @param string $email
-     * @param mixed $first_name
-     * @param mixed $last_name
-     * @param mixed $phone
+     * @param string|null $first_name
+     * @param string|null $last_name
+     * @param string|null $phone
      * @param array $metadata
      * @param string $risk_action
      * @param array $transactions
      * @param array $authorizations
      * @param array $subscriptions
      * @param array $total_transaction_value
-     * @param mixed $total_transactions
+     * @param int|null $total_transactions
      * @param bool $identified
      * @param mixed $identifications
      * @param mixed $dedicated_account
@@ -86,7 +91,7 @@ class CustomerDTO implements DataTransferObject
         DateTime|string|null $created_at = null,
         DateTime|string|null $updated_at = null,
 
-        ...$args // TODO: Remove this
+        ...$args
     ) {
         $this->authorizations = new Collection($authorizations, AuthorizationDTO::class);
         $this->subscriptions = new Collection($subscriptions, SubscriptionDTO::class);
@@ -94,20 +99,9 @@ class CustomerDTO implements DataTransferObject
         $createdAt = $createdAt ?? $created_at;
         $updatedAt = $updatedAt ?? $updated_at;
 
-        if ($createdAt) {
-            $this->createdAt = $createdAt instanceof DateTime ? $createdAt : new DateTime($createdAt);
-        }
-
-        if ($updatedAt) {
-            $this->updatedAt = $updatedAt instanceof DateTime ? $updatedAt : new DateTime($updatedAt);
-        }
+        $this->createdAt = $createdAt ? ($createdAt instanceof DateTime ? $createdAt : new DateTime($createdAt)) : null;
+        $this->updatedAt = $updatedAt ? ($updatedAt instanceof DateTime ? $updatedAt : new DateTime($updatedAt)) : null;
 
         $this->resolveMetadata($metadata);
-
-        if (!empty($args)) {
-            dump([
-                'customer_args' => $args, // TODO: Remove this
-            ]);
-        }
     }
 }

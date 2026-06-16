@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Faridibin\Paystack\Services\Payments;
 
 use Faridibin\Paystack\Client;
@@ -9,12 +11,17 @@ use Faridibin\Paystack\DataTransferObjects\Response;
 use Faridibin\Paystack\Enums\Currency;
 use Faridibin\Paystack\Enums\Status;
 
+/**
+ * Service for creating and managing payment requests sent to customers.
+ */
 class PaymentRequests implements PaymentRequestsInterface
 {
     /**
-     * The Payment Requests service constructor.
+     * The PaymentRequests service constructor.
      *
-     * @param \Faridibin\Paystack\Contracts\ClientInterface $client
+     * @param string|null $secretKey The Paystack secret key (used if no client is injected)
+     * @param \Faridibin\Paystack\Contracts\ClientInterface|null $client The HTTP client instance
+     * @throws \Faridibin\Paystack\Exceptions\PaystackException
      */
     public function __construct(
         ?string $secretKey = null,
@@ -49,7 +56,13 @@ class PaymentRequests implements PaymentRequestsInterface
      * List Payment Requests
      * List the payment requests available on your integration
      *
-     * @param string $id
+     * @param string $customer Customer id or code
+     * @param string $status Payment request status (pending, completed, failed)
+     * @param string $currency Currency code (e.g., NGN, USD)
+     * @param bool $includeArchive Whether to include archived payment requests in the list (default: false)
+     * @param int $perPage Number of records to return per page (default: 50)
+     * @param int $page Page number to return (default: 1)
+     * @param array $optional Additional query parameters to filter the list of payment requests
      * @return Response
      */
     public function listPaymentRequests(string $customer, Status|string $status, Currency|string $currency, bool $includeArchive, int $perPage = 50, int $page = 1, array $optional = []): Response
@@ -102,7 +115,6 @@ class PaymentRequests implements PaymentRequestsInterface
      * Send notification of a payment request to your customers
      *
      * @param string $code Payment Request code
-     * @param array $optional
      * @return Response
      */
     public function sendNotification(string $code): Response
@@ -166,7 +178,6 @@ class PaymentRequests implements PaymentRequestsInterface
      * Used to archive a payment request. A payment request will no longer be fetched on list or returned on verify
      *
      * @param string $code Payment Request code
-     * @param array $data
      * @return Response
      */
     public function archivePaymentRequest(string $code): Response

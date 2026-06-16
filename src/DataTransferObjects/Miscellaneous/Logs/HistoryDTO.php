@@ -7,6 +7,11 @@ namespace Faridibin\Paystack\DataTransferObjects\Miscellaneous\Logs;
 use Faridibin\Paystack\Contracts\DataTransferObjects\DataTransferObject;
 use Faridibin\Paystack\Traits\MapToArray;
 
+/**
+ * Data Transfer Object representing a single entry in a Paystack transaction log history.
+ *
+ * Captures the type, message, and timestamp of each step in the transaction flow.
+ */
 class HistoryDTO implements DataTransferObject
 {
     use MapToArray;

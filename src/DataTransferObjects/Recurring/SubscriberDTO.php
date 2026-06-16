@@ -9,6 +9,12 @@ use Faridibin\Paystack\Enums\Currency;
 use Faridibin\Paystack\Enums\Status;
 use Faridibin\Paystack\Traits\MapToArray;
 
+/**
+ * Data Transfer Object representing a subscriber to a Paystack plan.
+ *
+ * Encapsulates subscriber identity and their associated subscription status
+ * and total amount paid.
+ */
 class SubscriberDTO implements DataTransferObject
 {
     use MapToArray;
@@ -18,14 +24,14 @@ class SubscriberDTO implements DataTransferObject
      *
      * @var Currency $currency
      */
-    public readonly Currency $currency;
+    public readonly ?Currency $currency;
 
     /**
      * The status of the subscription
      *
      * @var Status $status
      */
-    public readonly Status $status;
+    public readonly ?Status $status;
 
     /**
      * The subscriber DTO constructor.
@@ -47,20 +53,14 @@ class SubscriberDTO implements DataTransferObject
         Currency|string|null $currency = null,
         Status|string|null $subscription_status = null,
 
-        ...$args // TODO: Remove this line
+        ...$args
     ) {
-        if (!($currency instanceof Currency)) {
-            $this->currency = Currency::from($currency);
-        }
+        $this->currency = $currency instanceof Currency
+            ? $currency
+            : (is_string($currency) && $currency !== '' ? Currency::from($currency) : null);
 
-        if (!($subscription_status instanceof Status)) {
-            $this->status = Status::from($subscription_status);
-        }
-
-        if (!empty($args)) {
-            dump([
-                'subscriber_args' => $args, // TODO: Remove this line
-            ]);
-        }
+        $this->status = $subscription_status instanceof Status
+            ? $subscription_status
+            : (is_string($subscription_status) && $subscription_status !== '' ? Status::from($subscription_status) : null);
     }
 }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Faridibin\Paystack\Services\Payments;
 
 use DateTime;
@@ -8,12 +10,17 @@ use Faridibin\Paystack\Contracts\ClientInterface;
 use Faridibin\Paystack\Contracts\Services\Payments\ChargeInterface;
 use Faridibin\Paystack\DataTransferObjects\Response;
 
+/**
+ * Service for handling direct charge operations on Paystack.
+ */
 class Charge implements ChargeInterface
 {
     /**
      * The Charge service constructor.
      *
-     * @param \Faridibin\Paystack\Contracts\ClientInterface $client
+     * @param string|null $secretKey The Paystack secret key (used if no client is injected)
+     * @param \Faridibin\Paystack\Contracts\ClientInterface|null $client The HTTP client instance
+     * @throws \Faridibin\Paystack\Exceptions\PaystackException
      */
     public function __construct(
         ?string $secretKey = null,
@@ -26,8 +33,10 @@ class Charge implements ChargeInterface
      * Create a charge.
      * Initiate a payment by integrating the payment channel of your choice.
      *
-     * @param array $data
-     * @return \Faridibin\Paystack\DataTransferObjects\Response
+     * @param string $email
+     * @param int $amount
+     * @param array $optional
+     * @return Response
      */
     public function create(string $email, int $amount, array $optional = []): Response
     {
@@ -48,7 +57,7 @@ class Charge implements ChargeInterface
      *
      * @param string $pin
      * @param string $reference
-     * @return \Faridibin\Paystack\DataTransferObjects\Response
+     * @return Response
      */
     public function submitPin(string $pin, string $reference): Response
     {
@@ -68,7 +77,7 @@ class Charge implements ChargeInterface
      *
      * @param string $otp
      * @param string $reference
-     * @return \Faridibin\Paystack\DataTransferObjects\Response
+     * @return Response
      */
     public function submitOtp(string $otp, string $reference): Response
     {
@@ -88,7 +97,7 @@ class Charge implements ChargeInterface
      *
      * @param string $phone
      * @param string $reference
-     * @return \Faridibin\Paystack\DataTransferObjects\Response
+     * @return Response
      */
     public function submitPhone(string $phone, string $reference): Response
     {
@@ -108,7 +117,7 @@ class Charge implements ChargeInterface
      *
      * @param DateTime|string $birthday
      * @param string $reference
-     * @return \Faridibin\Paystack\DataTransferObjects\Response
+     * @return Response
      */
     public function submitBirthday(DateTime|string $birthday, string $reference): Response
     {
@@ -133,7 +142,7 @@ class Charge implements ChargeInterface
      * @param string $state
      * @param string $zipcode
      * @param string $reference
-     * @return \Faridibin\Paystack\DataTransferObjects\Response
+     * @return Response
      */
     public function submitAddress(string $address, string $city, string $state, string $zipcode, string $reference): Response
     {
@@ -157,7 +166,7 @@ class Charge implements ChargeInterface
      * Don't call too early as you may get a lot more pending than you should.
      *
      * @param string $reference
-     * @return \Faridibin\Paystack\DataTransferObjects\Response
+     * @return Response
      */
     public function checkPendingCharge(string $reference): Response
     {

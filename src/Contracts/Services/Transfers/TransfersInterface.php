@@ -16,10 +16,11 @@ interface TransfersInterface extends TransferInterface
      *
      * @param int $amount
      * @param string $recipient
+     * @param string $reference
      * @param array $optional
-     * @return \Faridibin\Paystack\DataTransferObjects\Response
+     * @return Response
      */
-    public function initiateTransfer(int $amount, string $recipient, array $optional = []): Response;
+    public function initiateTransfer(int $amount, string $recipient, string $reference, array $optional = []): Response;
 
     /**
      * Finalize Transfer
@@ -27,7 +28,7 @@ interface TransfersInterface extends TransferInterface
      *
      * @param string $transferCode
      * @param string $otp
-     * @return \Faridibin\Paystack\DataTransferObjects\Response
+     * @return Response
      */
     public function finalizeTransfer(string $transferCode, string $otp): Response;
 
@@ -38,7 +39,7 @@ interface TransfersInterface extends TransferInterface
      *
      * @param Currency|string $currency
      * @param array $transfers
-     * @return \Faridibin\Paystack\DataTransferObjects\Response
+     * @return Response
      */
     public function initiateBulkTransfer(Currency|string $currency, array $transfers): Response;
 
@@ -50,7 +51,7 @@ interface TransfersInterface extends TransferInterface
      * @param int $page
      * @param string $recipient
      * @param array $optional
-     * @return \Faridibin\Paystack\DataTransferObjects\Response
+     * @return Response
      */
     public function listTransfers(string $recipient, int $perPage = 50, int $page = 1, array $optional = []): Response;
 
@@ -59,7 +60,7 @@ interface TransfersInterface extends TransferInterface
      * Get details of a transfer on your integration.
      *
      * @param string $identifier
-     * @return \Faridibin\Paystack\DataTransferObjects\Response
+     * @return Response
      */
     public function fetchTransfer(string $identifier): Response;
 
@@ -68,7 +69,34 @@ interface TransfersInterface extends TransferInterface
      * Verify the status of a transfer on your integration.
      *
      * @param string $reference
-     * @return \Faridibin\Paystack\DataTransferObjects\Response
+     * @return Response
      */
     public function verifyTransfer(string $reference): Response;
+
+    /**
+     * Export Transfers
+     * Export a list of transfers you made on your integration
+     */
+    public function exportTransfers(int $perPage = 50, int $page = 1, array $optional = []): Response;
+
+    /**
+     * Resend OTP for Transfer
+     * Generates a new OTP and sends to customer
+     */
+    public function resendOtp(string $transferCode, string $reason): Response;
+
+    /**
+     * Disable OTP Requirement for Transfers
+     */
+    public function disableOtp(): Response;
+
+    /**
+     * Finalize Disabling of OTP Requirement for Transfers
+     */
+    public function disableOtpFinalize(string $otp): Response;
+
+    /**
+     * Enable OTP Requirement for Transfers
+     */
+    public function enableOtp(): Response;
 }

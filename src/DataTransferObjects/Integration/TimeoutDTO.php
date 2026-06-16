@@ -6,6 +6,11 @@ namespace Faridibin\Paystack\DataTransferObjects\Integration;
 
 use Faridibin\Paystack\Contracts\DataTransferObjects\DataTransferObject;
 
+/**
+ * Data Transfer Object representing a Paystack integration payment session timeout.
+ *
+ * Holds the configured payment session timeout value in seconds.
+ */
 class TimeoutDTO implements DataTransferObject
 {
     /**

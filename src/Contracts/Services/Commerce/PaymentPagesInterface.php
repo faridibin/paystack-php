@@ -6,6 +6,9 @@ namespace Faridibin\Paystack\Contracts\Services\Commerce;
 
 use Faridibin\Paystack\DataTransferObjects\Response;
 
+/**
+ * Defines the contract for payment page management operations.
+ */
 interface PaymentPagesInterface extends CommerceInterface
 {
     /**
@@ -14,7 +17,7 @@ interface PaymentPagesInterface extends CommerceInterface
      *
      * @param string $name
      * @param array $optional
-     * @return \Faridibin\Paystack\DataTransferObjects\Response
+     * @return Response
      */
     public function createPaymentPage(string $name, array $optional = []): Response;
 
@@ -22,7 +25,7 @@ interface PaymentPagesInterface extends CommerceInterface
      * List Payment Pages.
      * List payment pages available on your integration.
      *
-     * @return \Faridibin\Paystack\DataTransferObjects\Response
+     * @return Response
      */
     public function listPaymentPages(int $perPage = 50, int $page = 1, array $optional = []): Response;
 
@@ -31,7 +34,7 @@ interface PaymentPagesInterface extends CommerceInterface
      * Get details of a payment page on your integration
      *
      * @param string $identifier
-     * @return \Faridibin\Paystack\DataTransferObjects\Response
+     * @return Response
      */
     public function fetchPaymentPage(string $identifier): Response;
 
@@ -41,7 +44,7 @@ interface PaymentPagesInterface extends CommerceInterface
      *
      * @param string $identifier
      * @param array $data
-     * @return \Faridibin\Paystack\DataTransferObjects\Response
+     * @return Response
      */
     public function updatePaymentPage(string $identifier, array $data): Response;
 
@@ -50,7 +53,7 @@ interface PaymentPagesInterface extends CommerceInterface
      * Check if a slug is available for use on your integration
      *
      * @param string $slug
-     * @return \Faridibin\Paystack\DataTransferObjects\Response
+     * @return Response
      */
     public function checkSlugAvailability(string $slug): Response;
 
@@ -60,7 +63,7 @@ interface PaymentPagesInterface extends CommerceInterface
      *
      * @param string|int $id
      * @param array<int, int|string> $products
-     * @return \Faridibin\Paystack\DataTransferObjects\Response
+     * @return Response
      */
     public function addProduct(string|int $id, array $products): Response;
 }

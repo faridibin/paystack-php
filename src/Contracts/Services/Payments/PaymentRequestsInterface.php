@@ -8,6 +8,9 @@ use Faridibin\Paystack\DataTransferObjects\Response;
 use Faridibin\Paystack\Enums\Currency;
 use Faridibin\Paystack\Enums\Status;
 
+/**
+ * Defines the contract for payment request operations.
+ */
 interface PaymentRequestsInterface extends PaymentsInterface
 {
     /**
@@ -25,7 +28,13 @@ interface PaymentRequestsInterface extends PaymentsInterface
      * List Payment Requests
      * List the payment requests available on your integration
      *
-     * @param string $id
+     * @param string $customer Customer id or code
+     * @param Status|string $status Filter by payment request status
+     * @param Currency|string $currency Filter by currency
+     * @param bool $includeArchive Include archived payment requests in the list
+     * @param int $perPage
+     * @param int $page
+     * @param array $optional
      * @return Response
      */
     public function listPaymentRequests(string $customer, Status|string $status, Currency|string $currency, bool $includeArchive, int $perPage = 50, int $page = 1, array $optional = []): Response;
@@ -53,7 +62,6 @@ interface PaymentRequestsInterface extends PaymentsInterface
      * Send notification of a payment request to your customers
      *
      * @param string $code Payment Request code
-     * @param array $optional
      * @return Response
      */
     public function sendNotification(string $code): Response;
@@ -91,7 +99,6 @@ interface PaymentRequestsInterface extends PaymentsInterface
      * Used to archive a payment request. A payment request will no longer be fetched on list or returned on verify
      *
      * @param string $code Payment Request code
-     * @param array $data
      * @return Response
      */
     public function archivePaymentRequest(string $code): Response;

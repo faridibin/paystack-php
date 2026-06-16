@@ -12,6 +12,14 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Exception\ServerException;
 
+/**
+ * Provides access to the Paystack platform health status.
+ *
+ * Queries the Paystack Atlassian Statuspage API to report on the operational
+ * status of all Paystack services.
+ *
+ * @see \Faridibin\Paystack\Contracts\HealthInterface
+ */
 final class Health implements HealthInterface
 {
     /**
@@ -22,10 +30,10 @@ final class Health implements HealthInterface
     protected readonly array $response;
 
     /**
-     * Client constructor.
+     * Health constructor.
      *
-     * @param string $secretKey
      * @param string $baseUrl
+     * @param \GuzzleHttp\Client|null $client
      */
     public function __construct(
         private readonly string $baseUrl = 'https://status.paystack.com/api/v2/',
@@ -157,7 +165,7 @@ final class Health implements HealthInterface
      * Get the Paystack status.
      * This fetches the summary from Paystack's Atlassian Statuspage.
      *
-     * @return mixed
+     * @return void
      */
     private function getPaystackStatus(): void
     {

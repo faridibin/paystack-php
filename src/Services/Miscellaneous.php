@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Faridibin\Paystack\Services;
 
 use Faridibin\Paystack\Client;
@@ -10,12 +12,17 @@ use Faridibin\Paystack\DataTransferObjects\Miscellaneous\CountryDTO;
 use Faridibin\Paystack\DataTransferObjects\Miscellaneous\StateDTO;
 use Faridibin\Paystack\DataTransferObjects\Response;
 
+/**
+ * Service for accessing miscellaneous Paystack API resources such as banks, countries, and states.
+ */
 final class Miscellaneous implements MiscellaneousInterface
 {
     /**
      * The Miscellaneous service constructor.
      *
-     * @param \Faridibin\Paystack\Contracts\ClientInterface $client
+     * @param string|null $secretKey The Paystack secret key (used if no client is injected)
+     * @param \Faridibin\Paystack\Contracts\ClientInterface|null $client The HTTP client instance
+     * @throws \Faridibin\Paystack\Exceptions\PaystackException
      */
     public function __construct(
         ?string $secretKey = null,
@@ -28,7 +35,7 @@ final class Miscellaneous implements MiscellaneousInterface
      * List Countries
      * Gets a list of countries that Paystack currently supports
      *
-     * @return \Faridibin\Paystack\DataTransferObjects\Response
+     * @return Response
      */
     public function listCountries(): Response
     {
@@ -42,7 +49,7 @@ final class Miscellaneous implements MiscellaneousInterface
      * Get a list of states for a country for address verification
      *
      * @param string $country
-     * @return \Faridibin\Paystack\DataTransferObjects\Response
+     * @return Response
      */
     public function listStates(string $country): Response
     {
@@ -63,7 +70,7 @@ final class Miscellaneous implements MiscellaneousInterface
      * @param bool $useCursor
      * @param int $perPage
      * @param array $optional
-     * @return \Faridibin\Paystack\DataTransferObjects\Response
+     * @return Response
      */
     public function listBanks(string $country, bool $useCursor = false, int $perPage = 50, array $optional = []): Response
     {

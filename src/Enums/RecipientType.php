@@ -1,7 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Faridibin\Paystack\Enums;
 
+/**
+ * Represents the types of transfer recipients.
+ */
 enum RecipientType: string
 {
     case GHIPSS = 'ghipss';
@@ -9,6 +14,7 @@ enum RecipientType: string
     case KEPSS = 'kepss';
     case NUBAN = 'nuban';
     case BASA = 'basa';
+    case AUTHORIZATION = 'authorization';
 
     /**
      * Get the description of the recipient type.
@@ -22,7 +28,8 @@ enum RecipientType: string
             self::MOBILE_MONEY => 'Mobile Money or MoMo is an account tied to a mobile number',
             self::KEPSS => 'Kenya Electronic Payment and Settlement System',
             self::NUBAN => 'Nigerian Uniform Bank Account Number',
-            self::BASA => 'Banking Association South Africa'
+            self::BASA => 'Banking Association South Africa',
+            self::AUTHORIZATION => 'A reusable authorization code from a previous charge',
         };
     }
 
@@ -39,6 +46,7 @@ enum RecipientType: string
             self::KEPSS => ['KES'],
             self::NUBAN => ['NGN'],
             self::BASA => ['ZAR'],
+            self::AUTHORIZATION => ['NGN', 'GHS', 'KES', 'ZAR', 'USD'],
         };
     }
 }

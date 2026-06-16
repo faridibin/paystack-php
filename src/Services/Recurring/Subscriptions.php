@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Faridibin\Paystack\Services\Recurring;
 
 use Faridibin\Paystack\Client;
@@ -8,12 +10,17 @@ use Faridibin\Paystack\Contracts\Services\Recurring\SubscriptionsInterface;
 use Faridibin\Paystack\DataTransferObjects\Recurring\SubscriptionDTO;
 use Faridibin\Paystack\DataTransferObjects\Response;
 
+/**
+ * Service for managing customer subscriptions.
+ */
 class Subscriptions implements SubscriptionsInterface
 {
     /**
      * The Subscriptions service constructor.
      *
-     * @param \Faridibin\Paystack\Contracts\ClientInterface $client
+     * @param string|null $secretKey The Paystack secret key (used if no client is injected)
+     * @param \Faridibin\Paystack\Contracts\ClientInterface|null $client The HTTP client instance
+     * @throws \Faridibin\Paystack\Exceptions\PaystackException
      */
     public function __construct(
         ?string $secretKey = null,

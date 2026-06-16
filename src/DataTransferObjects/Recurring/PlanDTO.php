@@ -12,6 +12,11 @@ use Faridibin\Paystack\Enums\Currency;
 use Faridibin\Paystack\Enums\Interval;
 use Faridibin\Paystack\Traits\MapToArray;
 
+/**
+ * Data Transfer Object representing a Paystack subscription plan.
+ *
+ * Includes plan details, subscribers, subscriptions, and payment pages.
+ */
 class PlanDTO implements DataTransferObject
 {
     use MapToArray;
@@ -56,14 +61,14 @@ class PlanDTO implements DataTransferObject
      *
      * @var Currency $currency
      */
-    public readonly Currency $currency;
+    public readonly ?Currency $currency;
 
     /**
      * The interval of the plan
      *
      * @var Interval $interval
      */
-    public readonly Interval $interval;
+    public readonly ?Interval $interval;
 
     /**
      * The Plan creation date
@@ -149,38 +154,27 @@ class PlanDTO implements DataTransferObject
         DateTime|string|null $updated_at = null,
 
 
-        ...$args // TODO: Remove this
+        ...$args
     ) {
-        $this->send_invoices = is_int($send_invoices) ? (bool)$send_invoices : $send_invoices;
-        $this->send_sms = is_int($send_sms) ? (bool)$send_sms : $send_sms;
+        $this->send_invoices = \is_int($send_invoices) ? (bool)$send_invoices : $send_invoices;
+        $this->send_sms = \is_int($send_sms) ? (bool)$send_sms : $send_sms;
 
         $this->pages = new Collection($pages, PageDTO::class);
         $this->subscriptions = new Collection($subscriptions, SubscriptionDTO::class);
         $this->subscribers = new Collection($subscribers, SubscriberDTO::class);
 
-        if ($currency && !($currency instanceof Currency)) {
-            $this->currency = Currency::from($currency);
-        }
+        $this->currency = $currency instanceof Currency
+            ? $currency
+            : (is_string($currency) && $currency !== '' ? Currency::from($currency) : null);
 
-        if ($interval && !($interval instanceof Interval)) {
-            $this->interval = Interval::from($interval);
-        }
+        $this->interval = $interval instanceof Interval
+            ? $interval
+            : (is_string($interval) && $interval !== '' ? Interval::from($interval) : null);
 
-        $createdAt = $createdAt ?? $created_at;
-        $updatedAt = $updatedAt ?? $updated_at;
+        $createdAt ??= $created_at;
+        $updatedAt ??= $updated_at;
 
-        if ($createdAt) {
-            $this->createdAt = $createdAt instanceof DateTime ? $createdAt : new DateTime($createdAt);
-        }
-
-        if ($updatedAt) {
-            $this->updatedAt = $updatedAt instanceof DateTime ? $updatedAt : new DateTime($updatedAt);
-        }
-
-        if (!empty($args)) {
-            dump([
-                'plan_args' => $args, // TODO: Remove this
-            ]);
-        }
+        $this->createdAt = $createdAt ? ($createdAt instanceof DateTime ? $createdAt : new DateTime($createdAt)) : null;
+        $this->updatedAt = $updatedAt ? ($updatedAt instanceof DateTime ? $updatedAt : new DateTime($updatedAt)) : null;
     }
 }

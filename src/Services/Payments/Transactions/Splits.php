@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Faridibin\Paystack\Services\Payments\Transactions;
 
 use Faridibin\Paystack\Client;
@@ -10,12 +12,17 @@ use Faridibin\Paystack\Enums\Bearer;
 use Faridibin\Paystack\Enums\Currency;
 use Faridibin\Paystack\Enums\SplitType;
 
+/**
+ * Service for managing transaction split configurations.
+ */
 class Splits implements SplitsInterface
 {
     /**
-     * The Transaction Splits service constructor.
+     * The Splits service constructor.
      *
-     * @param \Faridibin\Paystack\Contracts\ClientInterface $client
+     * @param string|null $secretKey The Paystack secret key (used if no client is injected)
+     * @param \Faridibin\Paystack\Contracts\ClientInterface|null $client The HTTP client instance
+     * @throws \Faridibin\Paystack\Exceptions\PaystackException
      */
     public function __construct(
         ?string $secretKey = null,
@@ -34,7 +41,7 @@ class Splits implements SplitsInterface
      * @param array $subaccounts
      * @param \Faridibin\Paystack\Enums\Bearer|string $bearer
      * @param string $bearerSubaccount
-     * @return \Faridibin\Paystack\DataTransferObjects\Response
+     * @return Response
      */
     public function createSplit(string $name, SplitType|string $type, Currency|string $currency, array $subaccounts, Bearer|string $bearer, string $bearerSubaccount): Response
     {
@@ -44,16 +51,12 @@ class Splits implements SplitsInterface
                 'type' => $type,
                 'currency' => $currency,
                 'subaccounts' => $subaccounts,
-                'bearer' => $bearer,
+                'bearer_type' => $bearer,
                 'bearer_subaccount' => $bearerSubaccount
             ]
         ]);
 
-        return new Response(
-            $response,
-            // CountriesDTO::class,
-            // true
-        );
+        return new Response($response);
     }
 
     /**
@@ -65,7 +68,7 @@ class Splits implements SplitsInterface
      * @param int $perPage
      * @param int $page
      * @param array $optional
-     * @return \Faridibin\Paystack\DataTransferObjects\Response
+     * @return Response
      */
     public function listSplit(string $name, bool $active = true, int $perPage = 50, int $page = 1, array $optional = []): Response
     {
@@ -87,7 +90,7 @@ class Splits implements SplitsInterface
      * Get details of a split on your integration
      *
      * @param string $id
-     * @return \Faridibin\Paystack\DataTransferObjects\Response
+     * @return Response
      */
     public function fetchSplit(string $id): Response
     {
@@ -102,7 +105,7 @@ class Splits implements SplitsInterface
      *
      * @param string $id
      * @param array $data
-     * @return \Faridibin\Paystack\DataTransferObjects\Response
+     * @return Response
      */
     public function updateSplit(string $id, array $data): Response
     {
@@ -110,11 +113,7 @@ class Splits implements SplitsInterface
             'json' => $data
         ]);
 
-        return new Response(
-            $response,
-            // CountriesDTO::class,
-            // true
-        );
+        return new Response($response);
     }
 
     /**
@@ -124,7 +123,7 @@ class Splits implements SplitsInterface
      * @param string $id
      * @param string $subaccount
      * @param int $share
-     * @return \Faridibin\Paystack\DataTransferObjects\Response
+     * @return Response
      */
     public function addSubaccountSplit(string $id, string $subaccount, int $share): Response
     {
@@ -135,11 +134,7 @@ class Splits implements SplitsInterface
             ]
         ]);
 
-        return new Response(
-            $response,
-            // CountriesDTO::class,
-            // true
-        );
+       return new Response($response);
     }
 
     /**
@@ -148,7 +143,7 @@ class Splits implements SplitsInterface
      *
      * @param string $id
      * @param string $subaccount
-     * @return \Faridibin\Paystack\DataTransferObjects\Response
+     * @return Response
      */
     public function removeSubaccountSplit(string $id, string $subaccount): Response
     {
@@ -158,10 +153,6 @@ class Splits implements SplitsInterface
             ]
         ]);
 
-        return new Response(
-            $response,
-            // CountriesDTO::class,
-            // true
-        );
+       return new Response($response);
     }
 }

@@ -6,6 +6,11 @@ namespace Faridibin\Paystack\DataTransferObjects;
 
 use Faridibin\Paystack\Contracts\DataTransferObjects\DataTransferObject;
 
+/**
+ * A typed collection of Paystack Data Transfer Objects.
+ *
+ * Holds an array of DTO instances of a given class, hydrated from raw API data.
+ */
 class Collection implements DataTransferObject
 {
     /**
@@ -25,7 +30,7 @@ class Collection implements DataTransferObject
     {
         $this->items = ($dtoClass && class_exists($dtoClass, true)) ? array_map(
             fn($item) => new $dtoClass(...$item),
-            $items ?? []
+            $items
         ) : $items;
     }
 

@@ -1,7 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Faridibin\Paystack\Enums;
 
+/**
+ * Represents all supported Paystack webhook event types.
+ */
 enum WebhookEvent: string
 {
     case CHARGE_DISPUTE_CREATE = 'charge.dispute.create';
@@ -31,6 +36,8 @@ enum WebhookEvent: string
 
     /**
      * Get the event description.
+     *
+     * @return string
      */
     public function description(): string
     {

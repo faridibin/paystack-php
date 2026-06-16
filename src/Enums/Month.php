@@ -1,7 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Faridibin\Paystack\Enums;
 
+/**
+ * Represents calendar months, used in recurring billing contexts.
+ */
 enum Month: string
 {
     case JANUARY = '01';
@@ -35,10 +40,10 @@ enum Month: string
      */
     public static function isValidMonth(mixed $month): bool
     {
-        return in_array($month, array_merge(
-            array_column(self::cases(), 'value'),
-            array_map('strtoupper', array_column(self::cases(), 'name'))
-        ));
+        return \in_array($month, [
+            ...array_column(self::cases(), 'value'),
+            ...array_map('strtoupper', array_column(self::cases(), 'name'))
+        ]);
     }
 
     /**

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Faridibin\Paystack\Services\Commerce;
 
 use Faridibin\Paystack\Client;
@@ -7,12 +9,17 @@ use Faridibin\Paystack\Contracts\ClientInterface;
 use Faridibin\Paystack\Contracts\Services\Commerce\PaymentPagesInterface;
 use Faridibin\Paystack\DataTransferObjects\Response;
 
+/**
+ * Service for creating and managing Paystack payment pages.
+ */
 class PaymentPages implements PaymentPagesInterface
 {
     /**
-     * The Terminal service constructor.
+     * The PaymentPages service constructor.
      *
-     * @param \Faridibin\Paystack\Contracts\ClientInterface $client
+     * @param string|null $secretKey The Paystack secret key (used if no client is injected)
+     * @param \Faridibin\Paystack\Contracts\ClientInterface|null $client The HTTP client instance
+     * @throws \Faridibin\Paystack\Exceptions\PaystackException
      */
     public function __construct(
         ?string $secretKey = null,
@@ -27,7 +34,7 @@ class PaymentPages implements PaymentPagesInterface
      *
      * @param string $name
      * @param array $optional
-     * @return \Faridibin\Paystack\DataTransferObjects\Response
+     * @return Response
      */
     public function createPaymentPage(string $name, array $optional = []): Response
     {
@@ -38,18 +45,14 @@ class PaymentPages implements PaymentPagesInterface
             ]
         ]);
 
-        return new Response(
-            $response,
-            // CountriesDTO::class,
-            // true
-        );
+       return new Response($response);
     }
 
     /**
      * List Payment Pages.
      * List payment pages available on your integration.
      *
-     * @return \Faridibin\Paystack\DataTransferObjects\Response
+     * @return Response
      */
     public function listPaymentPages(int $perPage = 50, int $page = 1, array $optional = []): Response
     {
@@ -61,11 +64,7 @@ class PaymentPages implements PaymentPagesInterface
             ]
         ]);
 
-        return new Response(
-            $response,
-            // CountriesDTO::class,
-            // true
-        );
+        return new Response($response);
     }
 
     /**
@@ -73,17 +72,13 @@ class PaymentPages implements PaymentPagesInterface
      * Get details of a payment page on your integration
      *
      * @param string $identifier
-     * @return \Faridibin\Paystack\DataTransferObjects\Response
+     * @return Response
      */
     public function fetchPaymentPage(string $identifier): Response
     {
         $response = $this->client->send('GET', "/page/{$identifier}");
 
-        return new Response(
-            $response,
-            // CountriesDTO::class,
-            // true
-        );
+       return new Response($response);
     }
 
     /**
@@ -92,7 +87,7 @@ class PaymentPages implements PaymentPagesInterface
      *
      * @param string $identifier
      * @param array $data
-     * @return \Faridibin\Paystack\DataTransferObjects\Response
+     * @return Response
      */
     public function updatePaymentPage(string $identifier, array $data): Response
     {
@@ -100,11 +95,7 @@ class PaymentPages implements PaymentPagesInterface
             'json' => $data
         ]);
 
-        return new Response(
-            $response,
-            // CountriesDTO::class,
-            // true
-        );
+        return new Response($response);
     }
 
     /**
@@ -112,17 +103,13 @@ class PaymentPages implements PaymentPagesInterface
      * Check if a slug is available for use on your integration
      *
      * @param string $slug
-     * @return \Faridibin\Paystack\DataTransferObjects\Response
+     * @return Response
      */
     public function checkSlugAvailability(string $slug): Response
     {
         $response = $this->client->send('GET', "/page/check_slug_availability/{$slug}");
 
-        return new Response(
-            $response,
-            // CountriesDTO::class,
-            // true
-        );
+       return new Response($response);
     }
 
     /**
@@ -131,7 +118,7 @@ class PaymentPages implements PaymentPagesInterface
      *
      * @param string|int $id
      * @param array<int, int> $products
-     * @return \Faridibin\Paystack\DataTransferObjects\Response
+     * @return Response
      */
     public function addProduct(string|int $id, array $products): Response
     {
@@ -141,10 +128,6 @@ class PaymentPages implements PaymentPagesInterface
             ]
         ]);
 
-        return new Response(
-            $response,
-            // CountriesDTO::class,
-            // true
-        );
+        return new Response( $response);
     }
 }

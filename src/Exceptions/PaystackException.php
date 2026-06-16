@@ -18,7 +18,7 @@ class PaystackException extends \Exception
      *
      * @param string $message
      * @param int $code
-     * @param array $errors
+     * @param array $errorsBag
      */
     public function __construct(string $message, int $code = 0, array $errorsBag = [])
     {
