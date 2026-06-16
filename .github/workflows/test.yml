@@ -7,8 +7,9 @@ jobs:
 
   # ── Unit tests + static analysis ─────────────────────────────────────────────
   # The whole suite is mock-based (Mockery/Pest) — no external services needed.
-  # Runs across the supported PHP range. PHP 8.1 is the real floor (readonly
-  # properties + nesbot/carbon ^3), and 8.4 guards against new deprecations.
+  # Floor is PHP 8.2 here because the dev toolchain (pestphp/pest ^3) requires it;
+  # 8.4 guards against new deprecations. Runtime support for 8.1 is verified
+  # separately by the `floor` job below.
   unit:
     name: Unit — PHP ${{ matrix.php }}
     runs-on: ubuntu-latest
@@ -16,7 +17,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        php: ['8.1', '8.2', '8.3', '8.4']
+        php: ['8.2', '8.3', '8.4']
 
     steps:
       - name: Checkout code
@@ -49,3 +50,29 @@ jobs:
 
       - name: Run unit tests
         run: vendor/bin/pest --colors=always
+
+  # ── PHP 8.1 runtime floor ────────────────────────────────────────────────────
+  # The library supports PHP 8.1, but the dev tooling (Pest 3) does not, so the
+  # full suite can't run there. This leg proves the package still installs with
+  # only its runtime dependencies and parses cleanly on 8.1 — backing the
+  # `"php": "^8.1"` claim in composer.json without needing the test toolchain.
+  floor:
+    name: Floor — PHP 8.1 (install + lint)
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Setup PHP 8.1
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.1'
+          extensions: json, curl, mbstring
+          coverage: none
+
+      - name: Install runtime dependencies only
+        run: composer install --no-dev --prefer-dist --no-progress --no-interaction
+
+      - name: Lint sources on PHP 8.1
+        run: find src -name '*.php' -print0 | xargs -0 -n1 -P4 php -l
