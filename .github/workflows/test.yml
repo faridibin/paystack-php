@@ -52,12 +52,14 @@ jobs:
         run: vendor/bin/pest --colors=always
 
   # ── PHP 8.1 runtime floor ────────────────────────────────────────────────────
-  # The library supports PHP 8.1, but the dev tooling (Pest 3) does not, so the
-  # full suite can't run there. This leg proves the package still installs with
-  # only its runtime dependencies and parses cleanly on 8.1 — backing the
-  # `"php": "^8.1"` claim in composer.json without needing the test toolchain.
+  # The library supports PHP 8.1, but the dev toolchain (Pest 3) requires 8.2, so
+  # the full suite can't run there. `composer install` is no help either: even with
+  # --no-dev, Composer still *resolves* require-dev platform constraints, and Pest's
+  # `php ^8.2` blocks resolution on 8.1. A syntax lint needs no dependencies, so
+  # this leg parses every source file on PHP 8.1 — catching any 8.2-only syntax and
+  # backing the `"php": "^8.1"` claim in composer.json.
   floor:
-    name: Floor — PHP 8.1 (install + lint)
+    name: Floor — PHP 8.1 (lint)
     runs-on: ubuntu-latest
 
     steps:
@@ -68,11 +70,7 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: '8.1'
-          extensions: json, curl, mbstring
           coverage: none
-
-      - name: Install runtime dependencies only
-        run: composer install --no-dev --prefer-dist --no-progress --no-interaction
 
       - name: Lint sources on PHP 8.1
         run: find src -name '*.php' -print0 | xargs -0 -n1 -P4 php -l
