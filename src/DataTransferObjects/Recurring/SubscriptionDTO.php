@@ -168,7 +168,7 @@ class SubscriptionDTO implements DataTransferObject
         DateTime|string|int|null $start = null,
         DateTime|string|null $cancelledAt = null,
 
-        ...$args // TODO: Remove this line
+        ...$args
     ) {
         $this->authorization = is_array($authorization) ? new AuthorizationDTO(...$authorization) : $authorization;
         $this->customer = is_array($customer) ? new CustomerDTO(...$customer) : $customer;
@@ -206,13 +206,6 @@ class SubscriptionDTO implements DataTransferObject
 
         if ($status && !($status instanceof Status)) {
             $this->status = Status::from($status);
-        }
-
-        if (!empty($args)) {
-            dump([
-                'code' => $subscription_code,
-                'subscription_args' => $args, // TODO: Remove this line
-            ]);
         }
     }
 }

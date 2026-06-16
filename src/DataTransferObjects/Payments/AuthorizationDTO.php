@@ -76,7 +76,7 @@ class AuthorizationDTO implements DataTransferObject
         bool|int|null $reusable = null,
         Month|string|int|null $exp_month = null,
         Channels|string|null $channel = null,
-        ...$args // TODO: Remove this line  
+        ...$args
     ) {
         if ($channel && !($channel instanceof Channels)) {
             $this->channel = Channels::from($channel);
@@ -86,14 +86,8 @@ class AuthorizationDTO implements DataTransferObject
             $this->exp_month = Month::fromValue($exp_month);
         }
 
-        if (!is_null($reusable)) {
+        if ($reusable !== null) {
             $this->reusable = (bool) $reusable;
-        }
-
-        if (!empty($args)) {
-            dump([
-                'authorization_args' => $args, // TODO: Remove this line
-            ]);
         }
     }
 }

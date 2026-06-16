@@ -195,7 +195,7 @@ class TransactionDTO implements DataTransferObject
         DateTime|string|null $transaction_date = null,
 
 
-        ...$args // TODO: Remove this line
+        ...$args
     ) {
         $this->customer = is_array($customer) ? new CustomerDTO(...$customer) : $customer;
         $this->authorization = is_array($authorization) ? new AuthorizationDTO(...$authorization) : $authorization;
@@ -239,13 +239,5 @@ class TransactionDTO implements DataTransferObject
         }
 
         $this->resolveMetadata($metadata);
-
-
-        if (!empty($args)) {
-            dump([
-                'id' => $id,
-                'transaction_args' => $args, // TODO: Remove this line
-            ]);
-        }
     }
 }

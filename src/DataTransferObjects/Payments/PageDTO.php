@@ -99,7 +99,7 @@ class PageDTO implements DataTransferObject
         DateTime|string|null $createdAt = null,
         DateTime|string|null $updatedAt = null,
 
-        ...$args // TODO: Remove this line
+        ...$args
     ) {
         if ($type && !($type instanceof PaymentPageType)) {
             $this->type = PaymentPageType::from($type);
@@ -118,11 +118,5 @@ class PageDTO implements DataTransferObject
         }
 
         $this->resolveMetadata($metadata);
-
-        if (!empty($args)) {
-            dump([
-                'page_args' => $args, // TODO: Remove this line
-            ]);
-        }
     }
 }

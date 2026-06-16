@@ -53,7 +53,7 @@ class SubscriberDTO implements DataTransferObject
         Currency|string|null $currency = null,
         Status|string|null $subscription_status = null,
 
-        ...$args // TODO: Remove this line
+        ...$args
     ) {
         if (!($currency instanceof Currency)) {
             $this->currency = Currency::from($currency);
@@ -61,12 +61,6 @@ class SubscriberDTO implements DataTransferObject
 
         if (!($subscription_status instanceof Status)) {
             $this->status = Status::from($subscription_status);
-        }
-
-        if (!empty($args)) {
-            dump([
-                'subscriber_args' => $args, // TODO: Remove this line
-            ]);
         }
     }
 }

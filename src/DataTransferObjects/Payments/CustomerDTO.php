@@ -91,7 +91,7 @@ class CustomerDTO implements DataTransferObject
         DateTime|string|null $created_at = null,
         DateTime|string|null $updated_at = null,
 
-        ...$args // TODO: Remove this
+        ...$args
     ) {
         $this->authorizations = new Collection($authorizations, AuthorizationDTO::class);
         $this->subscriptions = new Collection($subscriptions, SubscriptionDTO::class);
@@ -108,11 +108,5 @@ class CustomerDTO implements DataTransferObject
         }
 
         $this->resolveMetadata($metadata);
-
-        if (!empty($args)) {
-            dump([
-                'customer_args' => $args, // TODO: Remove this
-            ]);
-        }
     }
 }

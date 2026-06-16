@@ -154,7 +154,7 @@ class PlanDTO implements DataTransferObject
         DateTime|string|null $updated_at = null,
 
 
-        ...$args // TODO: Remove this
+        ...$args
     ) {
         $this->send_invoices = \is_int($send_invoices) ? (bool)$send_invoices : $send_invoices;
         $this->send_sms = \is_int($send_sms) ? (bool)$send_sms : $send_sms;
@@ -180,12 +180,6 @@ class PlanDTO implements DataTransferObject
 
         if ($updatedAt) {
             $this->updatedAt = $updatedAt instanceof DateTime ? $updatedAt : new DateTime($updatedAt);
-        }
-
-        if (!empty($args)) {
-            dump([
-                'plan_args' => $args, // TODO: Remove this
-            ]);
         }
     }
 }

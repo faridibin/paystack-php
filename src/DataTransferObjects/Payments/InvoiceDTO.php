@@ -243,7 +243,7 @@ class InvoiceDTO implements DataTransferObject
         DateTime|string|null $nextNotification = null,
         DateTime|string|null $next_notification = null,
 
-        ...$args // TODO: Remove this line
+        ...$args
     ) {
         $this->authorization = is_array($authorization) ? new AuthorizationDTO(...$authorization) : $authorization;
         $this->customer = is_array($customer) ? new CustomerDTO(...$customer) : $customer;
@@ -299,12 +299,5 @@ class InvoiceDTO implements DataTransferObject
         }
 
         $this->resolveMetadata($metadata);
-
-        if (!empty($args)) {
-            dump([
-                'code' => $invoice_code,
-                'invoice_args' => $args, // TODO: Remove this line
-            ]);
-        }
     }
 }
