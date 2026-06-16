@@ -51,4 +51,13 @@ interface ProductsInterface extends CommerceInterface
      * @return Response
      */
     public function listProducts(int $perPage = 50, int $page = 1, array $optional = []): Response;
+
+    /**
+     * Delete a product.
+     * Delete a previously created product on your integration
+     *
+     * @param string $id
+     * @return Response
+     */
+    public function deleteProduct(string $id): Response;
 }
